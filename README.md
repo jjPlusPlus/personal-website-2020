@@ -1,44 +1,43 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#react-folio
+`A personal portfolio project based on React/Redux, backed by Firebase`
 
-## Available Scripts
+___
 
-In the project directory, you can run:
+## Goals
+An opportunity to show off React knowledge and practice rapidly scaling a new project.
 
-### `npm start`
+This project is similar and should work the same as my Ember Portfolio project, building a non-traditional navigation scheme. I don't put a lot of stock in portfolio websites or custom blogs anymore, so I really don't care if people dislike my navigation- I just want to try something new. If you really hate it, just know that it came to me in a dream and I had to do it.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Writing a custom Markdown interpreter. I may still use Medium or Ghost for my day-to-day journaling needs, but I would like to experiment with some custom React components to wrap experimental Markdown implementations.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Planning
+__Routing__
+The routing will look like this:
+/
+/projects
+/posts
+/about
+/resume
+/site
+/admin  
 
-### `npm test`
+__Firebase integration__
+need to connect to firebase
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+__Integrating Redux, Sagas, and Normalizr/Reselect
 
-### `npm run build`
+__Many to many relationship__
+a post can have many tags, a tag can have many posts?
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+__List Pages__
+/projects and /posts are very similar and should be componentized
+Each display a list of resources from the API
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+__List Item Details__
+/projects and /posts will also have very similar (*but different in this case*) item detail pages
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+__Admin__
+Will need to work in firebase auth before getting to the editor
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+__Markdown__
+Will need to find or create a markdown editor/display
