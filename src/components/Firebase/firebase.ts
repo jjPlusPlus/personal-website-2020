@@ -27,7 +27,6 @@ class Firebase {
   signOut() {
     this.auth.signOut();
   }
-  this.auth.signOut();
 }
 
 export default Firebase;
