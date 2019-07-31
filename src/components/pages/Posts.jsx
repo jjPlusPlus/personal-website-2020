@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 import List from "../List";
-import { FirebaseContext, withFirebase } from '../Firebase/index';
 
 import { connect} from 'react-redux';
-import { compose } from 'recompose';
 import * as actions from '../../actions';
 
-// interface Props {
-//   firebase(): object,
-//   fetchPosts(argument:any): void,
-//   getProjects(argument:any): object,
-// }
 class Posts extends Component {
+  componentWillMount() {
+    this.props.getProjects();
+  }
   render() {
+    const { projects, loading } = this.props;
     return (
       <div className="posts">
         <h1 className="page-header">Some shit JJ wrote</h1>
-        <FirebaseContext.Consumer>
-          {firebase => <List firebase={firebase} model="projects" /> }
-        </FirebaseContext.Consumer>
+        <p>{projects}</p>
+        {loading
+          ? <p>LOADING</p>
+          : <p>NOT LOADING</p>
+        }
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   ...state
 })
 

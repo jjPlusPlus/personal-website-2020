@@ -1,10 +1,13 @@
-import Firebase from '../components/Firebase'
+import { projects } from "../components/firebase";
 
-const FETCH_POSTS = 'FETCH_POSTS';
-
-export const fetchPosts = (snapshot) => dispatch => {
-  dispatch({
-    type: 'FETCH_POSTS',
-    payload: snapshot
-  });
+export const addProject = newProject => async dispatch => {
+  projects.push().set(newProject);
 };
+
+export const deleteProject = projectId => async dispatch => {
+  projects.child(projectId).remove();
+};
+
+export const getProjects = () => ({
+  type: "FETCH_PROJECTS"
+});
