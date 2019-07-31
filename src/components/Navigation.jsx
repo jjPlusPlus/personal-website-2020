@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-const Navigation: React.FC = () => {
+const Navigation = () => {
   return (
     <div className="navigation">
       <h2>What do you want?</h2>

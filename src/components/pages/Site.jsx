@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Site: React.FC = () => {
+const Site = () => {
   return (
     <div className="site">
       <h2>What is this?</h2>

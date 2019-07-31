@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Projects: React.FC = () => {
+const Projects = () => {
   return (
     <div className="projects">
       <h2>Projects</h2>
