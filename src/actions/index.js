@@ -24,6 +24,10 @@ export const getPosts = () => ({
   type: "FETCH_POSTS"
 });
 
+export const authenticate = (credentials) => ({
+  type: "AUTHENTICATE",
+  payload: credentials
+})
 
 // projectsRef.push().set(newProject);
 // projectsRef.child(projectId).remove();

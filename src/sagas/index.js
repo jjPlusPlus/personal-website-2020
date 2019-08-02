@@ -25,16 +25,40 @@ function* fetchPosts() {
   yield put({ type: "POSTS_RECEIVED", payload: { posts: posts }});
 }
 
+function* authenticateFirebase(action) {
+  const credentials = action.payload;
+  let result = null;
+  let error = null;
+
+  // still feel like this callback-style setup is wrong for sagas...
+  yield firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+    .then((res) => {
+      result = res;
+    })
+    .catch(err => {
+      error = err;
+    });
+  if (result) {
+    yield put({ type: "USER_AUTHENTICATED", payload: { user: result.user.email }});
+  } else if (error) {
+    yield put({ type: "AUTHENTICATION_FAILED", payload: { error: error.message }});
+  }
+}
+
 function* watchProjects() {
   yield takeLatest('FETCH_PROJECTS', fetchProjects)
 }
 function* watchPosts() {
   yield takeLatest('FETCH_POSTS', fetchPosts)
 }
+function* authenticate() {
+  yield takeLatest('AUTHENTICATE', authenticateFirebase)
+}
 
 export default function* rootSaga() {
   yield all([
     watchProjects(),
-    watchPosts()
+    watchPosts(),
+    authenticate()
   ]);
 }
