@@ -1,21 +1,40 @@
-import { put, takeLatest, all } from 'redux-saga/effects';
-import Firebase from "../components/firebase";
-
-const delay = (ms) => new Promise(res => setTimeout(res, ms))
+import { put, takeLatest, all, call } from 'redux-saga/effects';
+import Firebase, { projectsRef, postsRef } from "../components/firebase";
 
 function* fetchProjects() {
-  yield projects.on("value", snapshot => {
-    console.log(snapshot.val());
-    put({ type: "PROJECTS_RECEIVED" });
-  });
+  const projects = yield call(function() {
+    return new Promise(function(resolve, reject) {
+      projectsRef.once('value', function (snap) {
+        const values = Object.entries(snap.val()).map(e => Object.assign(e[1], { key: e[0] }));
+        resolve(values);
+      })
+    })
+  })
+  yield put({ type: "PROJECTS_RECEIVED", payload: { projects: projects }});
 }
 
-function* actionWatcher() {
+function* fetchPosts() {
+  const posts = yield call(function() {
+    return new Promise(function(resolve, reject) {
+      postsRef.once('value', function (snap) {
+        const values = snap.val() ? Object.entries(snap.val()).map(e => Object.assign(e[1], { key: e[0] })) : [];
+        resolve(values);
+      })
+    })
+  })
+  yield put({ type: "POSTS_RECEIVED", payload: { posts: posts }});
+}
+
+function* watchProjects() {
   yield takeLatest('FETCH_PROJECTS', fetchProjects)
+}
+function* watchPosts() {
+  yield takeLatest('FETCH_POSTS', fetchPosts)
 }
 
 export default function* rootSaga() {
   yield all([
-    actionWatcher(),
+    watchProjects(),
+    watchPosts()
   ]);
 }
