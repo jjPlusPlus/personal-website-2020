@@ -1,5 +1,5 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects';
-import Firebase, { projectsRef, postsRef } from "../components/firebase";
+import { projectsRef, postsRef } from "../components/firebase";
 
 function* fetchProjects() {
   const projects = yield call(function() {
