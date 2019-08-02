@@ -8,7 +8,9 @@ import configureStore from './store';
 
 import Navigation from './components/Navigation';
 import Posts from './components/pages/Posts';
+import PostDetail from './components/pages/PostDetail';
 import Projects from './components/pages/Projects';
+import ProjectDetail from './components/pages/ProjectDetail';
 import About from './components/pages/About';
 import Site from './components/pages/Site';
 import Admin from './components/pages/Admin';
@@ -18,8 +20,10 @@ const App = () => {
     <Provider store={configureStore()}>
       <Router>
         <Route path="/" exact component={Navigation} />
-        <Route path="/posts" component={Posts} />
-        <Route path="/projects" component={Projects} />
+        <Route exact path="/posts" component={Posts} />
+        <Route path="/posts/:id" component={PostDetail} />
+        <Route exact path="/projects" component={Projects} />
+        <Route path="/projects/:id" component={ProjectDetail} />
         <Route path="/about" component={About} />
         <Route path="/site" component={Site} />
         <Route path="/admin" component={Admin} />

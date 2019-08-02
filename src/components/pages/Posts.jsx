@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import List from "../List";
 
+import { Link } from "react-router-dom";
+
 import { connect} from 'react-redux';
 import * as actions from '../../actions';
 
@@ -16,8 +18,13 @@ class Posts extends Component {
 
         { posts
           ? posts.posts.map((post, index) => {
-              console.log(post);
-              return <div key={index}>{post.name}</div>
+              return (
+                <div key={index}>
+                  <p>{post.name}</p>
+                  <p>{post.description}</p>
+                  <Link to = {{ pathname: `/posts/${post.key}`, state:{post: post} }} >More</Link>
+                </div>
+              )
           })
           : null
         }

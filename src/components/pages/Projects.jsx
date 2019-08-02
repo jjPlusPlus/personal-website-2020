@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import List from "../List";
 
+import { Link } from "react-router-dom";
+
 import { connect} from 'react-redux';
 import * as actions from '../../actions';
 
@@ -16,8 +18,13 @@ class Projects extends Component {
 
         { projects
           ? projects.projects.map((project, index) => {
-              console.log(project);
-              return <div key={index}>{project.name}</div>
+              return (
+                <div key={index}>
+                  <p>{project.name}</p>
+                  <p>{project.description}</p>
+                  <Link to = {{ pathname: `/projects/${project.key}`, state:{project: project} }} >More</Link>
+                </div>
+              )
           })
           : null
         }
