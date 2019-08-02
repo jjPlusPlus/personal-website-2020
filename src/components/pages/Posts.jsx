@@ -6,17 +6,24 @@ import * as actions from '../../actions';
 
 class Posts extends Component {
   componentWillMount() {
-    this.props.getProjects();
+    this.props.getPosts();
   }
   render() {
-    const { projects, loading } = this.props;
+    const { posts, loading } = this.props;
     return (
       <div className="posts">
         <h1 className="page-header">Some shit JJ wrote</h1>
-        <p>{projects}</p>
-        {loading
+
+        { posts
+          ? posts.posts.map((post, index) => {
+              console.log(post);
+              return <div key={index}>{post.name}</div>
+          })
+          : null
+        }
+        { loading
           ? <p>LOADING</p>
-          : <p>NOT LOADING</p>
+          : null
         }
       </div>
     )
