@@ -16,6 +16,7 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database().ref();
-
 export default database;
-export const projects = database.child("projects");
+
+export const projectsRef = database.child("projects");
+export const postsRef = database.child("posts");
