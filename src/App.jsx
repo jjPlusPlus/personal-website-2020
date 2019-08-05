@@ -51,12 +51,12 @@ class App extends Component {
           <Route path="/projects/:id" component={ProjectDetail} />
         <Route path="/about" component={About} />
         <Route path="/site" component={Site} />
-        <Route path="/admin" component={Admin} />
+        <Route exact path="/admin" component={Admin} />
           <Route path="/admin/login" component={SignInForm} />
-          <PrivateRoute path="/admin/dashboard" component={Dashboard} user={this.props.email} />
-            <Route path="/admin/dashboard/posts" component={AdminPosts} />
+          <Route exact path="/admin/dashboard" component={Dashboard}/>
+            <Route exact path="/admin/dashboard/posts" component={AdminPosts} />
               <Route path="/admin/dashboard/posts/:id" component={PostEditor} />
-            <Route path="/admin/dashboard/projects" component={AdminProjects} />
+            <Route exact path="/admin/dashboard/projects" component={AdminProjects} />
               <Route path="/admin/dashboard/projects/:id" component={ProjectEditor} />
             <Route path="/admin/dashboard/about" component={ResumeEditor} />
       </Router>
@@ -64,4 +64,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps, actions)(App);
+export default App;
