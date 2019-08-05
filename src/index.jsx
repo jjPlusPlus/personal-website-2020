@@ -4,13 +4,25 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-
 import { Provider } from 'react-redux';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import configureStore from './store';
 
+import firebase from './components/firebase';
+
+const store = configureStore();
+const reactReduxFirebaseConfig = { userProfile: 'users' }
+const reactReduxFirebaseProps = {
+  firebase,
+  config: reactReduxFirebaseConfig,
+  dispatch: store.dispatch
+}
+
 ReactDOM.render(
-  <Provider store={configureStore()}>
-    <App />
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
+      <App />
+    </ReactReduxFirebaseProvider>
   </Provider>
   , document.getElementById('root')
 );
