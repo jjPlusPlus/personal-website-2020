@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
+
+import { connect } from 'react-redux'
+
+import SignInForm from '../SignInForm';
+import Dashboard from '../admin/Dashboard';
 
 class Admin extends Component {
+
   render() {
-    const { authenticating, user, authError } = this.props;
+    const profile = this.props.auth.email;
     return (
       <div className="admin-page">
-        <h2>This is my website and I want to change shit</h2>
-        { user
-          ? <div className="admin-dashboard">
-              <strong>{user.email}</strong>
-              <Link to="/admin/dashboard/posts" value="I want to write some fucking articles" />
-              <Link to="/admin/dashboard/projects" value="I want to add a new fucking project" />
-              <Link to="/admin/dashboard/about" value="I want to update my fucking resume" />" />
-            </div>
-          : null
+        <h2>This is my fucking website and I want to make fucking changes</h2>
+        { profile
+          ? <Redirect to='/admin/dashboard' />
+          : <SignInForm />
         }
       </div>
     );
   }
 }
 
-export default Admin;
+const enhance = connect(
+  // Map redux state to component props
+  ({ firebase: { auth, profile } }) => ({
+    auth,
+    profile
+  })
+)
+
+export default enhance(Admin);
