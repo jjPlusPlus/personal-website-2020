@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
+import { firebaseConnect } from 'react-redux-firebase'
 
 class SignInForm extends Component {
   constructor(props) {
@@ -24,7 +23,7 @@ class SignInForm extends Component {
       email: this.state.email,
       password: this.state.password
     }
-    this.props.authenticate(credentials);
+    this.props.firebase.login(credentials);
     // maybe this returns a boolean and i can update the location?
     // maybe i can do it in the reducer?
     // maybe in componentwillmount i can check the props for user and redirect?
@@ -43,8 +42,5 @@ class SignInForm extends Component {
     )
   }
 }
-const mapStateToProps = state => ({
-  ...state
-})
 
-export default connect(mapStateToProps, actions)(SignInForm);
+export default firebaseConnect()(SignInForm);
