@@ -13,7 +13,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
         auth && auth.isEmpty === false
         ? <Component {...props} />
         : <Redirect to={{
-            pathname: '/admin/login',
+            pathname: '/admin',
             state: { from: props.location }
           }} />
         )

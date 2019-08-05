@@ -35,7 +35,6 @@ class App extends Component {
         <Route path="/about" component={About} />
         <Route path="/site" component={Site} />
         <Route exact path="/admin" component={Admin} />
-          <Route path="/admin/login" component={SignInForm} />
           <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
             <ProtectedRoute exact path="/admin/dashboard/posts" component={AdminPosts} />
               <ProtectedRoute path="/admin/dashboard/posts/:id" component={PostEditor} />
