@@ -20,24 +20,7 @@ import AdminProjects from './components/admin/Projects';
 import ProjectEditor from './components/admin/ProjectEditor';
 import ResumeEditor from './components/admin/ResumeEditor';
 
-import { connect } from 'react-redux';
-import * as actions from './actions';
-const mapStateToProps = state => ({
-  ...state
-})
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => {
-    return (
-      props.user
-        ? <Component {...props} />
-        : <Redirect to={{
-            pathname: '/admin/login',
-            state: { from: props.location }
-          }} />
-        );
-  }} />
-)
-connect(mapStateToProps, actions)(PrivateRoute)
+import ProtectedRoute from './components/ProtectedRoute';
 
 class App extends Component {
 
@@ -53,12 +36,12 @@ class App extends Component {
         <Route path="/site" component={Site} />
         <Route exact path="/admin" component={Admin} />
           <Route path="/admin/login" component={SignInForm} />
-          <Route exact path="/admin/dashboard" component={Dashboard}/>
-            <Route exact path="/admin/dashboard/posts" component={AdminPosts} />
-              <Route path="/admin/dashboard/posts/:id" component={PostEditor} />
-            <Route exact path="/admin/dashboard/projects" component={AdminProjects} />
-              <Route path="/admin/dashboard/projects/:id" component={ProjectEditor} />
-            <Route path="/admin/dashboard/about" component={ResumeEditor} />
+          <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
+            <ProtectedRoute exact path="/admin/dashboard/posts" component={AdminPosts} />
+              <ProtectedRoute path="/admin/dashboard/posts/:id" component={PostEditor} />
+            <ProtectedRoute exact path="/admin/dashboard/projects" component={AdminProjects} />
+              <ProtectedRoute path="/admin/dashboard/projects/:id" component={ProjectEditor} />
+            <ProtectedRoute path="/admin/dashboard/about" component={ResumeEditor} />
       </Router>
     );
   }

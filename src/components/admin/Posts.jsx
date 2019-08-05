@@ -13,7 +13,6 @@ class Posts extends Component {
 
   render() {
     const { posts } = this.props;
-    console.log(posts);
     return (
       <div className="posts">
         <h1 className="page-header">My fucking articles</h1>
