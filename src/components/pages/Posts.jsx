@@ -3,42 +3,42 @@ import List from "../List";
 
 import { Link } from "react-router-dom";
 
-import { connect} from 'react-redux';
 import * as actions from '../../actions';
 
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firebaseConnect } from 'react-redux-firebase';
+
 class Posts extends Component {
-  componentWillMount() {
-    this.props.getPosts();
-  }
+
   render() {
-    const { posts, loading } = this.props;
+    const { posts } = this.props;
+    console.log(posts);
     return (
       <div className="posts">
         <h1 className="page-header">Some shit JJ wrote</h1>
 
-        { posts
-          ? posts.posts.map((post, index) => {
-              return (
-                <div key={index}>
-                  <p>{post.name}</p>
-                  <p>{post.description}</p>
-                  <Link to = {{ pathname: `/posts/${post.key}`, state:{post: post} }} >More</Link>
-                </div>
-              )
+        { posts &&
+          Object.keys(posts).map((post, index) => {
+            return (
+              <div className="post" key={index}>
+                <h3>{posts[post].name}</h3>
+                <p>{posts[post].description}</p>
+                <Link to = {{ pathname: `/posts/${post}`, state:{post: posts[post]}}} >More</Link>
+              </div>
+            )
           })
-          : null
-        }
-        { loading
-          ? <p>LOADING</p>
-          : null
         }
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
-})
-
-export default connect(mapStateToProps, actions)(Posts);
+export default compose(
+  firebaseConnect(() => [
+    'posts'
+  ]),
+  connect((state) => ({
+    posts: state.firebase.data.posts,
+  }))
+)(Posts)

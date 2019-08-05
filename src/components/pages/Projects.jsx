@@ -5,37 +5,28 @@ import { Link } from "react-router-dom";
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { firebaseConnect } from 'react-redux-firebase';
 
 class Projects extends Component {
 
   render() {
     const { projects } = this.props;
-    if (projects) {
-      return (
-        <div className="projects">
-          <h1 className="page-header">Some fucking projects by JJ</h1>
-          { !isLoaded(projects)
-            ? <p>Loading...</p>
-            : null
-          }
-
-          { isEmpty(projects)
-            ? <p>JJ Hasn't added any fucking projects yet</p>
-            : null
-          }
-
-          {
+    return (
+      <div className="projects">
+        <h1 className="page-header">Some fucking projects by JJ</h1>
+        { projects &&
             Object.keys(projects).map((project, index) => {
-              console.log(project);
-              return <div className="project" key={index}>{projects[project].name}</div>
+              return (
+                <div className="project" key={index}>
+                  <h3>{projects[project].name}</h3>
+                  <p>{projects[project].description}</p>
+                  <Link to = {{ pathname: `/projects/${project}`, state:{project: projects[project]}}}>More</Link>
+                </div>
+              )
             })
-          }
-        </div>
-      )
-    } else {
-      return null;
-    }
+        }
+      </div>
+    )
   }
 }
 
