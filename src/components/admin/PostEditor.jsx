@@ -4,7 +4,7 @@ class PostEditor extends Component {
   render() {
     return (
       <div className="post-editor">
-        <h2>Edit Post</h2>
+        <h2>Edit Article</h2>
       </div>
     )
   }

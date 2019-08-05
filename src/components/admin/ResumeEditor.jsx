@@ -4,7 +4,7 @@ class ResumeEditor extends Component {
   render() {
     return (
       <div className="edit-resume">
-        <h2>Edit Resume</h2>
+        <h2>My fucking resume</h2>
       </div>
     )
   }
