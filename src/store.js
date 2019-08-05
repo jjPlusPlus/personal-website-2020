@@ -1,19 +1,17 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
-import rootSaga from './sagas';
 import { logger } from 'redux-logger';
 
-import firebase from "./reducers/firebase";
-
-import createSagaMiddleware from 'redux-saga';
-const sagaMiddleware = createSagaMiddleware();
+import { firebaseReducer } from 'react-redux-firebase';
 
 export default function configureStore() {
+  const rootReducer = combineReducers({
+    firebase: firebaseReducer
+  })
 
   const store = createStore(
-    firebase,
-    applyMiddleware(sagaMiddleware, logger)
+    rootReducer,
+    applyMiddleware(logger)
   );
 
-  sagaMiddleware.run(rootSaga);
   return store;
 }
