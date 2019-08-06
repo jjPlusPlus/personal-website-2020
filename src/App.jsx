@@ -37,7 +37,7 @@ class App extends Component {
         <Route exact path="/admin" component={Admin} />
           <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
             <ProtectedRoute exact path="/admin/dashboard/posts" component={AdminPosts} />
-              <ProtectedRoute path="/admin/dashboard/posts/:id" component={PostEditor} />
+              <ProtectedRoute path="/admin/dashboard/posts/:id" component={ (props) => <PostEditor {...props} /> } />
             <ProtectedRoute exact path="/admin/dashboard/projects" component={AdminProjects} />
               <ProtectedRoute path="/admin/dashboard/projects/:id" component={ProjectEditor} />
             <ProtectedRoute path="/admin/dashboard/about" component={ResumeEditor} />

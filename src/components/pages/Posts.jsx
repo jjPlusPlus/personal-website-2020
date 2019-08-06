@@ -15,7 +15,7 @@ class Posts extends Component {
     const { posts } = this.props;
     return (
       <div className="posts">
-        <h1 className="page-header">Some shit JJ wrote</h1>
+        <h1 className="page-header">JJ's fucking articles:</h1>
 
         { posts &&
           Object.keys(posts).map((post, index) => {
