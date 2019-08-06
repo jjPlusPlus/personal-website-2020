@@ -3,6 +3,8 @@ import { firebaseConnect, getVal } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
+import Uploader from '../Uploader';
+
 class PostEditor extends Component {
   constructor(props) {
     super(props)
@@ -22,7 +24,6 @@ class PostEditor extends Component {
   componentWillUpdate(nextProps, nextState) {
     if (!this.props.post && nextProps.post) {
       // Post was passed in successfully
-      debugger;
       this.setState({
         name: nextProps.post.name,
         snippet: nextProps.post.snippet,
@@ -70,13 +71,18 @@ class PostEditor extends Component {
         <h2>Edit Article</h2>
         { this.props.post
           ? <form onSubmit={this.updateArticle}>
-
               <label htmlFor="name">Name</label>
               <input name="name" type="text" value={this.state.name} onChange={this.inputChange('name')} />
               <br />
               <label htmlFor="snippet">Snippet (short list description)</label>
               <input name="snippet" type="text" value={this.state.snippet} onChange={this.inputChange('snippet')} />
-              <p>{this.state.snippet}</p>
+              <br />
+
+              <label>Article Image:</label>
+
+              <Uploader />
+
+
               <label htmlFor="content">Content</label>
               <textarea name="content" value={this.state.content} onChange={this.inputChange('content')} />
               <br />
