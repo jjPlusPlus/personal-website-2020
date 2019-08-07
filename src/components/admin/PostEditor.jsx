@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import ReactMarkdown from 'react-markdown';
+
 import { firebaseConnect, getVal } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -104,6 +107,7 @@ class PostEditor extends Component {
 
               <label htmlFor="content">Content</label> <br />
               <textarea name="content" value={content} onChange={this.inputChange('content')} />
+              <ReactMarkdown source={content} />
               <br />
               <label htmlFor="isFeatured">Featured</label> <br />
               <input name="isFeatured" type="checkbox" value={isFeatured} onChange={this.checkboxChange('isFeatured')} />
