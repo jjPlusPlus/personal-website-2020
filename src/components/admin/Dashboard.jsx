@@ -15,7 +15,9 @@ class Dashboard extends Component {
         }
 
         <Link to="/admin/dashboard/posts">I want to write some fucking articles</Link>
+        <br />
         <Link to="/admin/dashboard/projects">I want to add a new fucking project</Link>
+        <br />
         <Link to="/admin/dashboard/about">I want to update my fucking resume</Link>
       </div>
     )
