@@ -22,7 +22,8 @@ class PostEditor extends Component {
       isFeatured: false,
       imagePath: null,
       imageID: null,
-      tags: []
+      tags: [],
+      newTag: "",
     }
 
     this.updateArticle = this.updateArticle.bind(this);
@@ -44,7 +45,8 @@ class PostEditor extends Component {
     }
   }
 
-  updateArticle() {
+  updateArticle(event) {
+    event.preventDefault();
     const { name, snippet, content, isPublished, isFeatured } = this.state;
     this.props.firebase.update(`posts/${this.props.match.params.id}`, {
       name,
@@ -53,9 +55,10 @@ class PostEditor extends Component {
       isPublished,
       isFeatured
     }).then(result => {
-      console.log(result);
+      alert("Update successful.")
     }).catch(error => {
       console.log(error);
+      alert("There was a problem updating the article");
     });
   }
 
@@ -91,9 +94,11 @@ class PostEditor extends Component {
           posts: tagPosts,
         }).catch(error => {
           console.log(error);
+          alert("The tag could not be updated");
         });
       }).catch(error => {
         console.log(error);
+        alert("The tag could not be updated");
       });
 
     } else {
@@ -108,25 +113,47 @@ class PostEditor extends Component {
           posts: tagPosts,
         }).catch(error => {
           console.log(error);
+          alert("The tag could not be updated")
         });
       }).catch(error => {
         console.log(error);
+        alert("The tag could not be updated")
       });
     }
   };
 
   addImage = (path, id) => {
+    console.log('uhh');
     this.props.firebase.update(`posts/${this.props.match.params.id}`, {
       imagePath: path,
       imageID: id
+    }).then(result => {
+      alert("Image added successfully");
     }).catch(error => {
       console.log(error);
     });
   }
 
+  addTag = tag => (event) => {
+    event.preventDefault();
+    const newTagName = this.state.newTag;
+    if (newTagName.length === 0) {
+      return alert("The new tag name cannot be empty");
+    }
+    const newTag = {
+      name: this.state.newTag,
+      color: "#000"
+    };
+    this.props.firebase.push("tags", newTag).then(result => {
+      console.log(result);
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
   render() {
     const { post, tags } = this.props;
-    const { name, snippet, content, isFeatured, isPublished, imagePath, imageID } = this.state;
+    const { name, snippet, content, isFeatured, isPublished, imagePath, imageID, newTag } = this.state;
     const existingTags = this.state.tags;
 
     if (!post) {
@@ -170,6 +197,10 @@ class PostEditor extends Component {
                   )
                 })
               }
+              <p>Add a Tag</p>
+              <input name="newTag" type="text" value={newTag} onChange={this.inputChange('newTag')} />
+              <button onClick={this.addTag()}>Add</button>
+
               <br />
               <label htmlFor="isFeatured">Featured</label> <br />
               <input name="isFeatured" type="checkbox" value={isFeatured} onChange={this.checkboxChange('isFeatured')} />
