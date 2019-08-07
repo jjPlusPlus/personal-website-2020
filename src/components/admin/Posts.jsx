@@ -15,7 +15,7 @@ class Posts extends Component {
     const { posts } = this.props;
     return (
       <div className="posts">
-        <h1 className="page-header">JJ's fucking articles:</h1>
+        <h1 className="page-header">My fucking articles</h1>
 
         { posts &&
           Object.keys(posts).map((post, index) => {
@@ -23,7 +23,7 @@ class Posts extends Component {
               <div className="post" key={index}>
                 <h3>{posts[post].name}</h3>
                 <p>{posts[post].description}</p>
-                <Link to = {{ pathname: `/posts/${post}`, state:{post: posts[post]}}} >More</Link>
+                <Link to = {{ pathname: `/admin/dashboard/posts/${post}`, state:{post: posts[post]}}} >Edit</Link>
               </div>
             )
           })

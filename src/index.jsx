@@ -4,7 +4,28 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render( <App />, document.getElementById('root') );
+import { Provider } from 'react-redux';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+import configureStore from './store';
+
+import firebase from './components/firebase';
+
+const store = configureStore();
+const reactReduxFirebaseConfig = { userProfile: 'users' }
+const reactReduxFirebaseProps = {
+  firebase,
+  config: reactReduxFirebaseConfig,
+  dispatch: store.dispatch
+}
+
+ReactDOM.render(
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
+      <App />
+    </ReactReduxFirebaseProvider>
+  </Provider>
+  , document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

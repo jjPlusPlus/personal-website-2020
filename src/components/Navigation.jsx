@@ -5,11 +5,15 @@ const Navigation = () => {
   return (
     <div className="navigation">
       <h2>What do you want?</h2>
-      <Link to="/projects">I want to see JJ's projects</Link>
-      <Link to="/posts">I want to read JJ's posts</Link>
-      <Link to="/about">Who the !@*$#&% is JJ?</Link>
-      <Link to="/site">This website is confusing</Link>
-      <Link to="/admin">This is my website</Link>
+      <Link to="/projects">I want to see JJ's fucking projects</Link>
+      <br />
+      <Link to="/posts">I want to read JJ's fucking articles</Link>
+      <br />
+      <Link to="/about">I want to know who the fuck JJ is</Link>
+      <br />
+      <Link to="/site">I want to know why this website is so fucking confusing</Link>
+      <br />
+      <Link to="/admin">I want to make fucking changes</Link>
     </div>
   );
 }

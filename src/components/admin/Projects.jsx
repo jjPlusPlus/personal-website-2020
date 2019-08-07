@@ -13,14 +13,14 @@ class Projects extends Component {
     const { projects } = this.props;
     return (
       <div className="projects">
-        <h1 className="page-header">Some fucking projects by JJ</h1>
+        <h1 className="page-header">My fucking projects</h1>
         { projects &&
             Object.keys(projects).map((project, index) => {
               return (
                 <div className="project" key={index}>
                   <h3>{projects[project].name}</h3>
                   <p>{projects[project].description}</p>
-                  <Link to = {{ pathname: `/projects/${project}`, state:{project: projects[project]}}}>More</Link>
+                  <Link to = {{ pathname: `/admin/dashboard/projects/${project}`, state:{project: projects[project]}}}>Edit</Link>
                 </div>
               )
             })
