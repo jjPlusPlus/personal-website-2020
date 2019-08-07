@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 import { map } from "lodash";
-import { compose, withHandlers, setPropTypes } from "recompose";
+import { compose } from "recompose";
 import { firebaseConnect } from "react-redux-firebase";
 
 import Dropzone from "react-dropzone";
@@ -12,71 +12,87 @@ import ImageDisplay from "./ImageDisplay";
 // Path within Database for metadata (also used for file Storage path)
 const filesPath = "images";
 
-const handlers = {
-  // Uploads files and pushes objects containing metadata to database at dbPath
-  onFilesDrop: props => files => {
-    debugger;
-    const fileName = window.prompt("name the file", files[0].name);
-    const uploadOptions = {
-      name: fileName
+/* Uploader (Class Component) : adapted from react-redux-firebase recipe
+ * - File is NOT immediately uploaded to Firebase
+ * - Upon upload, the full download path to the file is added to the metadata
+ * - Upon upload, the file is added to the resource passed in through props
+ */
+class Uploader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      droppedFile: null,
+      fileName: "",
+      file: null
     }
-    return props.firebase.uploadFile(filesPath, files[0], filesPath, uploadOptions);
-  },
-  onFileDelete: props => (file, key) => {
-    return props.firebase.deleteFile(file.fullPath, `${filesPath}/${key}`);
   }
-};
 
-const enhancerPropsTypes = {
-  firebase: PropTypes.object.isRequired
-};
+  // Uploads files and pushes objects containing metadata to database at dbPath
+  onFilesDrop = props => async files => {
 
-// Component Enhancer that adds props.firebase and creates a listener for
-// files them passes them into props.uploadedFiles
+    if (!files) { return; }
+
+    const fileName = window.prompt("name the file", files[0].name);
+    const filePreview = URL.createObjectURL(files[0]);
+
+    this.setState({
+      file: files[0],
+      droppedFile: filePreview,
+      fileName: fileName
+    })
+  }
+
+  uploadImage = props => async event => {
+    event.preventDefault();
+
+    // upload to storage
+    const uploadOptions = {
+      name: this.state.fileName
+    }
+    const result = await this.props.firebase.uploadFile("images", this.state.file, "images", uploadOptions);
+    // get downloadURL, image ID, and send it to the parent for wire-up
+    return this.props.addImage(result.downloadURL, result.key);
+  }
+
+  onFileDelete(file, key) {
+    // delete the file from storage
+    this.props.firebase.deleteFile(file.fullPath, `${filesPath}/${key}`);
+    // remove the relationship to the resource model
+  }
+
+  render() {
+    const { uploadedFiles } = this.props;
+    const { droppedFile } = this.state;
+    return (
+      <div className="uploader">
+        <Dropzone onDrop={this.onFilesDrop()} >
+          {({getRootProps}) => (
+            <div className="dropzone" {...getRootProps()}>
+              <p>Drop a SINGLE image here</p>
+            </div>
+          )}
+        </Dropzone>
+
+        {droppedFile && (
+          <div className="uploader--dropped-files">
+            <p>Preview:</p>
+            <img src={droppedFile} width="200" alt="preview of dropped image"/>
+            <button onClick={this.uploadImage()}>Upload</button>
+          </div>
+        )}
+      </div>
+    )
+  }
+}
+
+// Adds props.firebase and creates a listener for files then passes them into props.uploadedFiles
 const enhance = compose(
   // Create listeners for Real Time Database which write to redux store
   firebaseConnect([{ path: filesPath }]),
   // connect redux state to props
   connect(({ firebase: { data } }) => ({
     uploadedFiles: data[filesPath]
-  })),
-  // Set proptypes of props used within handlers
-  setPropTypes(enhancerPropsTypes),
-  // Add handlers as props
-  withHandlers(handlers)
+  }))
 );
 
-const Uploader = ({ uploadedFiles, onFileDelete, onFilesDrop }) => (
-  <div className="uploader">
-    <Dropzone onDrop={onFilesDrop} >
-      {({getRootProps}) => (
-        <div className="dropzone" {...getRootProps()}>
-          <p>Drop files here, or click to select files</p>
-        </div>
-      )}
-    </Dropzone>
-
-    {uploadedFiles && (
-      <div className="uploader--files">
-        <p>Image File:</p>
-        {map(uploadedFiles, (file, key) => {
-          return (
-            <div key={file.name + key}>
-              <ImageDisplay file={file}/>
-              <button onClick={() => this.onFileDelete(file, key)}>Delete</button>
-            </div>
-          )
-        }
-      )}
-      </div>
-    )}
-  </div>
-);
-
-Uploader.propTypes = {
-  firebase: PropTypes.object.isRequired,
-  uploadedFiles: PropTypes.object
-};
-
-// Apply enhancer to component on export
 export default enhance(Uploader);
