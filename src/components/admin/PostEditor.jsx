@@ -15,7 +15,9 @@ class PostEditor extends Component {
       snippet: "",
       content: "",
       isPublished: false,
-      isFeatured: false
+      isFeatured: false,
+      imagePath: null,
+      imageID: null,
     }
 
     this.updateArticle = this.updateArticle.bind(this);
@@ -29,7 +31,9 @@ class PostEditor extends Component {
         snippet: nextProps.post.snippet,
         content: nextProps.post.content,
         isPublished: nextProps.post.isPublished,
-        isFeatured: nextProps.post.isFeatured
+        isFeatured: nextProps.post.isFeatured,
+        imagePath: nextProps.post.imagePath,
+        imageID: nextProps.post.imageID
       })
     }
   }
@@ -61,36 +65,51 @@ class PostEditor extends Component {
     })
   }
 
+  addImage = (path, id) => {
+    this.props.firebase.update(`posts/${this.props.match.params.id}`, {
+      imagePath: path,
+      imageID: id
+    }).then(result => {
+      console.log(result);
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
   render() {
-    if (!this.props.post) {
+    const { post } = this.props;
+    const { name, snippet, content, isFeatured, isPublished, imagePath, imageID } = this.state;
+    if (!post) {
       return null;
     }
 
     return (
       <div className="post-editor">
         <h2>Edit Article</h2>
-        { this.props.post
+        { post
           ? <form onSubmit={this.updateArticle}>
-              <label htmlFor="name">Name</label>
-              <input name="name" type="text" value={this.state.name} onChange={this.inputChange('name')} />
+              <label htmlFor="name">Name</label> <br />
+              <input name="name" type="text" value={name} onChange={this.inputChange('name')} />
               <br />
-              <label htmlFor="snippet">Snippet (short list description)</label>
-              <input name="snippet" type="text" value={this.state.snippet} onChange={this.inputChange('snippet')} />
+              <label htmlFor="snippet">Snippet (short list description)</label> <br />
+              <input name="snippet" type="text" value={snippet} onChange={this.inputChange('snippet')} />
               <br />
 
-              <label>Article Image:</label>
+              <label>Add/update article image:</label> <br />
+              { imagePath
+                ? <img src={imagePath} alt={imageID} width="200px" />
+                : null
+              }
+              <Uploader addImage={(path, id) => this.addImage(path, id)}/>
 
-              <Uploader />
-
-
-              <label htmlFor="content">Content</label>
-              <textarea name="content" value={this.state.content} onChange={this.inputChange('content')} />
+              <label htmlFor="content">Content</label> <br />
+              <textarea name="content" value={content} onChange={this.inputChange('content')} />
               <br />
-              <label htmlFor="isFeatured">Featured</label>
-              <input name="isFeatured" type="checkbox" value={this.state.isFeatured} onChange={this.checkboxChange('isFeatured')} />
+              <label htmlFor="isFeatured">Featured</label> <br />
+              <input name="isFeatured" type="checkbox" value={isFeatured} onChange={this.checkboxChange('isFeatured')} />
               <br />
-              <label htmlFor="isPublished">Published</label>
-              <input name="isPublished" type="checkbox" value={this.state.isPublished} onChange={this.checkboxChange('isPublished')} />
+              <label htmlFor="isPublished">Published</label> <br />
+              <input name="isPublished" type="checkbox" value={isPublished} onChange={this.checkboxChange('isPublished')} />
               <br />
               <button type="submit"> Update </button>
             </form>
