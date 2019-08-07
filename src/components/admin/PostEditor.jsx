@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import Uploader from '../Uploader';
+import CodeBlock from '../CodeBlock';
 
 class PostEditor extends Component {
   constructor(props) {
@@ -107,7 +108,7 @@ class PostEditor extends Component {
 
               <label htmlFor="content">Content</label> <br />
               <textarea name="content" value={content} onChange={this.inputChange('content')} />
-              <ReactMarkdown source={content} />
+              <ReactMarkdown source={content} renderers={{ code: CodeBlock }}/>
               <br />
               <label htmlFor="isFeatured">Featured</label> <br />
               <input name="isFeatured" type="checkbox" value={isFeatured} onChange={this.checkboxChange('isFeatured')} />
