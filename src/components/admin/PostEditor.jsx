@@ -22,6 +22,7 @@ class PostEditor extends Component {
       isFeatured: false,
       imagePath: null,
       imageID: null,
+      tags: []
     }
 
     this.updateArticle = this.updateArticle.bind(this);
@@ -37,7 +38,8 @@ class PostEditor extends Component {
         isPublished: nextProps.post.isPublished,
         isFeatured: nextProps.post.isFeatured,
         imagePath: nextProps.post.imagePath,
-        imageID: nextProps.post.imageID
+        imageID: nextProps.post.imageID,
+        tags: nextProps.post.tags || []
       })
     }
   }
@@ -69,20 +71,64 @@ class PostEditor extends Component {
     })
   }
 
+  handleTagCheckboxChange = name => (event) => {
+    const isChecked = event.target.checked;
+    const tagID = event.target.value;
+    const postID = this.props.match.params.id;
+
+    const postTags = this.state.tags; // all tags for this post
+    const tagPosts = this.props.tags[tagID].posts || []; // all posts for this tag
+
+    if (isChecked) {
+      postTags.push(tagID);
+      tagPosts.push(postID);
+      // add this tag to the current Post's tags array
+      this.props.firebase.update(`posts/${postID}`, {
+        tags: postTags,
+      }).then(result => {
+        // add this post to the current Tag's post array
+        this.props.firebase.update(`tags/${tagID}`, {
+          posts: tagPosts,
+        }).catch(error => {
+          console.log(error);
+        });
+      }).catch(error => {
+        console.log(error);
+      });
+
+    } else {
+      postTags.splice(postTags.indexOf(tagID), 1);
+      tagPosts.splice(tagPosts.indexOf(postID), 1);
+      // remove this tag from the current Post's tag array
+      this.props.firebase.update(`posts/${postID}`, {
+        tags: postTags,
+      }).then(result => {
+        // remove this post from the current Tag's post array
+        this.props.firebase.update(`tags/${tagID}`, {
+          posts: tagPosts,
+        }).catch(error => {
+          console.log(error);
+        });
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+  };
+
   addImage = (path, id) => {
     this.props.firebase.update(`posts/${this.props.match.params.id}`, {
       imagePath: path,
       imageID: id
-    }).then(result => {
-      console.log(result);
     }).catch(error => {
       console.log(error);
     });
   }
 
   render() {
-    const { post } = this.props;
+    const { post, tags } = this.props;
     const { name, snippet, content, isFeatured, isPublished, imagePath, imageID } = this.state;
+    const existingTags = this.state.tags;
+
     if (!post) {
       return null;
     }
@@ -110,6 +156,21 @@ class PostEditor extends Component {
               <textarea name="content" value={content} onChange={this.inputChange('content')} />
               <ReactMarkdown source={content} renderers={{ code: CodeBlock }}/>
               <br />
+              <label>Tag Editor</label>
+              { tags &&
+                Object.keys(tags).map((value, index) => {
+                  const tag = tags[value];
+                  const isChecked = existingTags && existingTags.includes(value);
+
+                  return (
+                    <div className="tag-manager" key={index}>
+                      <input type="checkbox" checked={isChecked} value={value} name={tag.name} key={value} onChange={this.handleTagCheckboxChange(value)} />
+                      <label htmlFor={tag.name}>{tag.name}</label>
+                    </div>
+                  )
+                })
+              }
+              <br />
               <label htmlFor="isFeatured">Featured</label> <br />
               <input name="isFeatured" type="checkbox" value={isFeatured} onChange={this.checkboxChange('isFeatured')} />
               <br />
@@ -128,11 +189,13 @@ class PostEditor extends Component {
 const enhance = compose(
   firebaseConnect(props => {
     return [
-      { path: `posts/${props.match.params.id}` }
+      { path: `posts/${props.match.params.id}` },
+      'tags'
     ]
   }),
   connect(({ firebase }, props) => ({
-    post: getVal(firebase, `data/posts/${props.match.params.id}`)
+    post: getVal(firebase, `data/posts/${props.match.params.id}`),
+    tags: firebase.data.tags
   }))
 )
 
