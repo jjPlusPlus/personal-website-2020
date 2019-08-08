@@ -232,6 +232,7 @@ class ProjectEditor extends Component {
     return (
       <div className="project-editor">
         <h2>Edit Project</h2>
+        <button onClick={this.deleteProject()}>Delete Project</button>
         { project
           ? <form onSubmit={this.updateArticle}>
               <label htmlFor="name">Name</label> <br />
