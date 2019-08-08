@@ -158,6 +158,68 @@ class ProjectEditor extends Component {
     })
   }
 
+
+  onImageDelete = image => (event) => {
+    event.preventDefault();
+    const images = this.state.images;
+    images.splice(images.indexOf(image), 1);
+    // delete the file from storage
+    this.props.firebase.deleteFile(image.fullPath, `images/${image.key}`)
+      .catch(error => {
+        alert('unable to delete the file from firebase storage');
+        console.log(error);
+      });
+    // remove the relationship to the resource model
+    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+      images: images
+    }).then(result => {
+      alert("Image removed successfully");
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  deleteProject = project => (event) => {
+
+    // delete project after confirmation
+    const confirmation = window.confirm("Are you sure? This is permanent. You can always unpublish the project.");
+
+    const resourceID = this.props.match.params.id;
+    const images = this.state.images;
+    const projectTags = this.state.tags;
+    const allTags = this.props.tags;
+
+    if (confirmation) {
+      this.props.firebase.remove(`projects/${resourceID}`)
+        .then(result => {
+          // Remove the images from Firebase Storage
+          if (images && images.length) {
+            images.forEach(img => {
+              return this.props.firebase.deleteFile(img.fullPath);
+            });
+          }
+          // Unbind all the relationships to this Post in Tags (but not the tags themselves)
+          if (projectTags && projectTags.length) {
+            projectTags.forEach(tag => {
+              // remove projectID from allTags[tag].projects
+              allTags[tag].projects.splice(allTags[tag].indexOf(resourceID, 1));
+              this.props.firebase.update(`tags/${tag}`, {
+                projects: allTags[tag].projects
+              }).then(result => {
+                alert("tags updated successfully");
+              }).catch(error => {
+                console.log(error);
+              });
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          alert('Failed to remove the project');
+        })
+    }
+  }
+
   render() {
     const { project, tags } = this.props;
     const { name, snippet, content, isFeatured, isPublished, images, newTag } = this.state;
