@@ -213,6 +213,9 @@ class ProjectEditor extends Component {
             });
           }
         })
+        .then(() => {
+          this.props.history.push("/admin/dashboard/projects");
+        })
         .catch(error => {
           console.log(error);
           alert('Failed to remove the project');
