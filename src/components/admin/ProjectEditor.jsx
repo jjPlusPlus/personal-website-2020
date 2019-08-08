@@ -25,7 +25,7 @@ class ProjectEditor extends Component {
       newTag: "",
     }
 
-    this.updateArticle = this.updateArticle.bind(this);
+    this.updateResource = this.updateResource.bind(this);
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -43,9 +43,14 @@ class ProjectEditor extends Component {
     }
   }
 
-  updateArticle(event) {
+  updateResource(event) {
     event.preventDefault();
-    const { name, snippet, content, isPublished, isFeatured } = this.state;
+    let { name, snippet, content, isPublished, isFeatured } = this.state;
+    name = name || "";
+    snippet = snippet || "";
+    content = content || "";
+    isPublished = isPublished || false;
+    isFeatured = isFeatured || false;
     this.props.firebase.update(`projects/${this.props.match.params.id}`, {
       name,
       snippet,
@@ -237,7 +242,7 @@ class ProjectEditor extends Component {
         <h2>Edit Project</h2>
         <button onClick={this.deleteProject()}>Delete Project</button>
         { project
-          ? <form onSubmit={this.updateArticle}>
+          ? <form onSubmit={this.updateResource}>
               <label htmlFor="name">Name</label> <br />
               <input name="name" type="text" value={name} onChange={this.inputChange('name')} />
               <br />
