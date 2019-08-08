@@ -179,11 +179,18 @@ class ProjectEditor extends Component {
               <input name="snippet" type="text" value={snippet} onChange={this.inputChange('snippet')} />
               <br />
               <label>Add/update article image:</label> <br />
-              { imagePath
-                ? <img src={imagePath} alt={imageID} width="200px" />
-                : null
+              { images &&
+                Object.keys(images).map((image, index) => {
+                  return (
+                    <div className="resource-image" key={index}>
+                      <img src={images[image].downloadURL} alt={images[image].description} width="200px" />
+                      <span>{images[image].name}: "{images[image].description}"</span>
+                      <button onClick={this.onImageDelete(images[image])}>Delete Image</button>
+                    </div>
+                  )
+                })
               }
-              <Uploader addImage={(path, id) => this.addImage(path, id)}/>
+              <Uploader addImage={(path, downloadURL, name, description) => this.addImage(path, downloadURL, name, description)}/>
 
               <label htmlFor="content">Content</label> <br />
               <textarea name="content" value={content} onChange={this.inputChange('content')} />

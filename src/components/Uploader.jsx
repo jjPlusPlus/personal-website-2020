@@ -23,6 +23,7 @@ class Uploader extends Component {
     this.state = {
       droppedFile: null,
       fileName: "",
+      imageDescription: "",
       file: null
     }
   }
@@ -66,7 +67,7 @@ class Uploader extends Component {
 
   render() {
     const { uploadedFiles } = this.props;
-    const { droppedFile } = this.state;
+    const { droppedFile, imageDescription } = this.state;
     return (
       <div className="uploader">
         <Dropzone onDrop={this.onFilesDrop()} >
@@ -81,6 +82,8 @@ class Uploader extends Component {
           <div className="uploader--dropped-files">
             <p>Preview:</p>
             <img src={droppedFile} width="200" alt="preview of dropped image"/>
+            <label htmlFor="imageDescription">Description:</label>
+            <input name="imageDescription" type="text" value={imageDescription} onChange={this.inputChange('imageDescription')} />
             <button onClick={this.uploadImage()}>Upload</button>
           </div>
         )}
