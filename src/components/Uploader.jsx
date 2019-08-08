@@ -44,20 +44,24 @@ class Uploader extends Component {
 
   uploadImage = props => async event => {
     event.preventDefault();
-
     // upload to storage
-    const uploadOptions = {
-      name: this.state.fileName
-    }
-    const result = await this.props.firebase.uploadFile("images", this.state.file, "images", uploadOptions);
+    const result = await this.props.firebase.uploadFile("images", this.state.file);
+    const storage = this.props.firebase.storage();
+    const downloadURL = await storage.ref(result.uploadTaskSnapshot.metadata.fullPath).getDownloadURL();
     // get downloadURL, image ID, and send it to the parent for wire-up
-    return this.props.addImage(result.downloadURL, result.key);
+    await this.props.addImage(result, downloadURL, this.state.fileName, this.state.imageDescription);
+    return this.setState({
+      droppedFile: null,
+      fileName: "",
+      imageDescription: "",
+      file: null
+    })
   }
 
-  onFileDelete(file, key) {
-    // delete the file from storage
-    this.props.firebase.deleteFile(file.fullPath, `${filesPath}/${key}`);
-    // remove the relationship to the resource model
+  inputChange = field => event => {
+    this.setState({
+      [field]: event.target.value
+    })
   }
 
   render() {

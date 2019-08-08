@@ -20,8 +20,7 @@ class ProjectEditor extends Component {
       content: "",
       isPublished: false,
       isFeatured: false,
-      imagePath: null,
-      imageID: null,
+      images: [],
       tags: [],
       newTag: "",
     }
@@ -38,8 +37,7 @@ class ProjectEditor extends Component {
         content: nextProps.project.content,
         isPublished: nextProps.project.isPublished,
         isFeatured: nextProps.project.isFeatured,
-        imagePath: nextProps.project.imagePath,
-        imageID: nextProps.project.imageID,
+        images: nextProps.project.images || [],
         tags: nextProps.project.tags || []
       })
     }
@@ -122,11 +120,20 @@ class ProjectEditor extends Component {
     }
   };
 
-  addImage = (path, id) => {
-    console.log('uhh');
-    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
-      imagePath: path,
-      imageID: id
+  addImage = (image, downloadURL, name, description) => {
+    const images = this.state.images;
+    const imageMeta = {
+      key: Date.now(),
+      name: name,
+      description: description || "",
+      contentType: image.uploadTaskSnapshot.metadata.contentType,
+      bucket: image.uploadTaskSnapshot.metadata.bucket,
+      fullPath: image.uploadTaskSnapshot.metadata.fullPath,
+      downloadURL: downloadURL
+    }
+    images.push(imageMeta);
+    return this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+      images: images
     }).then(result => {
       alert("Image added successfully");
     }).catch(error => {
@@ -153,7 +160,7 @@ class ProjectEditor extends Component {
 
   render() {
     const { project, tags } = this.props;
-    const { name, snippet, content, isFeatured, isPublished, imagePath, imageID, newTag } = this.state;
+    const { name, snippet, content, isFeatured, isPublished, images, newTag } = this.state;
     const existingTags = this.state.tags;
 
     if (!project) {
@@ -162,7 +169,7 @@ class ProjectEditor extends Component {
 
     return (
       <div className="project-editor">
-        <h2>Edit Article</h2>
+        <h2>Edit Project</h2>
         { project
           ? <form onSubmit={this.updateArticle}>
               <label htmlFor="name">Name</label> <br />
@@ -171,7 +178,6 @@ class ProjectEditor extends Component {
               <label htmlFor="snippet">Snippet (short list description)</label> <br />
               <input name="snippet" type="text" value={snippet} onChange={this.inputChange('snippet')} />
               <br />
-
               <label>Add/update article image:</label> <br />
               { imagePath
                 ? <img src={imagePath} alt={imageID} width="200px" />
