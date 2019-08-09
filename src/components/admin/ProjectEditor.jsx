@@ -20,13 +20,12 @@ class ProjectEditor extends Component {
       content: "",
       isPublished: false,
       isFeatured: false,
-      imagePath: null,
-      imageID: null,
+      images: [],
       tags: [],
       newTag: "",
     }
 
-    this.updateArticle = this.updateArticle.bind(this);
+    this.updateResource = this.updateResource.bind(this);
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -38,16 +37,20 @@ class ProjectEditor extends Component {
         content: nextProps.project.content,
         isPublished: nextProps.project.isPublished,
         isFeatured: nextProps.project.isFeatured,
-        imagePath: nextProps.project.imagePath,
-        imageID: nextProps.project.imageID,
+        images: nextProps.project.images || [],
         tags: nextProps.project.tags || []
       })
     }
   }
 
-  updateArticle(event) {
+  updateResource(event) {
     event.preventDefault();
-    const { name, snippet, content, isPublished, isFeatured } = this.state;
+    let { name, snippet, content, isPublished, isFeatured } = this.state;
+    name = name || "";
+    snippet = snippet || "";
+    content = content || "";
+    isPublished = isPublished || false;
+    isFeatured = isFeatured || false;
     this.props.firebase.update(`projects/${this.props.match.params.id}`, {
       name,
       snippet,
@@ -122,11 +125,20 @@ class ProjectEditor extends Component {
     }
   };
 
-  addImage = (path, id) => {
-    console.log('uhh');
-    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
-      imagePath: path,
-      imageID: id
+  addImage = (image, downloadURL, name, description) => {
+    const images = this.state.images;
+    const imageMeta = {
+      key: Date.now(),
+      name: name,
+      description: description || "",
+      contentType: image.uploadTaskSnapshot.metadata.contentType,
+      bucket: image.uploadTaskSnapshot.metadata.bucket,
+      fullPath: image.uploadTaskSnapshot.metadata.fullPath,
+      downloadURL: downloadURL
+    }
+    images.push(imageMeta);
+    return this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+      images: images
     }).then(result => {
       alert("Image added successfully");
     }).catch(error => {
@@ -151,9 +163,72 @@ class ProjectEditor extends Component {
     })
   }
 
+
+  onImageDelete = image => (event) => {
+    event.preventDefault();
+    const images = this.state.images;
+    images.splice(images.indexOf(image), 1);
+    // delete the file from storage
+    this.props.firebase.deleteFile(image.fullPath, `images/${image.key}`)
+      .catch(error => {
+        alert('unable to delete the file from firebase storage');
+        console.log(error);
+      });
+    // remove the relationship to the resource model
+    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+      images: images
+    }).then(result => {
+      alert("Image removed successfully");
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  deleteProject = project => (event) => {
+
+    // delete project after confirmation
+    const confirmation = window.confirm("Are you sure? This is permanent. You can always unpublish the project.");
+
+    const resourceID = this.props.match.params.id;
+    const images = this.state.images;
+    const projectTags = this.state.tags;
+    const allTags = this.props.tags;
+
+    if (confirmation) {
+      this.props.firebase.remove(`projects/${resourceID}`)
+        .then(result => {
+          // Remove the images from Firebase Storage
+          if (images && images.length) {
+            images.forEach(img => {
+              return this.props.firebase.deleteFile(img.fullPath);
+            });
+          }
+          // Unbind all the relationships to this Post in Tags (but not the tags themselves)
+          if (projectTags && projectTags.length) {
+            projectTags.forEach(tag => {
+              // remove projectID from allTags[tag].projects
+              allTags[tag].projects.splice(allTags[tag].projects.indexOf(resourceID, 1));
+              this.props.firebase.update(`tags/${tag}`, {
+                projects: allTags[tag].projects
+              }).catch(error => {
+                console.log(error);
+              });
+            });
+          }
+        })
+        .then(() => {
+          alert("project deleted");
+          this.props.history.push("/admin/dashboard/projects");
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+  }
+
   render() {
     const { project, tags } = this.props;
-    const { name, snippet, content, isFeatured, isPublished, imagePath, imageID, newTag } = this.state;
+    const { name, snippet, content, isFeatured, isPublished, images, newTag } = this.state;
     const existingTags = this.state.tags;
 
     if (!project) {
@@ -162,22 +237,29 @@ class ProjectEditor extends Component {
 
     return (
       <div className="project-editor">
-        <h2>Edit Article</h2>
+        <h2>Edit Project</h2>
+        <button onClick={this.deleteProject()}>Delete Project</button>
         { project
-          ? <form onSubmit={this.updateArticle}>
+          ? <form onSubmit={this.updateResource}>
               <label htmlFor="name">Name</label> <br />
               <input name="name" type="text" value={name} onChange={this.inputChange('name')} />
               <br />
               <label htmlFor="snippet">Snippet (short list description)</label> <br />
               <input name="snippet" type="text" value={snippet} onChange={this.inputChange('snippet')} />
               <br />
-
               <label>Add/update article image:</label> <br />
-              { imagePath
-                ? <img src={imagePath} alt={imageID} width="200px" />
-                : null
+              { images &&
+                Object.keys(images).map((image, index) => {
+                  return (
+                    <div className="resource-image" key={index}>
+                      <img src={images[image].downloadURL} alt={images[image].description} width="200px" />
+                      <span>{images[image].name}: "{images[image].description}"</span>
+                      <button onClick={this.onImageDelete(images[image])}>Delete Image</button>
+                    </div>
+                  )
+                })
               }
-              <Uploader addImage={(path, id) => this.addImage(path, id)}/>
+              <Uploader addImage={(path, downloadURL, name, description) => this.addImage(path, downloadURL, name, description)}/>
 
               <label htmlFor="content">Content</label> <br />
               <textarea name="content" value={content} onChange={this.inputChange('content')} />
