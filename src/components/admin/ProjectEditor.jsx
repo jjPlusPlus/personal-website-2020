@@ -207,11 +207,9 @@ class ProjectEditor extends Component {
           if (projectTags && projectTags.length) {
             projectTags.forEach(tag => {
               // remove projectID from allTags[tag].projects
-              allTags[tag].projects.splice(allTags[tag].indexOf(resourceID, 1));
+              allTags[tag].projects.splice(allTags[tag].projects.indexOf(resourceID, 1));
               this.props.firebase.update(`tags/${tag}`, {
                 projects: allTags[tag].projects
-              }).then(result => {
-                alert("tags updated successfully");
               }).catch(error => {
                 console.log(error);
               });
@@ -219,11 +217,11 @@ class ProjectEditor extends Component {
           }
         })
         .then(() => {
+          alert("project deleted");
           this.props.history.push("/admin/dashboard/projects");
         })
         .catch(error => {
           console.log(error);
-          alert('Failed to remove the project');
         })
     }
   }
