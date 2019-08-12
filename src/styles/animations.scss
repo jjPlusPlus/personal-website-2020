@@ -1,0 +1,19 @@
+.listanimation-enter {
+  opacity: 0.01;
+  transform: scale(1.1);
+}
+
+.listanimation-enter.listanimation-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: 300ms;
+}
+
+.listanimation-leave {
+  opacity: 1;
+}
+
+.listanimation-leave.listanimation-leave-active {
+  opacity: 0.01;
+  transition: 300ms;
+}

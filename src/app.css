@@ -1,0 +1,24 @@
+@import 'styles/post-detail.scss';
+@import 'styles/posts.scss';
+@import 'styles/navigation.scss';
+@import 'styles/animations.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Exo|Farro|Signika+Negative&display=swap');
+
+html, body {
+  min-height: 100%;
+  display: flex;
+  width: 100%;
+}
+#root {
+  width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Exo', sans-serif;
+}
+p, li {
+  font-family: 'Signika Negative', sans-serif;
+  line-height: 1.6em;
+  font-size: 18px;
+}
