@@ -1,0 +1,40 @@
+.posts-page {
+  background-color: #64DD17;
+  height: 100vh;
+  padding: 15px;
+  padding-left: 200px;
+  transition: all 333ms ease-in-out;
+  position: relative;
+}
+.posts {
+  max-width: 800px;
+  position: static;
+  z-index: 2;
+}
+.posts-page--header {
+  padding: 15px;
+  background-color: rgba(255,255,255,0.5);
+  color: #575757;
+}
+.posts-page--title {
+  margin: 0;
+}
+.posts-page--posts {
+
+}
+
+.posts-page--post, .posts-page--tag, .posts-page--unset-tag {
+  display: block;
+  margin-top: 15px;
+  padding: 15px;
+  background-color: rgba(255,255,255,0.5);
+  color: #575757;
+  text-decoration: none;
+  transition: all 333ms ease-out;
+  cursor: pointer;
+}
+
+.posts-page--post:hover, .posts-page--tag:hover, .posts-page--unset-tag:hover {
+  background-color: #FFF;
+  color: #575757;
+}
