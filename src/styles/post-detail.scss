@@ -1,0 +1,35 @@
+.post-detail-page {
+  background-color: #efefef;
+  height: 100%;
+  padding-left: 25px;
+  padding-top: 25px;
+}
+.post-detail {
+  background-color: #FFF;
+  max-width:750px;
+}
+.post-detail--image-header img {
+  width: 100%;
+}
+.post-detail--content {
+  padding: 15px;
+}
+.post-detail--header {
+  padding: 15px;
+}
+.post-detail--header--snippet {
+  font-style: italic;
+}
+.post-detail--tags {
+  padding: 0px 15px;
+}
+.tag {
+  display: inline-block;
+  border-radius: 5px;
+  width: auto;
+  padding: 5px 15px;
+  margin-right: 5px;
+}
+.tag p {
+  margin: 0;
+}
