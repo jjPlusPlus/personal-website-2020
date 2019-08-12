@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './app.css';
 
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 import Navigation from './components/Navigation';
 import Posts from './components/pages/Posts';
@@ -26,7 +26,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <div>
         <Route path="/" exact component={Navigation} />
         <Route exact path="/posts" component={Posts} />
           <Route path="/posts/:id" component={PostDetail} />
@@ -41,7 +41,7 @@ class App extends Component {
             <ProtectedRoute exact path="/admin/dashboard/projects" component={AdminProjects} />
               <ProtectedRoute path="/admin/dashboard/projects/:id" component={ProjectEditor} />
             <ProtectedRoute path="/admin/dashboard/about" component={ResumeEditor} />
-      </Router>
+      </div>
     );
   }
 }
