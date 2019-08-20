@@ -25,19 +25,48 @@ class Projects extends Component {
     const { projects, tags, tagKey } = this.props;
     const { tag } = this.state;
     return (
-      <div className="projects">
-        <h1 className="page-header">Some fucking projects by JJ</h1>
-        { projects &&
-            Object.keys(projects).map((project, index) => {
-              return (
-                <div className="project" key={index}>
-                  <h3>{projects[project].name}</h3>
-                  <p>{projects[project].description}</p>
-                  <Link to = {{ pathname: `/projects/${project}`, state:{project: projects[project]}}}>More</Link>
+      <div className="page--container projects-page ">
+        <div className="page">
+          <div className="page--header">
+            <h1 className="page--title">
+              { tags && tagKey ? "Here are some projects with " + (tags[tagKey].name) : "What kind of projects are you interested in?"}
+            </h1>
+          </div>
+
+          { tags && !tagKey &&
+              Object.keys(tags).map((key, index) => {
+                const tag = tags[key];
+                if (tag.projects && tag.projects.length) {
+                  return (
+                    <div onClick={() => this.setTag(key)} className="page-list-item">
+                      <h1>I want to see projects with {tag.name}</h1>
+                    </div>
+                  )
+                }
+              })
+          }
+
+          { projects && tagKey
+            ? <div className="projects-page--projects">
+                {
+                  Object.keys(projects).map((project, index) => {
+                    if (tagKey && projects[project].tags && projects[project].tags.includes(tagKey)) {
+                      return (
+                        <Link to = {{ pathname: `/projects/${project}`, state:{project: projects[project]}}} className="page-list-item">
+                          <h1>{projects[project].name}</h1>
+                          <p>{projects[project].description}</p>
+                        </Link>
+                      )
+                    }
+                  })
+                }
+                <div onClick={() => this.setTag(null)} className="page-list-item unset-tag">
+                  <h1>I want to see different projects</h1>
                 </div>
-              )
-            })
-        }
+              </div>
+            : null
+          }
+        </div>
       </div>
     )
   }
