@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { CSSTransition } from 'react-transition-group';
 import DelayLink from './DelayLink';
+import Typer from './Typer';
 
 class Navigation extends Component {
   constructor(props) {

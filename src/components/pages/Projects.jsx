@@ -10,6 +10,8 @@ import { firebaseConnect } from 'react-redux-firebase';
 import { encode, decode, addUrlProps, UrlQueryParamTypes, replaceInUrlQuery } from 'react-url-query';
 
 import { CSSTransition } from "react-transition-group";
+import Typer from '../Typer';
+
 class Projects extends Component {
 
   constructor(props) {
@@ -32,7 +34,11 @@ class Projects extends Component {
         <div className="page">
           <div className="page--header">
             <h1 className="page--title">
-              { tags && tagKey ? "Here are some projects with " + (tags[tagKey].name) : "What kind of projects are you interested in?"}
+              { tags && tagKey
+                ? <Typer text={"Here are some projects with " + (tags[tagKey].name)} delay={1200} interval={150} />
+                : <Typer text={"What kind of projects are you interested in?"} delay={1200} interval={150} />
+              }
+              <span class="blink">_</span>
             </h1>
           </div>
 
