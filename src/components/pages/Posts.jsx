@@ -3,13 +3,13 @@ import List from "../List";
 
 import { Link } from "react-router-dom";
 
-import * as actions from '../../actions';
-
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
 
 import { encode, decode, addUrlProps, UrlQueryParamTypes, replaceInUrlQuery } from 'react-url-query';
+
+import { CSSTransition } from "react-transition-group";
 
 class Posts extends Component {
 
@@ -43,10 +43,13 @@ class Posts extends Component {
             Object.keys(tags).map((key, index) => {
               const tag = tags[key];
               if (tag.posts && tag.posts.length) {
+                const timeout = 50 * (index);
                 return (
-                  <div onClick={() => this.setTag(key)} className="page-list-item">
-                    <h1>I want to read posts about {tag.name}</h1>
-                  </div>
+                  <CSSTransition key={index} appear={true} in={true} timeout={timeout} classNames="list-animation">
+                    <div onClick={() => this.setTag(key)} className="page-list-item">
+                      <h1>I want to read posts about {tag.name}</h1>
+                    </div>
+                  </CSSTransition>
                 )
               }
             })
@@ -57,12 +60,14 @@ class Posts extends Component {
                 {
                   Object.keys(posts).map((post, index) => {
                     if (tagKey && posts[post].tags && posts[post].tags.includes(tagKey)) {
+                      const timeout = 50 * (index);
                       return (
-                        <div className="posts-page--post" key={index}>
-                          <h1>{posts[post].name}</h1>
-                          <p>{posts[post].description}</p>
-                          <Link to = {{ pathname: `/posts/${post}`, state:{post: posts[post]}}} >More</Link>
-                        </div>
+                        <CSSTransition key={index} appear={true} in={true} timeout={timeout} classNames="list-animation">
+                          <Link to = {{ pathname: `/posts/${post}`, state:{post: posts[post]}}} className="page-list-item">
+                            <h1>{posts[post].name}</h1>
+                            <p>{posts[post].description}</p>
+                          </Link>
+                        </CSSTransition>
                       )
                     }
                   })
