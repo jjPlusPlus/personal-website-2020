@@ -1,5 +1,7 @@
+@import 'styles/page.scss';
 @import 'styles/post-detail.scss';
-@import 'styles/posts.scss';
+// @import 'styles/posts.scss';
+// @import 'styles/projects.scss';
 @import 'styles/navigation.scss';
 @import 'styles/animations.scss';
 
@@ -9,6 +11,10 @@ html, body {
   min-height: 100%;
   display: flex;
   width: 100%;
+  margin: 0;
+}
+body {
+  transition: all 333ms ease-in-out;
 }
 #root {
   width: 100%;

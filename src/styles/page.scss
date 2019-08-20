@@ -1,0 +1,45 @@
+@import 'material-colors.scss';
+
+.page--container {
+  height: 100vh;
+  padding: 15px;
+  padding-left: 200px;
+  transition: all 333ms ease-in-out;
+}
+.page {
+  max-width: 800px;
+  position: static;
+  z-index: 2;
+}
+.page--header {
+  padding: 15px;
+  background-color: white;
+  color: #575757;
+  border-radius: 4px;
+  transition: all 666ms ease;
+}
+.page--title {
+  margin: 0;
+  transition: all 666ms ease;
+}
+.page--content {
+  background-color: #FFF;
+  padding: 15px;
+  margin: 15px 0px;
+}
+.page-list-item {
+  border-radius: 2px;
+  display: block;
+  margin-top: 15px;
+  padding: 15px;
+  background-color: rgba(255,255,255,0.75);
+  color: #575757; // override in each page
+  text-decoration: none;
+  transition: all 333ms ease;
+  cursor: pointer;
+}
+.page-list-item:hover {
+  background-color: rgba(255,255,255,0.9);
+  color: #575757;
+  transform: scale(1.1);
+}

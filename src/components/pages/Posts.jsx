@@ -30,12 +30,12 @@ class Posts extends Component {
     const { tag } = this.state;
 
     return (
-      <div className="posts-page">
-        <div className="posts">
-          <div className="posts-page--header">
+      <div className="page--container posts-page">
+        <div className="page">
+          <div className="page--header">
             { tags && tagKey
-              ? <h1 className="posts-page--title">Here are some posts about {tags[tagKey].name}</h1>
-              : <h1 className="posts-page--title">What kind of posts are you interested in?</h1>
+              ? <h1 className="page--title">Here are some posts about {tags[tagKey].name}</h1>
+              : <h1 className="page--title">What kind of posts are you interested in?</h1>
             }
           </div>
 
@@ -44,7 +44,7 @@ class Posts extends Component {
               const tag = tags[key];
               if (tag.posts && tag.posts.length) {
                 return (
-                  <div onClick={() => this.setTag(key)} className="posts-page--tag" key={index}>
+                  <div onClick={() => this.setTag(key)} className="page-list-item">
                     <h1>I want to read posts about {tag.name}</h1>
                   </div>
                 )
@@ -67,12 +67,11 @@ class Posts extends Component {
                     }
                   })
                 }
-                <div onClick={() => this.setTag(null)} className="posts-page--unset-tag">
+                <div onClick={() => this.setTag(null)} className="page-list-item unset-tag">
                   <h1>I want to read about something else</h1>
                 </div>
               </div>
             : null
-
           }
         </div>
       </div>
