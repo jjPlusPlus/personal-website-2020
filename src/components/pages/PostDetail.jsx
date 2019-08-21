@@ -11,12 +11,12 @@ class PostDetail extends Component {
     const allTags = this.props.tags;
     const post = this.props.location.state.post;
     return (
-      <div className="post-detail-page">
+      <div className="page--container post-detail-page">
 
-        <div className="post-detail">
+        <div className="page">
           {/* TODO: handle multiple images per resource */}
           <div className="post-detail--image-header">
-            {post.images.map((image, index) => {
+            {post.images && post.images.map((image, index) => {
               return (
                 <img src={image.downloadURL} alt={image.description || ""}/>
               )
@@ -33,7 +33,7 @@ class PostDetail extends Component {
               post.tags.map((key, index) => {
                 const tag = allTags[key];
                 return (
-                  <div className="tag" style={{backgroundColor: tag.bgColor || "#007aff", color: tag.color || '#FFF'}}>
+                  <div className="tag" key={index} style={{backgroundColor: tag.bgColor || "#007aff", color: tag.color || '#FFF'}}>
                    <p>{tag.name}</p>
                   </div>
                 )
