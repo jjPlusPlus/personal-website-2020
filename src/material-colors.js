@@ -31,4 +31,5 @@ export const orange500 = "#FF9800";
 export const orangeA700 = "#FF6D00";
 export const deepOrange500 = "#FF5722";
 export const deepOrangeA700 = "#DD2C00";
+export const blueGray50 = "#ECEFF1";
 export const blueGray500 = "#607D8B";
