@@ -1,0 +1,44 @@
+.about-page .image-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  .image-grid--item {
+    width: calc(100%/3);
+    float: left;
+    flex: 0 0 auto;
+    background-color: #000;
+    transition: 333ms all ease;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    p {
+      display: none;
+    }
+    &:hover {
+      transform: scale(1.2);
+      p {
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        text-align: center;
+        color: #FFF;
+        z-index: 1;
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        background: rgba(0,0,0,0.8);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

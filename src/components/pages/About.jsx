@@ -71,14 +71,40 @@ const About = () => {
           <p>Re-working existing Game UI's for use on the browser (see "Overwatch UI Rework")</p>
           <p>Full-stack game development (see Yana's Delivery Service & Trash Pandas)</p>
 
-          <h2>Related Interests</h2>
-          <p>Motion Graphics</p>
-          <p>3D printing and design</p>
-          <p>Project Zarya</p>
+        <div className="page">
+          <div className="page--content box-shadow border-radius-small">
+            <h2>Non-development interests:</h2>
+            <div className="image-grid">
+              <div className="image-grid--item">
+                <img src="https://firebasestorage.googleapis.com/v0/b/jjplusplus-461d4.appspot.com/o/images%2Fsite-3dprinting.jpg?alt=media&token=0c2f76f7-d752-4106-91c5-e33976ca907f" />
+                <p>3D Scanning & Modeling</p>
+              </div>
+              <div className="image-grid--item">
+                <img src="https://firebasestorage.googleapis.com/v0/b/jjplusplus-461d4.appspot.com/o/images%2Fsite-3dprintingp2.jpg?alt=media&token=7f57877b-15d7-4ede-91f8-4859a4839128" />
+                <p>3D Printing</p>
+              </div>
+              <div className="image-grid--item">
+                <img src="https://firebasestorage.googleapis.com/v0/b/jjplusplus-461d4.appspot.com/o/images%2Fsite-oculus-kingspray.jpg?alt=media&token=3979d5e9-0a54-4e96-83a5-d71ff79a1583" />
+                <p>Oculus (Kingspray featured)</p>
+              </div>
+              <div className="image-grid--item">
+                <img src="https://firebasestorage.googleapis.com/v0/b/jjplusplus-461d4.appspot.com/o/images%2Fsite-castro.jpg?alt=media&token=318a7997-565e-40ec-8bc0-ac1385aae301" />
+                <p>Painting (Graffiti: this is a wall I did in Venice, CA)</p>
+              </div>
+              <div className="image-grid--item">
+                <img src="https://firebasestorage.googleapis.com/v0/b/jjplusplus-461d4.appspot.com/o/images%2Fsite-zarya.jpg?alt=media&token=c100a2fe-ed00-44e9-beb9-ee664aa94ea9" />
+                <p>Mechanical Engineering (This is my '73 240z, "Zarya")</p>
+              </div>
+              <div className="image-grid--item">
+                <img src="https://firebasestorage.googleapis.com/v0/b/jjplusplus-461d4.appspot.com/o/images%2Fsite-photography.jpg?alt=media&token=de2269f6-9b9e-4625-9934-9884b34fa47c" />
+                <p>Photography (pictured: my Canon AE-1)</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default About;
