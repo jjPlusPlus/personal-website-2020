@@ -7,6 +7,49 @@ import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-
 
 class About extends Component {
   render() {
+    const qaSliderContent = [
+        {
+          image: "http://placekitten.com/g/100/100",
+          title: "Worst Fear: ",
+          text: "Mayonnaise & Tarantulas"
+        },
+        {
+          image: "http://placekitten.com/g/101/101",
+          title: "Finest Moment: ",
+          text: "Ate an entire hard-shell taco in one bite"
+        },
+        {
+          image: "http://placekitten.com/g/102/102",
+          title: "Dogs or Cats: ",
+          text: "Both"
+        },
+        {
+          image: "http://placekitten.com/g/103/103",
+          title: "Favorite Subreddit: ",
+          text: "r/showerthoughts"
+        },
+        {
+          image: "http://placekitten.com/g/104/104",
+          title: "Shameful Habit: ",
+          text: "Biting my nails"
+        },
+        {
+          image: "http://placekitten.com/g/105/105",
+          title: "Strengths: ",
+          text: "Versioning habits & writing documentation"
+        },
+        {
+          image: "http://placekitten.com/g/106/106",
+          title: "Weaknesses: ",
+          text: "I'm not a walking dictionary of Javascript definitions"
+        },
+        {
+          image: "http://placekitten.com/g/107/107",
+          title: "I wish that I...: ",
+          text: "Contributed more to open-source projects"
+        }
+    ];
+
     return (
       <div className="page--container about-page">
 
@@ -41,6 +84,13 @@ class About extends Component {
             <h2>Github contributions this year:</h2>
             <img src="http://ghchart.rshah.org/jjPlusPlus" alt="2016rshah's Github chart" className="image-full-width"/>
             <small>(Disclaimer: I use Bitbucket a lot)</small>
+          </div>
+        </div>
+
+        <div className="page">
+          <div className="page--content box-shadow border-radius-small">
+            <h2>Q&A</h2>
+            <Slider contents={qaSliderContent} interval={4000}/>
           </div>
         </div>
 
