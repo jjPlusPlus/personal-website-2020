@@ -98,68 +98,70 @@ class About extends Component {
 
         <div className="page">
           <div className="page--content box-shadow border-radius-small">
-          <h2>What kind of formal design/programming education do I have?</h2>
-          <p>
-            I'm one of those people who spent 6 years in community college, but I don't regret one minute of it
-            because I had like 120 units of art classes under my belt before I even made it to university.
-          </p>
+            <h2>What kind of formal design/programming education do I have?</h2>
 
-          <p>
-            After that I chose the Web Developement & Interactive Media program at the Art Institute of California (in Santa Monica) because
-            I believed they gave me the best quality for my time, and I was right. No, it's not a traditional CS program at a traditional school,
-            but I had the opportunity to learn from some of the smartest people out there. AI has been in the news a lot lately for scamming kids
-            out of their tuition money, but I'm still truly proud of my degree.
-          </p>
+            <div className="timeline flex flex-column">
+              <div className="timeline-bar flex flex-row">
+                <div className="timeline-bar--section bg-indigo flex flex-center flex-6 text-center">
+                  <div className="timeline-section-marker"><p>Various community colleges</p></div>
+                </div>
+                <div className="timeline-bar--section bg-blue flex flex-center flex-3 text-center">
+                  <div className="timeline-section-marker"><p>The Art Institute of CA</p></div>
+                </div>
+              </div>
+              <div className="timeline-markers flex flex-row">
+                  <div className="flex-1 text-center"><p>2005</p></div>
+                  <div className="flex-1 text-center"><p>2006</p></div>
+                  <div className="flex-1 text-center"><p>2007</p></div>
+                  <div className="flex-1 text-center"><p>2008</p></div>
+                  <div className="flex-1 text-center"><p>2009</p></div>
+                  <div className="flex-1 text-center"><p>2010</p></div>
+                  <div className="flex-1 text-center"><p>2011</p></div>
+                  <div className="flex-1 text-center"><p>2012</p></div>
+                  <div className="flex-1 text-center"><p>2013</p></div>
+                  <div className="flex-1 text-center"><p>2014</p></div>
+              </div>
+            </div>
 
-          <h2>Where have I worked?</h2>
-          <ul>
-            <li>
-              <h3>Ucode</h3>
-              <p>Instructor, Curriculum Development</p>
-              <p>2012-2014</p>
-              <p>They say that the best way to truly learn something is to have to teach it to someone else.</p>
-            </li>
-            <li>
-              <h3>Runtriz</h3>
-              <p>Front-end developer, UX</p>
-              <p>2014-2017</p>
-              <p>Ember, platform, design, teamwork</p>
-            </li>
-            <li>
-              <h3>Fantasmo</h3>
-              <p>Senior Full-stack Engineer, et. al.</p>
-              <p>2017-2019</p>
-              <p>A true startup. Kubernetes, docker, full stack</p>
-            </li>
-          </ul>
+            <p>
+              I'm one of those people who spent 6 years in community college, but I don't regret one minute of it
+              because I had like 120 units of graphic design and CS classes under my belt before I even made it to university.
+            </p>
 
-          <h2>Strengths</h2>
-          <p>It's odd to brag about yourself. Here, let me give it a go:</p>
-          <ul>
-            <li>I have a VERY strong design background, which makes me a great multi-tool</li>
-            <li>My start-up work experience has made me very self-reliant, while it also value taught me the value of teamwork and collaboration.</li>
-            <li>I'm great at searching when I don't know the answer</li>
-            <li>I have great versioning habits</li>
-            <li>I write lots of comments</li>
-          </ul>
+            <p>
+              After that I graduated with a B.S. in Web Developement & Interactive Media from the Art Institute of California in 2014.
+            </p>
+          </div>
+        </div>
 
-          <h2>Weaknesses</h2>
-          <p>I think it's important to acknowledge my own weaknesses as a developer.</p>
-          <ul>
-            <li>I'm not a walking dictionary of Javascript definitions- but I don't think this makes me any less of a professional.</li>
-            <li>I didn't get a traditional CS degree. I'm currently working on reading the Algorithm Design Manual (Skeina) to make up for it.</li>
-            <li>My low-level programming knowledge needs improvement</li>
-            <li>I wish I contributed more open-source work</li>
-            <li>I bite my nails when I'm focused</li>
-          </ul>
-
-          <h2>Grave Dislikes</h2>
-          <p>Mayonnaise</p>
-          <p>Tarantulas</p>
-
-          <h2>Side Projects</h2>
-          <p>Re-working existing Game UI's for use on the browser (see "Overwatch UI Rework")</p>
-          <p>Full-stack game development (see Yana's Delivery Service & Trash Pandas)</p>
+        <div className="page">
+          <div className="page--content box-shadow border-radius-small">
+            <h2>Where have I worked?</h2>
+            <div className="timeline flex flex-column">
+              <div className="timeline-bar flex flex-row">
+                <div className="timeline-bar--section bg-indigo flex-2 text-center">
+                  <div className="timeline-section-marker"><p>Ucode</p></div>
+                </div>
+                <div className="timeline-bar--section bg-blue flex-3 text-center">
+                  <div className="timeline-section-marker"><p>Runtriz</p></div>
+                </div>
+                <div className="timeline-bar--section bg-cyan flex-2 text-center">
+                  <div className="timeline-section-marker"><p>Fantasmo</p></div>
+                </div>
+              </div>
+              <div className="timeline-markers flex flex-row">
+                  <div className="flex-1 text-center"><p>2012</p></div>
+                  <div className="flex-1 text-center"><p>2013</p></div>
+                  <div className="flex-1 text-center"><p>2014</p></div>
+                  <div className="flex-1 text-center"><p>2015</p></div>
+                  <div className="flex-1 text-center"><p>2016</p></div>
+                  <div className="flex-1 text-center"><p>2017</p></div>
+                  <div className="flex-1 text-center"><p>2018</p></div>
+                  <div className="flex-1 text-center"><p>2019</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="page">
           <div className="page--content box-shadow border-radius-small">
