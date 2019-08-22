@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const About = () => {
-  return (
-    <div className="page--container">
+
+class About extends Component {
+  render() {
+    return (
+      <div className="page--container about-page">
+
       <div className="page">
         <div className="page--header">
           <h1 className="page--title">Who is JJ?</h1>
