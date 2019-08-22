@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 
 
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
+
 class About extends Component {
   render() {
     return (
       <div className="page--container about-page">
 
-      <div className="page">
-        <div className="page--header">
-          <h1 className="page--title">Who is JJ?</h1>
-        </div>
-        <div className="page--content">
+        <div className="page">
+          <div className="page--header">
+            <h1 className="page--title">Who is JJ?</h1>
+          </div>
+
+          <div className="flex flex-center flex-column icon-links">
+
+            <a href="https://www.linkedin.com/in/jjmedina/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></a>
+            <a href="https://github.com/jjPlusPlus/" target="_blank"><FontAwesomeIcon icon={faGithub} /></a>
+            <a href="https://www.instagram.com/mega094/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
+          </div>
           <h2>What kind of formal design/programming education do I have?</h2>
           <p>
             I'm one of those people who spent 6 years in community college, but I don't regret one minute of it
