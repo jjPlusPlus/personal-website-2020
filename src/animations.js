@@ -2,7 +2,6 @@ import { teal200, blue500, orange500, red500, lime500, deepPurple500, blueGray50
 import { matchPath } from "react-router-dom";
 
 export const play = (pathname, node, appears) => {
-  debugger;
   if (pathname === '/') {
     document.body.style.background = teal200;
     node.children[0].classList.add('animatePageIn');
