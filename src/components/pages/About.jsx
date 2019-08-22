@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-
-
 import Slider from '../Slider';
+import Typer from '../Typer';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -57,7 +56,7 @@ class About extends Component {
 
         <div className="page">
           <div className="page--header">
-            <h1 className="page--title">Who is JJ?</h1>
+            <h1 className="page--title"> <Typer text={"Who is JJ?"} delay={1200} interval={150} /><span class="blink">_</span> </h1>
           </div>
 
           <div className="flex flex-center flex-column icon-links">
