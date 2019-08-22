@@ -36,6 +36,15 @@ class About extends Component {
           </div>
         </div>
 
+        <div className="page">
+          <div className="page--content box-shadow border-radius-small">
+            <h2>Github contributions this year:</h2>
+            <img src="http://ghchart.rshah.org/jjPlusPlus" alt="2016rshah's Github chart" className="image-full-width"/>
+            <small>(Disclaimer: I use Bitbucket a lot)</small>
+          </div>
+        </div>
+
+        <div className="page">
           <div className="page--content box-shadow border-radius-small">
           <h2>What kind of formal design/programming education do I have?</h2>
           <p>
