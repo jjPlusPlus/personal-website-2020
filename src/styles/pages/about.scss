@@ -1,3 +1,21 @@
+@import '../material-colors';
+
+.about-page .icon-links {
+  position: absolute;
+  top: 85px;
+  right: -80px;
+  cursor: pointer;
+  svg {
+    color: $material-green-500;
+    font-size: 72px;
+    &:hover {
+      transform: scale(1.2);
+      color: $material-blue-gray-500;
+    }
+    margin-bottom: 10px;
+  }
+}
+
 .about-page .image-grid {
   display: flex;
   flex-direction: row;
