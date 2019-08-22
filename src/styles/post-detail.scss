@@ -1,0 +1,28 @@
+.post-detail-page .page {
+  background-color: #FFF;
+}
+.post-detail--image-header img {
+  width: 100%;
+}
+.post-detail--content {
+  padding: 15px;
+}
+.post-detail--header {
+  padding: 15px;
+}
+.post-detail--header--snippet {
+  font-style: italic;
+}
+.post-detail--tags {
+  padding: 0px 15px;
+}
+.tag {
+  display: inline-block;
+  border-radius: 5px;
+  width: auto;
+  padding: 5px 15px;
+  margin-right: 5px;
+}
+.tag p {
+  margin: 0;
+}

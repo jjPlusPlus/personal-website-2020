@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+import { BrowserRouter as Router } from "react-router-dom";
+import { RouterToUrlQuery } from 'react-url-query';
 
 import { Provider } from 'react-redux';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
@@ -21,7 +23,11 @@ const reactReduxFirebaseProps = {
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
-      <App />
+      <Router>
+        <RouterToUrlQuery>
+          <App />
+        </RouterToUrlQuery>
+      </Router>
     </ReactReduxFirebaseProvider>
   </Provider>
   , document.getElementById('root')
