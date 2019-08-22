@@ -21,6 +21,22 @@ class About extends Component {
             <a href="https://github.com/jjPlusPlus/" target="_blank"><FontAwesomeIcon icon={faGithub} /></a>
             <a href="https://www.instagram.com/mega094/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
           </div>
+
+          <div className="page--content box-shadow border-radius-small">
+            <div className="flex flex-row">
+              <img className="circle-image" src="http://placekitten.com/g/200/200" />
+              <div className="flex-1 text-callout-blurb">
+                <h2>Just the Basics</h2>
+                <p>
+                  A creative type with a technical background, specializing in UI design and development.
+                  I love intuitive interfaces, good versioning habits, and making/playing games.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div className="page--content box-shadow border-radius-small">
           <h2>What kind of formal design/programming education do I have?</h2>
           <p>
             I'm one of those people who spent 6 years in community college, but I don't regret one minute of it
