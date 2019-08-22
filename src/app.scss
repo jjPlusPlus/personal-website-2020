@@ -19,6 +19,7 @@ html, body {
   display: flex;
   width: 100%;
   margin: 0;
+  font-family: 'Roboto Mono', sans-serif;
 }
 body {
   transition: all 333ms ease-in-out;
@@ -34,4 +35,8 @@ p, li {
   font-family: 'Roboto Mono', sans-serif;
   line-height: 1.6em;
   font-size: 18px;
+}
+ul {
+  list-style-type: none;
+  padding-left: 0;
 }
