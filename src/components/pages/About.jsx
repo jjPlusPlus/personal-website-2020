@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 
 
+import Slider from '../Slider';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
