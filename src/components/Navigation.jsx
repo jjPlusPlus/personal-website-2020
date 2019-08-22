@@ -47,7 +47,7 @@ class Navigation extends Component {
                     <span className="blink">.</span>
                     <span className="blink">.</span>
                   </h1>
-                : <h1 className="page--title"><Typer text="What do you want?" delay={1200} interval={150} /><span class="blink">_</span></h1>
+                : <h1 className="page--title"><Typer text="What do you want?" delay={1200} interval={150} /><span className="blink">_</span></h1>
               }
             </CSSTransition>
           </div>
