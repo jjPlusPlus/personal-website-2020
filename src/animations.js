@@ -34,21 +34,21 @@ export const play = (pathname, node, appears) => {
     }, 333)
   } else if (pathname === '/about') {
     document.body.style.background = lime500;
-    node.children[0].classList.add('animatePageIn');
+    node.classList.add('animatePageIn');
     setTimeout(() => {
-      node.children[0].classList.remove('animatePageIn');
+      node.classList.remove('animatePageIn');
     }, 333)
   } else if (pathname === '/site') {
     document.body.style.background = red500;
-    node.children[0].classList.add('animatePageIn');
+    node.classList.add('animatePageIn');
     setTimeout(() => {
-      node.children[0].classList.remove('animatePageIn');
+      node.classList.remove('animatePageIn');
     }, 333)
   } else if (pathname === '/admin') {
     document.body.style.background = orange500;
-    node.children[0].classList.add('animatePageIn');
+    node.classList.add('animatePageIn');
     setTimeout(() => {
-      node.children[0].classList.remove('animatePageIn');
+      node.classList.remove('animatePageIn');
     }, 333)
   }
 }
