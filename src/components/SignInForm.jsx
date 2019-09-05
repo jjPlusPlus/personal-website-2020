@@ -35,9 +35,15 @@ class SignInForm extends Component {
       <div className="sign-in-form">
         <p>Oh rly?</p>
         <form onSubmit={this.authenticate}>
-          <input type="text" value={this.state.email} onChange={this.inputChange('email')} />
-          <input type="password" value={this.state.password} onChange={this.inputChange('password')} />
-          <button type="submit"> lets do eit. </button>
+          <label htmlFor="email">Username / Email</label>
+          <input className="text-input" type="text" name="email" value={this.state.email} onChange={this.inputChange('email')} />
+
+          <label htmlFor="password">Password</label>
+          <input className="text-input" type="password" name="password" value={this.state.password} onChange={this.inputChange('password')} />
+
+          <div className="flex flex-row-reverse">
+          <button type="submit" className="button submit-button float-right"> Prove it. </button>
+          </div>
         </form>
       </div>
     )
