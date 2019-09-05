@@ -12,7 +12,7 @@ const Site = () => {
           <h1 className="page--title"><Typer text={"This is a very strange website"} delay={1200} interval={150} /><span className="blink">_</span></h1>
         </div>
         <div className="page--content">
-          <h2>Why is it so strange?</h2>
+          <h2>I agree. But why is it so strange?</h2>
 
           <p>In a nutshell, I wanted it to feel more like a game than a traditional website.</p>
 
