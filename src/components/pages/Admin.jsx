@@ -14,7 +14,7 @@ class Admin extends Component {
       <div className="page--container">
         <div className="page">
           <div className="page--header">
-            <h1 className="page--title">Who is JJ?</h1>
+            <h1 className="page--title">I am JJ</h1>
           </div>
           <div className="page--content">
             { profile
