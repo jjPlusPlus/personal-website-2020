@@ -1,11 +1,12 @@
 import React from 'react';
+import Typer from '../Typer';
 
 const Site = () => {
   return (
     <div className="page--container">
       <div className="page">
         <div className="page--header">
-          <h1 className="page--title">This is a very strange website</h1>
+          <h1 className="page--title"><Typer text={"This is a very strange website"} delay={1200} interval={150} /><span className="blink">_</span></h1>
         </div>
         <div className="page--content">
           <h2>Why is it so strange?</h2>
