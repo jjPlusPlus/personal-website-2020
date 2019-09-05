@@ -28,9 +28,6 @@ class SignInForm extends Component {
     }).catch(error => {
       alert("Nice try!");
     });
-    // maybe this returns a boolean and i can update the location?
-    // maybe i can do it in the reducer?
-    // maybe in componentwillmount i can check the props for user and redirect?
   }
 
   render() {
