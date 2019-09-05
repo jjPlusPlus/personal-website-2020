@@ -6,15 +6,29 @@ class SignInForm extends Component {
     super(props)
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      valid: false
     }
     this.authenticate = this.authenticate.bind(this)
   }
 
   inputChange = field => event => {
     this.setState({
-      [field]: event.target.value
+      [field]: event.target.value,
     })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // only if the state that changed was one of the form field states
+    if (prevState.email !== this.state.email || prevState.password !== this.state.password) {
+      // perform basic validation here
+      const emailIsValid = this.state.email.length !== 0;
+      const passwordIsValid = this.state.password.length !== 0;
+      const formIsValid = emailIsValid && passwordIsValid;
+      this.setState({
+        valid: formIsValid
+      })
+    }
   }
 
   authenticate(event) {
@@ -24,6 +38,7 @@ class SignInForm extends Component {
       password: this.state.password
     }
     this.props.firebase.login(credentials).then(result => {
+      console.log(result);
       alert("Good job, we knew it was you!");
     }).catch(error => {
       alert("Nice try!");
@@ -42,7 +57,7 @@ class SignInForm extends Component {
           <input className="text-input" type="password" name="password" value={this.state.password} onChange={this.inputChange('password')} />
 
           <div className="flex flex-row-reverse">
-          <button type="submit" className="button submit-button float-right"> Prove it. </button>
+          <button type="submit" className="button submit-button float-right" disabled={!this.state.valid}> Prove it. </button>
           </div>
         </form>
       </div>
