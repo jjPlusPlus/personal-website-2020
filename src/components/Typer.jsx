@@ -33,7 +33,6 @@ class Typer extends Component {
     await timeout(delay);
     let key;
 
-
     for (var i = 0; i < text.length ; i++) {
       await timeout(interval);
       if (!this.mounted) { return; }
@@ -41,13 +40,22 @@ class Typer extends Component {
 
       if (text[i] === " ") {
         this.spacebar.play()
-      } else if (key === 1) {
-        this.slowkey.play();
-      } else if (key === 2) {
-        this.fastkey.play();
       } else {
-        this.midkey.play();
+        switch (key) {
+          case 1:
+            this.slowkey.play();
+            break;
+          case 2:
+            this.fastkey.play();
+            break;
+          case 3:
+            this.midkey.play();
+            break;
+          default:
+            break;
+        }
       }
+
 
       let show = this.state.show;
       show += text[i];
