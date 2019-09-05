@@ -33,7 +33,7 @@ class SignInForm extends Component {
   render() {
     return (
       <div className="sign-in-form">
-        <p>Prove it.</p>
+        <p>Oh rly?</p>
         <form onSubmit={this.authenticate}>
           <input type="text" value={this.state.email} onChange={this.inputChange('email')} />
           <input type="password" value={this.state.password} onChange={this.inputChange('password')} />
