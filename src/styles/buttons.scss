@@ -1,0 +1,33 @@
+@import 'material-colors.scss';
+
+.button {
+  min-width: 200px;
+  padding: 15px;
+  margin: 15px 0px;
+
+  border: 1px solid #575757;
+  border-radius: 2px;
+
+  background-color: #FFF;
+
+  color: #575757;
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+
+  cursor: pointer;
+  transition: 333ms all ease;
+
+  &:hover {
+    background-color: #000;
+    color: #FFF;
+  }
+}
+.submit-button {
+  background-color: $material-indigo-500;
+  color: #FFF;
+  &:hover {
+    background-color: #FFF;
+    color: $material-indigo-500;
+  }
+}
