@@ -11,12 +11,18 @@ class Admin extends Component {
   render() {
     const profile = this.props.auth.email;
     return (
-      <div className="admin-page">
-        <h2>This is my fucking website and I want to make fucking changes</h2>
-        { profile
-          ? <Redirect to='/admin/dashboard' />
-          : <SignInForm />
-        }
+      <div className="page--container">
+        <div className="page">
+          <div className="page--header">
+            <h1 className="page--title">I am JJ</h1>
+          </div>
+          <div className="page--content">
+            { profile
+              ? <Redirect to='/admin/dashboard' />
+              : <SignInForm />
+            }
+          </div>
+        </div>
       </div>
     );
   }

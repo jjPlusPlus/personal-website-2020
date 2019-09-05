@@ -1,25 +1,27 @@
-@import 'styles/page.scss';
-@import 'styles/post-detail.scss';
-@import 'styles/project-detail.scss';
-@import 'styles/pages/about';
-// @import 'styles/pages/posts.scss';
-// @import 'styles/pages/projects.scss';
-// @import 'styles/pages/navigation.scss';
+@import "styles/page.scss";
+@import "styles/post-detail.scss";
+@import "styles/project-detail.scss";
+@import "styles/pages/about";
+// @import "styles/pages/posts.scss";
+// @import "styles/pages/projects.scss";
+// @import "styles/pages/navigation.scss";
 
-@import 'styles/animations.scss';
-@import 'styles/utility';
+@import "styles/animations.scss";
+@import "styles/utility";
+@import "styles/forms";
+@import "styles/buttons";
 
-@import 'styles/components/timeline';
-@import 'styles/components/slider';
+@import "styles/components/timeline";
+@import "styles/components/slider";
 
-@import url('https://fonts.googleapis.com/css?family=Exo|Farro|Roboto+Mono|Signika+Negative&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Exo|Farro|Roboto+Mono|Signika+Negative&display=swap");
 
 html, body {
   min-height: 100%;
   display: flex;
   width: 100%;
   margin: 0;
-  font-family: 'Roboto Mono', sans-serif;
+  font-family: "Roboto Mono", sans-serif;
 }
 body {
   transition: all 333ms ease-in-out;
@@ -29,10 +31,10 @@ body {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: 'Exo', sans-serif;
+  font-family: "Exo", sans-serif;
 }
 p, li {
-  font-family: 'Roboto Mono', sans-serif;
+  font-family: "Roboto Mono", sans-serif;
   line-height: 1.6em;
   font-size: 18px;
 }
