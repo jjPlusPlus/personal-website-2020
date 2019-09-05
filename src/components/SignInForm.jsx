@@ -23,7 +23,11 @@ class SignInForm extends Component {
       email: this.state.email,
       password: this.state.password
     }
-    this.props.firebase.login(credentials);
+    this.props.firebase.login(credentials).then(result => {
+      alert("Good job, we knew it was you!");
+    }).catch(error => {
+      alert("Nice try!");
+    });
     // maybe this returns a boolean and i can update the location?
     // maybe i can do it in the reducer?
     // maybe in componentwillmount i can check the props for user and redirect?
