@@ -8,6 +8,10 @@ class Typer extends Component {
     this.state = {
       show: ""
     }
+    this.spacebar = new Audio('https://raw.githubusercontent.com/yingDev/Tickeys/master/Tickeys.app/Contents/Resources/data/Cherry_G80_3494/G80-3494_space.wav');
+    this.slowkey = new Audio('https://raw.githubusercontent.com/yingDev/Tickeys/master/Tickeys.app/Contents/Resources/data/Cherry_G80_3494/G80-3494_slow1.wav');
+    this.fastkey = new Audio('https://raw.githubusercontent.com/yingDev/Tickeys/master/Tickeys.app/Contents/Resources/data/Cherry_G80_3494/G80-3494_fast1.wav');
+    this.midkey = new Audio('https://raw.githubusercontent.com/yingDev/Tickeys/master/Tickeys.app/Contents/Resources/data/Cherry_G80_3494/G80-3494_enter.wav');
   }
 
   componentDidMount() {
@@ -19,10 +23,7 @@ class Typer extends Component {
     const timeout = ms => new Promise(res => setTimeout(res, ms));
     await timeout(delay);
     let key;
-    var spacebar = new Audio('https://raw.githubusercontent.com/yingDev/Tickeys/master/Tickeys.app/Contents/Resources/data/Cherry_G80_3494/G80-3494_space.wav');
-    var slowkey = new Audio('https://raw.githubusercontent.com/yingDev/Tickeys/master/Tickeys.app/Contents/Resources/data/Cherry_G80_3494/G80-3494_slow1.wav');
-    var fastkey = new Audio('https://raw.githubusercontent.com/yingDev/Tickeys/master/Tickeys.app/Contents/Resources/data/Cherry_G80_3494/G80-3494_fast1.wav');
-    var midkey = new Audio('https://raw.githubusercontent.com/yingDev/Tickeys/master/Tickeys.app/Contents/Resources/data/Cherry_G80_3494/G80-3494_enter.wav');
+
 
     for (var i = 0; i < text.length ; i++) {
       await timeout(interval);
@@ -30,13 +31,13 @@ class Typer extends Component {
       key = Math.floor(Math.random() * 3) + 1;
 
       if (text[i] === " ") {
-        spacebar.play()
+        this.spacebar.play()
       } else if (key === 1) {
-        slowkey.play();
+        this.slowkey.play();
       } else if (key === 2) {
-        fastkey.play();
+        this.fastkey.play();
       } else {
-        midkey.play();
+        this.midkey.play();
       }
 
       let show = this.state.show;
