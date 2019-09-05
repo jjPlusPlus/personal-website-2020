@@ -19,6 +19,14 @@ class Typer extends Component {
     this._animateType(text, delay, interval);
   }
 
+  componentWillUnmount() {
+    this.spacebar.pause();
+    this.slowkey.pause();
+    this.fastkey.pause();
+    this.midkey.pause();
+    this.mounted = false;
+  }
+
   async _animateType(text, delay, interval) {
     const timeout = ms => new Promise(res => setTimeout(res, ms));
     await timeout(delay);
