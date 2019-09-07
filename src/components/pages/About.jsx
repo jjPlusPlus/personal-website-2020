@@ -48,6 +48,11 @@ class About extends Component {
           image: "http://placekitten.com/g/107/107",
           title: "I wish that I...: ",
           text: "Contributed more to open-source projects"
+        },
+        {
+          image: "http://placekitten.com/g/108/108",
+          title: "Famous For: ",
+          text: "Inhuman paralell parking skills"
         }
     ];
 
