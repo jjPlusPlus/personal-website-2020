@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import List from "../List";
 
 import { Link } from "react-router-dom";
-
-import * as actions from '../../actions';
+import Typer from '../Typer';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 class Posts extends Component {
 
@@ -31,23 +33,46 @@ class Posts extends Component {
       });
   }
 
+  goBack = () => {
+    this.props.history.push("/admin/dashboard");
+  }
+
   render() {
     const { posts } = this.props;
     return (
-      <div className="posts">
-        <h1 className="page-header">My fucking articles</h1>
-        <button onClick={this.createNewResource}>New Post</button>
-        { posts &&
-          Object.keys(posts).map((post, index) => {
-            return (
-              <div className="post" key={index}>
-                <h3>{posts[post].name}</h3>
-                <p>{posts[post].description}</p>
-                <Link to = {{ pathname: `/admin/dashboard/posts/${post}`, state:{post: posts[post]}}} >Edit</Link>
-              </div>
-            )
-          })
-        }
+      <div className="page--container admin-posts">
+        <div className="page">
+          <div className="flex flex-row">
+            <div className="page-header--back-button flex flex-center" onClick={() => this.goBack()}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </div>
+            <div className="page--header flex-1">
+
+              <h1 className="page--title">
+                <Typer text="Posts" delay={1200} interval={150} />
+                <span class="blink">_</span>
+              </h1>
+            </div>
+          </div>
+          <div className="posts">
+            <div className="page-list-item list-item-highlight" onClick={this.createNewResource}>
+              <h3>I want to write a new Post</h3>
+            </div>
+
+            { posts &&
+              Object.keys(posts).map((post, index) => {
+                return (
+                  <Link to = {{ pathname: `/admin/dashboard/posts/${post}`, state:{post: posts[post]}}} >
+                    <div className="page-list-item" key={index}>
+                      <h3>{posts[post].name}</h3>
+                      <p>{posts[post].description}</p>
+                    </div>
+                  </Link>
+                )
+              })
+            }
+          </div>
+        </div>
       </div>
     )
   }
