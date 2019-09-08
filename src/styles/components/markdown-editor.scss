@@ -1,0 +1,31 @@
+.markdown-editor--toggle {
+ width: 100%;
+ border: 1px solid #efefef;
+ margin: 5px 0px;
+}
+.markdown-editor--toggle-option {
+  width: 100%;
+  border: 1px solid #efefef;
+  text-align: center;
+  transition: all 222ms ease;
+  cursor: pointer;
+  p {
+    margin: 5px 0px;
+  }
+  &:hover {
+    background-color: #575757;
+    color: #FFF;
+  }
+  &.selected {
+    background-color: #000;
+    color: #FFF;
+  }
+}
+.markdown-editor--textarea {
+  width: 100%;
+  min-height: 400px;
+}
+
+.markdown-editor--preview {
+
+}
