@@ -27,6 +27,8 @@ class PostEditor extends Component {
       images: [],
       tags: [],
       newTag: "",
+      stickyTopBar: false,
+      showPreview: false,
     }
 
     this.updateResource = this.updateResource.bind(this);
