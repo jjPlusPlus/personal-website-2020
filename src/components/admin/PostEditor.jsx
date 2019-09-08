@@ -8,6 +8,10 @@ import { compose } from 'redux';
 
 import Uploader from '../Uploader';
 import CodeBlock from '../CodeBlock';
+import Typer from '../Typer';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faTrashAlt, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 class PostEditor extends Component {
   constructor(props) {
