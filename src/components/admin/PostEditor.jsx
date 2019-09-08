@@ -252,37 +252,39 @@ class PostEditor extends Component {
           <div className="editor">
             { post
               ? <form onSubmit={this.updateResource}>
-                  <div className={"editor--section editor--section-highlighted editor--control-panel page--content flex flex-row " + (this.state.stickyTopBar ? "editor--section-sticky-topbar" : "")}>
-                    <div className="flex flex-center">
-                      <div className="form-inline-checkbox">
-                        <div className="checkbox" onClick={this.checkboxChange('isFeatured')}>
-                          {isFeatured
-                            ? <div className="checkmark">
-                                <FontAwesomeIcon icon={faCheck} />
-                              </div>
-                            : null
-                          }
+                  <div className={"editor--section editor--section-highlighted editor--control-panel page--content " + (this.state.stickyTopBar ? "editor--section-sticky-topbar" : "")}>
+                    <div className="full-padding flex flex-row">
+                      <div className="flex flex-center">
+                        <div className="form-inline-checkbox">
+                          <div className="checkbox" onClick={this.checkboxChange('isFeatured')}>
+                            {isFeatured
+                              ? <div className="checkmark">
+                                  <FontAwesomeIcon icon={faCheck} />
+                                </div>
+                              : null
+                            }
+                          </div>
+                          <label htmlFor="isFeatured">Featured</label>
                         </div>
-                        <label htmlFor="isFeatured">Featured</label>
-                      </div>
-                      <div className="form-inline-checkbox">
-                        <div className="checkbox" onClick={this.checkboxChange('isPublished')}>
-                          {isPublished
-                            ? <div className="checkmark">
-                                <FontAwesomeIcon icon={faCheck} />
-                              </div>
-                            : null
-                          }
+                        <div className="form-inline-checkbox">
+                          <div className="checkbox" onClick={this.checkboxChange('isPublished')}>
+                            {isPublished
+                              ? <div className="checkmark">
+                                  <FontAwesomeIcon icon={faCheck} />
+                                </div>
+                              : null
+                            }
+                          </div>
+                          <label htmlFor="isPublished">Published</label>
                         </div>
-                        <label htmlFor="isPublished">Published</label>
                       </div>
-                    </div>
-                    <div className="flex-1"></div>
-                    <div className="flex flex-row flex-center">
-                      <div className="delete-icon" onClick={this.deletepost()}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
+                      <div className="flex-1"></div>
+                      <div className="flex flex-row flex-center">
+                        <div className="delete-icon" onClick={this.deletepost()}>
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </div>
+                        <button className="save-button" type="submit"> <FontAwesomeIcon icon={faCheck} /> </button>
                       </div>
-                      <button className="save-button" type="submit"> <FontAwesomeIcon icon={faCheck} /> </button>
                     </div>
                   </div>
 
