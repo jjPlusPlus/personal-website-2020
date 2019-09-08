@@ -277,7 +277,7 @@ class PostEditor extends Component {
                   <div className={"editor--section editor--section-highlighted editor--control-panel page--content " + (this.state.stickyTopBar ? "editor--section-sticky-topbar" : "")}>
                     <div className="full-padding flex flex-row">
                       <div className="flex flex-center">
-                        <div className="form-inline-checkbox">
+                        <div className="form-inline-checkbox flex flex-center">
                           <div className="checkbox" onClick={this.checkboxChange('isFeatured')}>
                             {isFeatured
                               ? <div className="checkmark">
@@ -288,7 +288,7 @@ class PostEditor extends Component {
                           </div>
                           <label htmlFor="isFeatured">Featured</label>
                         </div>
-                        <div className="form-inline-checkbox">
+                        <div className="form-inline-checkbox flex flex-center">
                           <div className="checkbox" onClick={this.checkboxChange('isPublished')}>
                             {isPublished
                               ? <div className="checkmark">
