@@ -344,8 +344,20 @@ class PostEditor extends Component {
 
                   <div className="editor--section page--content">
                     <h2>Content</h2>
-                    <textarea className="markdown-editor--textarea" name="content" value={content} onChange={this.inputChange('content')} />
-                    <ReactMarkdown className="markdown-editor--preview" source={content} renderers={{ code: CodeBlock }}/>
+                    <div className="markdown-editor">
+                      <div className="markdown-editor--toggle flex flex-row">
+                        <div onClick={() => this.setState({"showPreview": !this.state.showPreview})} className={"markdown-editor--toggle-option flex-1 " + (!this.state.showPreview ? "selected" : "")}>
+                          <p>Editor</p>
+                        </div>
+                        <div onClick={() => this.setState({"showPreview": !this.state.showPreview})} className={"markdown-editor--toggle-option flex-1 " + (this.state.showPreview ? "selected" : "")}>
+                          <p>Preview</p>
+                        </div>
+                      </div>
+                      { this.state.showPreview
+                        ? <ReactMarkdown className="markdown-editor--preview" source={content} renderers={{ code: CodeBlock }}/>
+                        : <textarea className="markdown-editor--textarea" name="content" value={content} onChange={this.inputChange('content')} />
+                      }
+                    </div>
                   </div>
 
                   <div className="editor--section page--content">
