@@ -329,10 +329,12 @@ class PostEditor extends Component {
                     { images &&
                       Object.keys(images).map((image, index) => {
                         return (
-                          <div className="resource-image" key={index}>
+                          <div className="resource-image flex flex-row flex-center pad-vertical" key={index}>
                             <img src={images[image].downloadURL} alt={images[image].description} width="200px" />
-                            <span>{images[image].name}: "{images[image].description}"</span>
-                            <button onClick={this.onImageDelete(images[image])}>Delete Image</button>
+                            <p className="flex-1 full-padding">
+                              <span className="bold-text">{images[image].name}:</span> <br/> "{images[image].description}"
+                            </p>
+                            <button className="button delete-button" onClick={this.onImageDelete(images[image])}>Delete Image</button>
                           </div>
                         )
                       })
