@@ -34,6 +34,18 @@ class PostEditor extends Component {
     this.updateResource = this.updateResource.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener("scroll", () => {
+      const isExpanded = this.state.stickyTopBar;
+      if (window.scrollY > 90 && !isExpanded) {
+        this.setState({ "stickyTopBar": true });
+      }
+      if (window.scrollY <= 90 && isExpanded) {
+        this.setState({ "stickyTopBar": false });
+      }
+    })
+  }
+
   componentWillUpdate(nextProps, nextState) {
     if (!this.props.post && nextProps.post) {
       // post was passed in successfully
