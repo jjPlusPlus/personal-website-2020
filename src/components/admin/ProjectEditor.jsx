@@ -8,6 +8,10 @@ import { compose } from 'redux';
 
 import Uploader from '../Uploader';
 import CodeBlock from '../CodeBlock';
+import Typer from '../Typer';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faTrashAlt, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 class ProjectEditor extends Component {
   constructor(props) {
@@ -23,9 +27,23 @@ class ProjectEditor extends Component {
       images: [],
       tags: [],
       newTag: "",
+      stickyTopBar: false,
+      showPreview: false,
     }
 
     this.updateResource = this.updateResource.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", () => {
+      const isExpanded = this.state.stickyTopBar;
+      if (window.scrollY > 90 && !isExpanded) {
+        this.setState({ "stickyTopBar": true });
+      }
+      if (window.scrollY <= 90 && isExpanded) {
+        this.setState({ "stickyTopBar": false });
+      }
+    })
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -226,6 +244,10 @@ class ProjectEditor extends Component {
     }
   }
 
+  goBack = () => {
+    this.props.history.push("/admin/dashboard/projects");
+  }
+
   render() {
     const { project, tags } = this.props;
     const { name, snippet, content, isFeatured, isPublished, images, newTag } = this.state;
@@ -236,64 +258,132 @@ class ProjectEditor extends Component {
     }
 
     return (
-      <div className="project-editor">
-        <h2>Edit Project</h2>
-        <button onClick={this.deleteProject()}>Delete Project</button>
-        { project
-          ? <form onSubmit={this.updateResource}>
-              <label htmlFor="name">Name</label> <br />
-              <input name="name" type="text" value={name} onChange={this.inputChange('name')} />
-              <br />
-              <label htmlFor="snippet">Snippet (short list description)</label> <br />
-              <input name="snippet" type="text" value={snippet} onChange={this.inputChange('snippet')} />
-              <br />
-              <label>Add/update article image:</label> <br />
-              { images &&
-                Object.keys(images).map((image, index) => {
-                  return (
-                    <div className="resource-image" key={index}>
-                      <img src={images[image].downloadURL} alt={images[image].description} width="200px" />
-                      <span>{images[image].name}: "{images[image].description}"</span>
-                      <button onClick={this.onImageDelete(images[image])}>Delete Image</button>
+      <div className="page--container editor">
+        <div className="page">
+          <div className="flex flex-row">
+            <div className="page-header--back-button flex flex-center" onClick={() => this.goBack()}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </div>
+            <div className="page--header flex-1">
+              <h1 className="page--title">
+                <Typer text={"Edit Project " + name} delay={1200} interval={150} />
+                <span className="blink">_</span>
+              </h1>
+            </div>
+          </div>
+          <div className="editor">
+            { project
+              ? <form onSubmit={this.updateResource}>
+                  <div className={"editor--section editor--section-highlighted editor--control-panel page--content " + (this.state.stickyTopBar ? "editor--section-sticky-topbar" : "")}>
+                    <div className="full-padding flex flex-row">
+                      <div className="flex flex-center">
+                        <div className="form-inline-checkbox flex flex-center">
+                          <div className="checkbox" onClick={this.checkboxChange('isFeatured')}>
+                            {isFeatured
+                              ? <div className="checkmark">
+                                  <FontAwesomeIcon icon={faCheck} />
+                                </div>
+                              : null
+                            }
+                          </div>
+                          <label htmlFor="isFeatured">Featured</label>
+                        </div>
+                        <div className="form-inline-checkbox flex flex-center">
+                          <div className="checkbox" onClick={this.checkboxChange('isPublished')}>
+                            {isPublished
+                              ? <div className="checkmark">
+                                  <FontAwesomeIcon icon={faCheck} />
+                                </div>
+                              : null
+                            }
+                          </div>
+                          <label htmlFor="isPublished">Published</label>
+                        </div>
+                      </div>
+                      <div className="flex-1"></div>
+                      <div className="flex flex-row flex-center">
+                        <div className="delete-icon" onClick={this.deleteProject()}>
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </div>
+                        <button className="save-button" type="submit"> <FontAwesomeIcon icon={faCheck} /> </button>
+                      </div>
                     </div>
-                  )
-                })
-              }
-              <Uploader addImage={(path, downloadURL, name, description) => this.addImage(path, downloadURL, name, description)}/>
+                  </div>
 
-              <label htmlFor="content">Content</label> <br />
-              <textarea name="content" value={content} onChange={this.inputChange('content')} />
-              <ReactMarkdown source={content} renderers={{ code: CodeBlock }}/>
-              <br />
-              <label>Tag Editor</label>
-              { tags &&
-                Object.keys(tags).map((value, index) => {
-                  const tag = tags[value];
-                  const isChecked = existingTags && existingTags.includes(value);
+                  {this.state.stickyTopBar
+                    ? <div className="editor--section-sticky-placeholder"></div>
+                    : null
+                  }
 
-                  return (
-                    <div className="tag-manager" key={index}>
-                      <input type="checkbox" checked={isChecked} value={value} name={tag.name} key={value} onChange={this.handleTagCheckboxChange(value)} />
-                      <label htmlFor={tag.name}>{tag.name}</label>
+                  <div className="editor--section page--content">
+                    <h2>General Information</h2>
+                    <label htmlFor="name">Name</label> <br />
+                    <input className="text-input" name="name" type="text" value={name} onChange={this.inputChange('name')} />
+
+                    <label htmlFor="snippet">Snippet (short list description)</label> <br />
+                    <input className="text-input" name="snippet" type="text" value={snippet} onChange={this.inputChange('snippet')} />
+                  </div>
+
+                  <div className="editor--section page--content">
+                    <h2>Article image:</h2>
+                    { images &&
+                      Object.keys(images).map((image, index) => {
+                        return (
+                          <div className="resource-image flex flex-row flex-center pad-vertical" key={index}>
+                            <img src={images[image].downloadURL} alt={images[image].description} width="200px" />
+                            <p className="flex-1 full-padding">
+                              <span className="bold-text">{images[image].name}:</span> <br/> "{images[image].description}"
+                            </p>
+                            <button className="button delete-button" onClick={this.onImageDelete(images[image])}>Delete Image</button>
+                          </div>
+                        )
+                      })
+                    }
+                    <Uploader addImage={(path, downloadURL, name, description) => this.addImage(path, downloadURL, name, description)}/>
+                  </div>
+
+                  <div className="editor--section page--content">
+                    <h2>Content</h2>
+                    <div className="markdown-editor">
+                      <div className="markdown-editor--toggle flex flex-row">
+                        <div onClick={() => this.setState({"showPreview": !this.state.showPreview})} className={"markdown-editor--toggle-option flex-1 " + (!this.state.showPreview ? "selected" : "")}>
+                          <p>Editor</p>
+                        </div>
+                        <div onClick={() => this.setState({"showPreview": !this.state.showPreview})} className={"markdown-editor--toggle-option flex-1 " + (this.state.showPreview ? "selected" : "")}>
+                          <p>Preview</p>
+                        </div>
+                      </div>
+                      { this.state.showPreview
+                        ? <ReactMarkdown className="markdown-editor--preview" source={content} renderers={{ code: CodeBlock }}/>
+                        : <textarea className="markdown-editor--textarea" name="content" value={content} onChange={this.inputChange('content')} />
+                      }
                     </div>
-                  )
-                })
-              }
-              <p>Add a Tag</p>
-              <input name="newTag" type="text" value={newTag} onChange={this.inputChange('newTag')} />
-              <button onClick={this.addTag()}>Add</button>
+                  </div>
 
-              <br />
-              <label htmlFor="isFeatured">Featured</label> <br />
-              <input name="isFeatured" type="checkbox" value={isFeatured} onChange={this.checkboxChange('isFeatured')} />
-              <br />
-              <label htmlFor="isPublished">Published</label> <br />
-              <input name="isPublished" type="checkbox" value={isPublished} onChange={this.checkboxChange('isPublished')} />
-              <br />
-              <button type="submit"> Update </button>
-            </form>
-          : <p>loading...</p>
-        }
+                  <div className="editor--section page--content">
+                    <h2>Tag Editor</h2>
+                    { tags &&
+                      Object.keys(tags).map((value, index) => {
+                        const tag = tags[value];
+                        const isChecked = existingTags && existingTags.includes(value);
+
+                        return (
+                          <div className="tag-manager" key={index}>
+                            <input type="checkbox" checked={isChecked} value={value} name={tag.name} key={value} onChange={this.handleTagCheckboxChange(value)} />
+                            <label htmlFor={tag.name}>{tag.name}</label>
+                          </div>
+                        )
+                      })
+                    }
+                    <p>Add a Tag</p>
+                    <input name="newTag" type="text" value={newTag} onChange={this.inputChange('newTag')} />
+                    <button onClick={this.addTag()}>Add</button>
+                  </div>
+                </form>
+              : <p>loading...</p>
+            }
+          </div>
+        </div>
       </div>
     )
   }
