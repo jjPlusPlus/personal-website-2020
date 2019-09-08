@@ -232,6 +232,10 @@ class PostEditor extends Component {
     }
   }
 
+  goBack = () => {
+    this.props.history.push("/admin/dashboard/posts");
+  }
+
   render() {
     const { post, tags } = this.props;
     const { name, snippet, content, isFeatured, isPublished, images, newTag } = this.state;
