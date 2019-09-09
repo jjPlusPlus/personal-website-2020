@@ -50,6 +50,8 @@ export const play = (pathname, node, appears) => {
     setTimeout(() => {
       node.classList.remove('animatePageIn');
     }, 333)
+  } else if (pathname.includes('/admin/dashboard')) {
+    document.body.style.background = blueGray50;
   }
 }
 

@@ -43,3 +43,23 @@
   color: #575757;
   transform: scale(1.1);
 }
+.list-item-highlight {
+  background-color: rgba(#000, 0.75);
+  color: #FFF;
+}
+
+.page-header--back-button {
+  font-size: 24px;
+  padding: 0px 25px;
+  background-color: rgba(#007aff,0.75);
+  color: #fff;
+  border-radius: 2px;
+  margin-right: 5px;
+  transition: all 333ms ease;
+  cursor: pointer;
+}
+.page-header--back-button:hover {
+  background-color: rgba(#007aff,0.9);
+  color: #FFF;
+  transform: scale(1.1);
+}

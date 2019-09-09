@@ -1,0 +1,21 @@
+.editor--section-sticky-topbar {
+  position: fixed;
+  top: 0px;
+  max-width: 900px;
+  width: calc(100% - 30px);
+  margin: 0px;
+  background-color: #000;
+  color: #FFF;
+  z-index: 1;
+  transition: all 333ms ease;
+}
+.editor--section-sticky-placeholder {
+  height: 50px;
+}
+.editor--section-highlighted {
+  background-color: #000;
+  color: #FFF;
+}
+.editor--control-panel {
+  padding: 0px;
+}

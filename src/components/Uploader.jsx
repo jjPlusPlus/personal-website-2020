@@ -72,7 +72,7 @@ class Uploader extends Component {
       <div className="uploader">
         <Dropzone onDrop={this.onFilesDrop()} >
           {({getRootProps}) => (
-            <div className="dropzone" {...getRootProps()}>
+            <div className="drop-zone flex flex-center" {...getRootProps()}>
               <p>Drop a SINGLE image here</p>
             </div>
           )}
