@@ -11,11 +11,11 @@ class PostDetail extends Component {
     const allTags = this.props.tags;
     const post = this.props.location.state.post;
     return (
-      <div className="page--container post-detail-page">
+      <div className="page--container resource-detail-page">
 
         <div className="page">
           {/* TODO: handle multiple images per resource */}
-          <div className="post-detail--image-header">
+          <div className="resource-detail--image-header">
             {post.images && post.images.map((image, index) => {
               return (
                 <img src={image.downloadURL} alt={image.description || ""}/>
@@ -23,12 +23,13 @@ class PostDetail extends Component {
             })}
           </div>
 
-          <div className="post-detail--header">
+          <div className="resource-detail--header">
             <h1>{post.name}</h1>
-            <p className="post-detail--header--snippet">{post.snippet}</p>
+            <p className="resource-detail--posted-at">May 20 @ 3pm</p>
+            <p className="resource-detail--header--snippet">{post.snippet}</p>
           </div>
 
-          <div className="post-detail--tags">
+          <div className="resource-detail--tags">
             { allTags &&
               post.tags.map((key, index) => {
                 const tag = allTags[key];
@@ -40,7 +41,7 @@ class PostDetail extends Component {
               })
             }
           </div>
-          <div className="post-detail--content">
+          <div className="resource-detail--content">
             <ReactMarkdown source={post.content} renderers={{ code: CodeBlock }}/>
           </div>
         </div>
