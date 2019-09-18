@@ -10,12 +10,16 @@ export const play = (pathname, node, appears) => {
     }, 333)
   } else if (pathname === '/posts') {
     document.body.style.background = blue500;
+    document.body.className = '';
+    document.body.classList.add('posts');
     node.children[0].classList.add('animatePageIn');
     setTimeout(() => {
       node.children[0].classList.remove('animatePageIn');
     }, 333)
   } else if (pathname === '/projects') {
     document.body.style.background = deepPurple500;
+    document.body.className = '';
+    document.body.classList.add('projects');
     node.children[0].classList.add('animatePageIn');
     setTimeout(() => {
       node.children[0].classList.remove('animatePageIn');

@@ -1,0 +1,9 @@
+@import 'material-colors';
+.posts .page-list-item--highlighted {
+  background-color: $material-blue-a700;
+  color: white;
+}
+.projects .page-list-item--highlighted {
+  background-color: $material-purple-a700;
+  color: white;
+}
