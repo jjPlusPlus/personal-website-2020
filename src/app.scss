@@ -4,10 +4,6 @@
 @import "styles/pages/about";
 @import "styles/editor";
 
-// @import "styles/pages/posts.scss";
-// @import "styles/pages/projects.scss";
-// @import "styles/pages/navigation.scss";
-
 @import "styles/animations.scss";
 @import "styles/utility";
 @import "styles/forms";
@@ -17,6 +13,8 @@
 @import "styles/components/slider";
 @import "styles/components/image-uploader";
 @import "styles/components/markdown-editor";
+
+@import "styles/responsive";
 
 @import url("https://fonts.googleapis.com/css?family=Exo|Farro|Roboto+Mono|Signika+Negative&display=swap");
 

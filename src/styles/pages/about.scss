@@ -1,9 +1,6 @@
 @import '../material-colors';
 
 .about-page .icon-links {
-  position: absolute;
-  top: 85px;
-  right: -80px;
   cursor: pointer;
   svg {
     color: $material-green-500;
@@ -16,6 +13,9 @@
   }
 }
 
+.about-page .progress-item {
+  color: #EC407A
+}
 .about-page .image-grid {
   display: flex;
   flex-direction: row;
