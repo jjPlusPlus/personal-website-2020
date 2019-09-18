@@ -36,33 +36,52 @@ class Posts extends Component {
           <div className="page--header">
             <h1 className="page--title">
               { tags && tagKey
-                ? <Typer text={"Here are some posts about " + (tags[tagKey].name)} delay={1200} interval={150} />
+                ? <Typer text={tagKey === "all" ? "Here are all the posts" : "Here are some posts about " + (tags[tagKey].name)} delay={1200} interval={150} />
                 : <Typer text={"What kind of posts are you interested in?"} delay={1200} interval={150} />
               }
               <span class="blink">_</span>
             </h1>
           </div>
 
-          { tags && !tagKey &&
-            Object.keys(tags).map((key, index) => {
-              const tag = tags[key];
-              if (tag.posts && tag.posts.length) {
-                const timeout = 50 * (index);
-                return (
-                  <CSSTransition key={index} appear={true} in={true} timeout={timeout} classNames="list-animation">
-                    <div onClick={() => this.setTag(key)} className="page-list-item">
-                      <h1>I want to read posts about {tag.name}</h1>
-                    </div>
-                  </CSSTransition>
-                )
-              }
-            })
+          { tags && !tagKey
+            ? <div>
+                <div onClick={() => this.setTag("all")} className="page-list-item page-list-item--highlighted">
+                  <h1>I want to see them ALL</h1>
+                </div>
+                {
+                  Object.keys(tags).map((key, index) => {
+                    const tag = tags[key];
+                    if (tag.posts && tag.posts.length) {
+                      const timeout = 50 * (index);
+                      return (
+                        <CSSTransition key={index} appear={true} in={true} timeout={timeout} classNames="list-animation">
+                          <div onClick={() => this.setTag(key)} className="page-list-item">
+                            <h1>I want to read posts about {tag.name}</h1>
+                          </div>
+                        </CSSTransition>
+                      )
+                    }
+                  })
+                }
+              </div>
+            : null
           }
 
           { posts && tagKey
             ? <div className="posts-page--posts">
                 {
                   Object.keys(posts).map((post, index) => {
+                    if (tagKey === "all") {
+                      const timeout = 50 * (index);
+                      return (
+                        <CSSTransition key={index} appear={true} in={true} timeout={timeout} classNames="list-animation">
+                          <Link to = {{ pathname: `/posts/${post}`, state:{post: posts[post]}}} className="page-list-item">
+                            <h1>{posts[post].name}</h1>
+                            <p>{posts[post].description}</p>
+                          </Link>
+                        </CSSTransition>
+                      )
+                    }
                     if (tagKey && posts[post].tags && posts[post].tags.includes(tagKey)) {
                       const timeout = 50 * (index);
                       return (
