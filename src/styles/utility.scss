@@ -36,6 +36,8 @@
 /* IMAGES */
 .circle-image {
   border-radius: 100px; // 200x200 images
+  max-height: 200px;
+  max-width: 200px;
 }
 .image-full-width {
   width: 100%;
