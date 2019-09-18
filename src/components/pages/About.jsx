@@ -61,18 +61,11 @@ class About extends Component {
 
         <div className="page">
           <div className="page--header">
-            <h1 className="page--title"> <Typer text={"Who is JJ?"} delay={1200} interval={150} /><span class="blink">_</span> </h1>
-          </div>
-
-          <div className="flex flex-center flex-column icon-links">
-
-            <a href="https://www.linkedin.com/in/jjmedina/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></a>
-            <a href="https://github.com/jjPlusPlus/" target="_blank"><FontAwesomeIcon icon={faGithub} /></a>
-            <a href="https://www.instagram.com/mega094/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
+            <h1 className="page--title"> <Typer text={"Who is JJ?"} delay={1200} interval={150} /><span className="blink">_</span> </h1>
           </div>
 
           <div className="page--content box-shadow border-radius-small">
-            <div className="flex flex-row">
+            <div className="flex flex-row-lg flex-column-sm flex-center">
               <img className="circle-image" src="http://placekitten.com/g/200/200" />
               <div className="flex-1 text-callout-blurb">
                 <h2>Just the Basics</h2>
@@ -82,6 +75,12 @@ class About extends Component {
                 </p>
               </div>
             </div>
+          </div>
+
+          <div className="flex flex-center flex-column-lg flex-row-sm icon-links">
+            <a href="https://www.linkedin.com/in/jjmedina/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></a>
+            <a href="https://github.com/jjPlusPlus/" target="_blank"><FontAwesomeIcon icon={faGithub} /></a>
+            <a href="https://www.instagram.com/mega094/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
           </div>
         </div>
 
@@ -96,7 +95,7 @@ class About extends Component {
         <div className="page">
           <div className="page--content box-shadow border-radius-small">
             <h2>Q&A</h2>
-            <Slider contents={qaSliderContent} interval={4000}/>
+            <Slider contents={qaSliderContent} interval={4000} hideImageOnSmall={true}/>
           </div>
         </div>
 
@@ -105,7 +104,7 @@ class About extends Component {
             <h2>What kind of formal design/programming education do I have?</h2>
 
             <div className="timeline flex flex-column">
-              <div className="timeline-bar flex flex-row">
+              <div className="timeline-bar flex flex-row-lg flex-column-sm">
                 <div className="timeline-bar--section bg-indigo flex flex-center flex-6 text-center">
                   <div className="timeline-section-marker"><p>Various community colleges</p></div>
                 </div>
@@ -113,7 +112,7 @@ class About extends Component {
                   <div className="timeline-section-marker"><p>The Art Institute of CA</p></div>
                 </div>
               </div>
-              <div className="timeline-markers flex flex-row">
+              <div className="timeline-markers flex flex-row hide-for-small">
                   <div className="flex-1 text-center"><p>2005</p></div>
                   <div className="flex-1 text-center"><p>2006</p></div>
                   <div className="flex-1 text-center"><p>2007</p></div>
