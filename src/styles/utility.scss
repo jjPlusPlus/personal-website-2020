@@ -81,6 +81,23 @@
   flex: 6;
 }
 
+@media only screen and (max-width: 640px) {
+  .flex-column-sm {
+    flex-direction: column;
+  }
+  .flex-row-sm {
+    flex-direction: row;
+  }
+}
+@media only screen and (min-width: 641px) {
+  .flex-column-lg {
+    flex-direction: column;
+  }
+  .flex-row-lg {
+    flex-direction: row;
+  }
+}
+
 /* COLOR */
 .bg-red {
   background-color: $material-red-500;
