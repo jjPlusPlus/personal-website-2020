@@ -68,7 +68,7 @@ class Slider extends Component {
   }
 
   render() {
-    const { contents } = this.props;
+    const { contents, hideImageOnSmall } = this.props;
     const { index } = this.state;
 
     return (
@@ -79,7 +79,7 @@ class Slider extends Component {
               <CSSTransition key={index} timeout={{appear: 333, enter: 222, exit: 444}} mountOnEnter={true} unmountOnExit classNames="slider-animation">
                 <div className="slider-item">
                   <div className="slider-item--content flex flex-row">
-                    <img className="slider-item--image" src={contents[index].image} width="100px" height="100px" />
+                    <img className={"slider-item--image " + (hideImageOnSmall ? "hide-for-small" : "")} src={contents[index].image} width="100px" height="100px" />
                     <p className="flex-1">
                       <span className="slider-item--title">{contents[index].title}</span> <br />
                       <span>{contents[index].text}</span>
