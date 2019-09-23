@@ -21,6 +21,12 @@
     padding: 10px 0px;
     margin: 10px 0px;
   }
+  .about-page .timeline-markers p {
+    font-size: 12px;
+  }
+  .about-page .image-grid--item p {
+    font-size: 12px;
+  }
   .hide-for-small {
     display: none;
   }
@@ -35,6 +41,12 @@
     position: absolute;
     top: 85px;
     right: -80px;
+  }
+  .landing {
+    background-image: url('/face-wrap-medium.jpg') !important;
+  }
+  .landing-page--content {
+    width: 500px;
   }
 }
 
