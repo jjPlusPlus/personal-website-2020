@@ -3,7 +3,17 @@ import { matchPath } from "react-router-dom";
 
 export const play = (pathname, node, appears) => {
   if (pathname === '/') {
+    document.body.style.background = "#000";
+    document.body.className = '';
+    document.body.classList.add('landing');
+    node.children[0].classList.add('animatePageIn');
+    setTimeout(() => {
+      node.children[0].classList.remove('animatePageIn');
+    }, 333)
+  } else if (pathname === '/app') {
     document.body.style.background = teal200;
+    document.body.className = '';
+    document.body.classList.add('navigation');
     node.children[0].classList.add('animatePageIn');
     setTimeout(() => {
       node.children[0].classList.remove('animatePageIn');
