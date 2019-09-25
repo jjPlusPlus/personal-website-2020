@@ -61,7 +61,8 @@ class ProjectEditor extends Component {
         isPublished: nextProps.project.isPublished,
         isFeatured: nextProps.project.isFeatured,
         images: nextProps.project.images || [],
-        tags: nextProps.project.tags || []
+        tags: nextProps.project.tags || [],
+        links: nextProps.project.links || []
       })
     }
   }
