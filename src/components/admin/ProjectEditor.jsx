@@ -95,6 +95,15 @@ class ProjectEditor extends Component {
     })
   }
 
+  deepInputChange = (object, field) => event => {
+    const base = this.state[object];
+    base[field] = event.target.value;
+
+    this.setState({
+      [object]: base
+    })
+  }
+
   checkboxChange = field => event => {
     this.setState({
       [field]: event.target.value
