@@ -325,6 +325,38 @@ class ProjectEditor extends Component {
                   </div>
 
                   <div className="editor--section page--content">
+                    <h2>Links</h2>
+                    { project.links &&
+                      project.links.map((link, index) => {
+                        return (
+                          <div className="resource-link flex flex-row">
+                            <div className="flex-1">
+                              <p>{link.url}</p>
+                              <p>{link.description}</p>
+                            </div>
+                            <div className="flex flex-row flex-center">
+                              <div className="delete-icon" onClick={this.deleteLink()}>
+                                <FontAwesomeIcon icon={faTrashAlt} />
+                              </div>
+                              <button className="save-button" onClick={this.saveLink()}>
+                                <FontAwesomeIcon icon={faCheck} />
+                              </button>
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
+
+                    <p>Add a link:</p>
+
+                    <label htmlFor="link-url">URL</label>
+                    <input className="text-input" type="text" name="link-url" value={newLink.url} onChange={this.deepInputChange('newLink', 'url')} />
+                    <label htmlFor="link-description">Description</label>
+                    <input className="text-input" type="text" name="link-description" value={newLink.description} onChange={this.deepInputChange('newLink', 'description')} />
+                    <button onClick={this.saveNewLink()}>Add</button>
+                  </div>
+
+                  <div className="editor--section page--content">
                     <h2>Article image:</h2>
                     { images &&
                       Object.keys(images).map((image, index) => {
