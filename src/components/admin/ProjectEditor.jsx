@@ -196,6 +196,33 @@ class ProjectEditor extends Component {
     })
   }
 
+  saveNewLink = link => (event) => {
+    event.preventDefault();
+    const newLink = this.state.newLink;
+
+    // TODO: improve validation
+    if (!newLink || newLink.description.length === 0 || newLink.url.length === 0) {
+      return;
+    }
+
+    const links = this.state.links;
+    links.push(newLink);
+    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+      links: links
+    }).then(result => {
+      alert("Update successful.")
+    }).catch(error => {
+      console.log(error);
+      alert("There was a problem updating the resource");
+    });
+  }
+  saveLink = link => (event) => {
+
+  }
+  deleteLink = link => (event) => {
+
+  }
+
 
   onImageDelete = image => (event) => {
     event.preventDefault();
