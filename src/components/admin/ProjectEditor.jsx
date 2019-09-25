@@ -26,7 +26,12 @@ class ProjectEditor extends Component {
       isFeatured: false,
       images: [],
       tags: [],
+      links: [],
       newTag: "",
+      newLink: {
+        description: "",
+        url: ""
+      },
       stickyTopBar: false,
       showPreview: false,
     }
