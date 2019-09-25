@@ -16,3 +16,17 @@
 .project-detail--tags {
   padding: 0px 15px;
 }
+.resource-detail--links {
+  padding: 15px;
+}
+.resource-detail--link {
+  border-top: 1px solid #007aff;
+  border-bottom: 1px solid #007aff;
+  margin-top: -1px;
+  a {
+    display: block;
+    padding: 15px 10px;
+    color: #007aff;
+    cursor: pointer;
+  }
+}

@@ -6,10 +6,18 @@ import { firebaseConnect, getVal } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
+
+function LinkRenderer(props) {
+  return <a href={props.href} target="_blank">{props.children}</a>
+}
+
 class ProjectDetail extends Component {
   render() {
     const allTags = this.props.tags;
     const project = this.props.location.state.project;
+    const links = project.links;
     return (
       <div className="page--container project-detail-page">
 
@@ -40,8 +48,19 @@ class ProjectDetail extends Component {
               })
             }
           </div>
+          <div className="resource-detail--links">
+            { links &&
+              links.map((link, index) => {
+                return (
+                  <div className="resource-detail--link" key={index}>
+                    <a href={link.url} target="_blank"><FontAwesomeIcon icon={faLink}/> {link.description}</a>
+                  </div>
+                )
+              })
+            }
+          </div>
           <div className="project-detail--content">
-            <ReactMarkdown source={project.content} renderers={{ code: CodeBlock }}/>
+            <ReactMarkdown source={project.content} renderers={{ code: CodeBlock, link: LinkRenderer }}/>
           </div>
         </div>
       </div>
