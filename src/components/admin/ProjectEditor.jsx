@@ -292,7 +292,7 @@ class ProjectEditor extends Component {
 
   render() {
     const { project, tags } = this.props;
-    const { name, snippet, content, isFeatured, isPublished, images, newTag } = this.state;
+    const { name, snippet, content, isFeatured, isPublished, images, newTag, newLink } = this.state;
     const existingTags = this.state.tags;
 
     if (!project) {
