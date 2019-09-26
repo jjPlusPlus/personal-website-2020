@@ -54,7 +54,7 @@ class Navigation extends Component {
           { !typing && (
             <div className={"fade-left " + (delaying === true ? "fading-left" : "")}>
               <CSSTransition appear={true} in={true} timeout={111} classNames="list-animation">
-                <DelayLink delay={333} to="/projects" className="page-list-item" onDelayStart={() => this.delayStart()}>
+                <DelayLink delay={333} to="/projects" className="page-list-item " onDelayStart={() => this.delayStart()}>
                   <h1>I want to see JJ's projects</h1>
                 </DelayLink>
               </CSSTransition>
@@ -64,7 +64,7 @@ class Navigation extends Component {
                 </DelayLink>
               </CSSTransition>
               <CSSTransition appear={true} in={true} timeout={333} classNames="list-animation">
-                <DelayLink delay={333} to="/about" className="page-list-item" onDelayStart={() => this.delayStart()}>
+                <DelayLink delay={333} to="/about" className="page-list-item page-list-item--highlighted" onDelayStart={() => this.delayStart()}>
                   <h1>Who is JJ</h1>
                 </DelayLink>
               </CSSTransition>

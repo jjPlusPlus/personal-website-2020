@@ -26,7 +26,12 @@ class ProjectEditor extends Component {
       isFeatured: false,
       images: [],
       tags: [],
+      links: [],
       newTag: "",
+      newLink: {
+        description: "",
+        url: ""
+      },
       stickyTopBar: false,
       showPreview: false,
     }
@@ -56,7 +61,8 @@ class ProjectEditor extends Component {
         isPublished: nextProps.project.isPublished,
         isFeatured: nextProps.project.isFeatured,
         images: nextProps.project.images || [],
-        tags: nextProps.project.tags || []
+        tags: nextProps.project.tags || [],
+        links: nextProps.project.links || []
       })
     }
   }
@@ -86,6 +92,15 @@ class ProjectEditor extends Component {
   inputChange = field => event => {
     this.setState({
       [field]: event.target.value
+    })
+  }
+
+  deepInputChange = (object, field) => event => {
+    const base = this.state[object];
+    base[field] = event.target.value;
+
+    this.setState({
+      [object]: base
     })
   }
 
@@ -181,6 +196,33 @@ class ProjectEditor extends Component {
     })
   }
 
+  saveNewLink = link => (event) => {
+    event.preventDefault();
+    const newLink = this.state.newLink;
+
+    // TODO: improve validation
+    if (!newLink || newLink.description.length === 0 || newLink.url.length === 0) {
+      return;
+    }
+
+    const links = this.state.links;
+    links.push(newLink);
+    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+      links: links
+    }).then(result => {
+      alert("Update successful.")
+    }).catch(error => {
+      console.log(error);
+      alert("There was a problem updating the resource");
+    });
+  }
+  saveLink = link => (event) => {
+
+  }
+  deleteLink = link => (event) => {
+
+  }
+
 
   onImageDelete = image => (event) => {
     event.preventDefault();
@@ -250,7 +292,7 @@ class ProjectEditor extends Component {
 
   render() {
     const { project, tags } = this.props;
-    const { name, snippet, content, isFeatured, isPublished, images, newTag } = this.state;
+    const { name, snippet, content, isFeatured, isPublished, images, newTag, newLink } = this.state;
     const existingTags = this.state.tags;
 
     if (!project) {
@@ -322,6 +364,38 @@ class ProjectEditor extends Component {
 
                     <label htmlFor="snippet">Snippet (short list description)</label> <br />
                     <input className="text-input" name="snippet" type="text" value={snippet} onChange={this.inputChange('snippet')} />
+                  </div>
+
+                  <div className="editor--section page--content">
+                    <h2>Links</h2>
+                    { project.links &&
+                      project.links.map((link, index) => {
+                        return (
+                          <div className="resource-link flex flex-row">
+                            <div className="flex-1">
+                              <p>{link.url}</p>
+                              <p>{link.description}</p>
+                            </div>
+                            <div className="flex flex-row flex-center">
+                              <div className="delete-icon" onClick={this.deleteLink()}>
+                                <FontAwesomeIcon icon={faTrashAlt} />
+                              </div>
+                              <button className="save-button" onClick={this.saveLink()}>
+                                <FontAwesomeIcon icon={faCheck} />
+                              </button>
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
+
+                    <p>Add a link:</p>
+
+                    <label htmlFor="link-url">URL</label>
+                    <input className="text-input" type="text" name="link-url" value={newLink.url} onChange={this.deepInputChange('newLink', 'url')} />
+                    <label htmlFor="link-description">Description</label>
+                    <input className="text-input" type="text" name="link-description" value={newLink.description} onChange={this.deepInputChange('newLink', 'description')} />
+                    <button onClick={this.saveNewLink()}>Add</button>
                   </div>
 
                   <div className="editor--section page--content">
