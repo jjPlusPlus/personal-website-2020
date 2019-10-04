@@ -5,7 +5,8 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { play, exit } from "./animations";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import Landing from './components/Landing';
+import LandingA from './components/LandingA';
+import LandingB from './components/LandingB';
 
 import Navigation from './components/Navigation';
 import Posts from './components/pages/Posts';
@@ -44,7 +45,7 @@ class App extends Component {
               timeout={{enter: 333, exit: 333}}
             >
               <Switch location={location}>
-                <Route path="/" exact component={Landing} />
+                <Route path="/" exact component={LandingB} />
                 <Route path="/app" exact component={Navigation} />
                 <Route exact path="/posts" component={Posts} />
                   <Route path="/posts/:id" component={PostDetail} />

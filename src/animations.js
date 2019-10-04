@@ -3,9 +3,9 @@ import { matchPath } from "react-router-dom";
 
 export const play = (pathname, node, appears) => {
   if (pathname === '/') {
-    document.body.style.background = "#000";
+    // document.body.style.background = "#000";
     document.body.className = '';
-    document.body.classList.add('landing');
+    document.body.classList.add('landing-b-root');
     node.children[0].classList.add('animatePageIn');
     setTimeout(() => {
       node.children[0].classList.remove('animatePageIn');
