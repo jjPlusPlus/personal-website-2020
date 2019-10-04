@@ -1,0 +1,71 @@
+.box-3d--scene {
+  perspective: 600px;
+}
+.box-3d {
+  position: relative;
+  width: 600px;
+  height: 800px;
+  transform-style: preserve-3d;
+  transform: translate3D(0px, 0px, -100px) rotate3d(0, 1, 0, 0deg)
+}
+
+.box-3d--front {
+  border-left: none;
+  z-index:1;
+}
+
+.box-3d--left {
+  position: absolute;
+  z-index:1;
+  width: 100px;
+  height: 800px;
+  left: 300px;
+  background-color:#009386;
+  color: #FFF;
+  border: 1px solid #000;
+  border-top: 5px solid black, 15px solid white, 20px solid black;
+  border-left: none;
+  transform: translate3d(-350px,0px,-50px) rotateY(-90deg);
+  box-shadow: inset 6px 0px 12px rgba(0,0,0,0.3);
+}
+.box-3d--left h3 {
+  margin: 0;
+  color: #FFF;
+  transform: rotateY(90deg)
+}
+.box-3d--right {
+  z-index:1;
+  position: absolute;
+  width: 100px;
+  height: 800px;
+  left: 300px;
+  background-color:#FFF;
+  transform: translate3d(250px,0px,-50px) rotateY(90deg);
+}
+.box-3d--bottom {
+  position: absolute;
+  z-index:1;
+  width: 600px;
+  height: 100px;
+  top: 400px;
+  background-color:#FFF;
+  transform: translate3d(0px, 350px, -50px) rotateX(90deg);
+}
+.box-3d--top {
+  position: absolute;
+  z-index:1;
+  width: 600px;
+  height: 100px;
+  top: 400px;
+  background-color:#FFF;
+  transform: translate3d(0px,-450px,-50px) rotateX(90deg);
+}
+.box-3d--shadow {
+  z-index: 0;
+  position: absolute;
+  bottom: -80px;
+  left: -40%;
+  width: 180%;
+  background-image: radial-gradient(#ababab 0%, #ababab 30%, rgba(0,0,0,0) 70%);
+  height: 150px;
+}
