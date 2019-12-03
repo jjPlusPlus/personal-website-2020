@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './app.scss';
 
+import ReactGA from 'react-ga';
+
 import { Route, Redirect, Switch } from "react-router-dom";
 import { play, exit } from "./animations";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -26,6 +28,9 @@ import ProjectEditor from './components/admin/ProjectEditor';
 import ResumeEditor from './components/admin/ResumeEditor';
 
 import ProtectedRoute from './components/ProtectedRoute';
+
+const trackingId = "149202297";
+ReactGA.initialize(trackingId);
 
 class App extends Component {
 
