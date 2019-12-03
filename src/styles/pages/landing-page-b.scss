@@ -1,0 +1,256 @@
+body.landing-b-root {
+  width: 100vw;
+  height: 100vh;
+}
+
+.landing-page-b {
+  @import url('https://fonts.googleapis.com/css?family=EB+Garamond:400&display=swap');
+  h1, h2, h3, h4, p {
+    font-family: "EB Garamond";
+  }
+  width: 100vw;
+  height: 100vh;
+  background-image: radial-gradient(
+    #efefef 0%,
+    #ECEFF1 40%,
+    #ababab 80%,
+    #95859D 100%
+  );
+}
+.landing-page-b--header {
+  border-top: 10px solid #009386;
+  margin: 0px 15px;
+  p {
+    font-size: 1em;
+    font-style: italic;
+    text-align: left;
+    margin: 0;
+  }
+}
+.landing-page-b--content {
+  width: 100%;
+  height: 100vh;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border: 1px solid #575757;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: inset 6px 0px 12px rgba(0,0,0,0.1)
+}
+
+.landing-page-b--main-block {
+  flex: 1;
+  justify-content: flex-end;
+  position: relative;
+  &.flex-column {
+    flex-direction: column-reverse;
+  }
+  &:after {
+    content: "";
+    background-image: url('/demagorgon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    width: 100%;
+    height: 82%;
+  }
+}
+.landing-page-b--main-block--content {
+  padding-bottom: 40px;
+  transform:translateY(-15px);
+}
+
+.landing-page-b .box-3d {
+  width: 100vw;
+  height: 100vh;
+}
+
+.landing-page-b--title-area {
+  background-color: #009386;
+  color: #FFF;
+  padding: 0px 50px 15px;
+  text-align: center;
+  h1 {
+    font-size: 4em;
+    font-weight: normal;
+    margin: 0;
+  }
+}
+
+.landing-page-b--footer {
+  padding: 0px 25px 25px;
+}
+
+.landing-page-b--footer p {
+  font-size: 0.8em;
+  &:first-of-type {
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+}
+
+
+// mobile specific
+@media only screen and (max-width: 760px) {
+  .landing-page-b .box-3d {
+    transform: none !important;
+  }
+  .landing-page-b .box-3d--left, .landing-page-b .box-3d--right, .landing-page-b .box-3d--top, .landing-page-b .box-3d--bottom, .landing-page-b .box-3d--shadow {
+    display: none;
+  }
+  .landing-page-b .enter-btn {
+    display: none;
+  }
+  .landing-page-b .scroll-position-indicator-wrapper {
+    display: none;
+  }
+  .landing-page-b .edition-ribbon {
+    display: none;
+  }
+  .landing-page-b .coffee-stain {
+    left: 30px;
+  }
+  .landing-page-b .coffee-stain img {
+    width: 80px;
+  }
+}
+
+// tablet +
+@media only screen and (min-width: 761px) {
+  body.landing-b-root {
+    margin-bottom:320px;
+  }
+  .landing-page-b {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+  }
+  .landing-page-b--content {
+    width: 600px;
+    height: 800px;
+  }
+  .landing-page-b--header {
+    border-top: 15px solid #009386;
+    margin: 0px 25px;
+    p {
+      font-size: 1.5em;
+    }
+  }
+  .landing-page-b--main-block {
+    height: 650px;
+    &:after {
+      background-position-x: 50px;
+    }
+    &.flex-column {
+      flex-direction: column;
+    }
+  }
+  .landing-page-b--main-block--content {
+    padding-bottom: 0px;
+    transform: none;
+  }
+  .landing-page-b--main-block:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .landing-page-b .box-3d {
+    position: relative;
+    width: 600px;
+    height: 800px;
+  }
+  .landing-page-b--title-area h1 {
+    font-size: 6em;
+  }
+  .landing-page-b--title-area {
+    padding: 0px 50px 25px;
+  }
+}
+
+
+// TODO: nest this under the book object
+.coffee-stain {
+  position: absolute;
+  top:20px;
+  left:50px;
+  z-index:2;
+}
+
+
+
+
+
+  .landing-page-b--main-block--content {
+    margin: 0px 25px;
+  }
+
+  .landing-page-b--main-block p {
+    font-size: 2.5em;
+    font-style: italic;
+    margin-bottom: 0px;
+  }
+
+
+
+
+
+
+
+
+  .landing-page-b .edition-ribbon {
+    position: absolute;
+    top: 30px;
+    right: -50px;
+    background: #000;
+    color: #FFF;
+    transform: rotate(44deg);
+    p {
+      font-family: sans-serif;
+      font-weight: bold;
+      margin: 10px 0px;
+      padding: 0px 45px 0px 50px;
+    }
+  }
+
+
+
+
+  .landing-page-b--box3d-blank-black {
+    background-color: #000;
+    height: 20px;
+    width: 100%;
+  }
+
+  .landing-page-b--box3d-blank-white {
+    background-color: #FFF;
+    height: 100px;
+    width: 100%;
+  }
+
+
+
+  .landing-page-b--enter-button {
+    display: block;
+    padding: 2px;
+    margin-top: 5px;
+    margin: 5px 25px;
+    width: 300px;
+
+    border-radius: 4px;
+
+    background-color: #009386;
+    color: #FFF;
+    text-align: center;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: lighten(#009386, 10%);
+      transform: translate3D(-100px, -3px, 0);
+    }
+    transition: all 222ms ease;
+    transform: translateX(-100px);
+  }

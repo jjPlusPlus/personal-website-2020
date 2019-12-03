@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 import DelayLink from './DelayLink';
 import Typer from './Typer';
 
-class Landing extends Component {
+class LandingA extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,4 +59,4 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+export default LandingA;

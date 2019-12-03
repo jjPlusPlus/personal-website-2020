@@ -1,0 +1,54 @@
+.scroll-position-indicator-wrapper {
+  position: fixed;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: row;
+}
+
+.scroll-position-indicator-text {
+  transform: translateX(10px) translateY(145px) rotateZ(-90deg);
+  height: 15px;
+}
+
+.scroll-position-indicator {
+  height: 18px;
+  width: 18px;
+  z-index: 1;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #009386;
+}
+.scroll-position-indicator-bar {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-position-top {
+  height: 18px;
+  width: 18px;
+  border-radius: 10px;
+  border: 1px solid #575757;
+  background-color: transparent;
+}
+.scroll-position-mid {
+  height: 260px;
+  width: 22px;
+  flex: 1;
+  justify-content: center;
+}
+.scroll-position-mid--central-bar {
+  background-color: transparent;
+  height: 100%;
+  width: 0px;
+  border: 1px dashed #575757;
+}
+.scroll-position-bottom {
+  height: 18px;
+  width: 18px;
+  border-radius: 10px;
+  border: 1px solid #575757;
+  background-color: transparent;
+}
