@@ -75,7 +75,7 @@ class Posts extends Component {
                       const timeout = 50 * (index);
                       return (
                         <CSSTransition key={index} appear={true} in={true} timeout={timeout} classNames="list-animation">
-                          <Link to = {{ pathname: `/posts/${post}`, state:{post: posts[post]}}} className="page-list-item">
+                          <Link to = {{ pathname: `/v1/posts/${post}`, state:{post: posts[post]}}} className="page-list-item">
                             <h1>{posts[post].name}</h1>
                             <p>{posts[post].description}</p>
                           </Link>
@@ -86,7 +86,7 @@ class Posts extends Component {
                       const timeout = 50 * (index);
                       return (
                         <CSSTransition key={index} appear={true} in={true} timeout={timeout} classNames="list-animation">
-                          <Link to = {{ pathname: `/posts/${post}`, state:{post: posts[post]}}} className="page-list-item">
+                          <Link to = {{ pathname: `/v1/posts/${post}`, state:{post: posts[post]}}} className="page-list-item">
                             <h1>{posts[post].name}</h1>
                             <p>{posts[post].description}</p>
                           </Link>

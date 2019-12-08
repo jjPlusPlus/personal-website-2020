@@ -1,4 +1,4 @@
-import { teal200, blue500, orange500, red500, lime500, deepPurple500, blueGray50  } from './material-colors';
+import { teal200, blue500, orange500, red500, lime500, deepPurple500, blueGray50, blueGray500  } from './material-colors';
 import { matchPath } from "react-router-dom";
 
 export const play = (pathname, node, appears) => {
@@ -10,10 +10,18 @@ export const play = (pathname, node, appears) => {
     setTimeout(() => {
       node.children[0].classList.remove('animatePageIn');
     }, 333)
-  } else if (pathname === '/app') {
+  } else if (pathname === '/v1') {
     document.body.style.background = teal200;
     document.body.className = '';
     document.body.classList.add('navigation');
+    node.children[0].classList.add('animatePageIn');
+    setTimeout(() => {
+      node.children[0].classList.remove('animatePageIn');
+    }, 333)
+  } else if (pathname === '/v2') {
+    document.body.style.background = "#111";
+    document.body.className = '';
+    document.body.classList.add('home');
     node.children[0].classList.add('animatePageIn');
     setTimeout(() => {
       node.children[0].classList.remove('animatePageIn');
@@ -66,6 +74,8 @@ export const play = (pathname, node, appears) => {
     }, 333)
   } else if (pathname.includes('/admin/dashboard')) {
     document.body.style.background = blueGray50;
+  } else {
+    document.body.style.background = "#FFF";
   }
 }
 
