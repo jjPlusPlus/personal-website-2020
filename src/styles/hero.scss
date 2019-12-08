@@ -1,0 +1,256 @@
+// body.landing-b-root {
+//   width: 100vw;
+//   height: 100vh;
+// }
+
+.hero {
+  @import url('https://fonts.googleapis.com/css?family=EB+Garamond:400&display=swap');
+  h1, h2, h3, h4, p {
+    font-family: "EB Garamond";
+  }
+  width: 100vw;
+  height: 60vh;
+  transform: scale(0.7);
+  // background-image: radial-gradient(
+  //   #efefef 0%,
+  //   #ECEFF1 40%,
+  //   #ababab 80%,
+  //   #95859D 100%
+  // );
+}
+.hero--header {
+  border-top: 10px solid #009386;
+  margin: 0px 15px;
+  p {
+    font-size: 1em;
+    font-style: italic;
+    text-align: left;
+    margin: 0;
+  }
+}
+.hero--content {
+  width: 100%;
+  height: 100vh;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border: 1px solid #575757;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: inset 6px 0px 12px rgba(0,0,0,0.1)
+}
+
+.hero--main-block {
+  flex: 1;
+  justify-content: flex-end;
+  position: relative;
+  &.flex-column {
+    flex-direction: column-reverse;
+  }
+  &:after {
+    content: "";
+    background-image: url('/demagorgon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    width: 100%;
+    height: 82%;
+  }
+}
+.hero--main-block--content {
+  padding-bottom: 40px;
+  transform:translateY(-15px);
+}
+
+.hero .box-3d {
+  width: 100vw;
+  height: 100vh;
+}
+
+.hero--title-area {
+  background-color: #009386;
+  color: #FFF;
+  padding: 0px 50px 15px;
+  text-align: center;
+  h1 {
+    font-size: 4em;
+    font-weight: normal;
+    margin: 0;
+  }
+}
+
+.hero--footer {
+  padding: 0px 25px 25px;
+}
+
+.hero--footer p {
+  font-size: 0.8em;
+  &:first-of-type {
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+}
+
+
+// mobile specific
+@media only screen and (max-width: 760px) {
+  .hero .box-3d {
+    transform: none !important;
+  }
+  .hero .box-3d--left, .hero .box-3d--right, .hero .box-3d--top, .hero .box-3d--bottom, .hero .box-3d--shadow {
+    display: none;
+  }
+  .hero .enter-btn {
+    display: none;
+  }
+  .hero .scroll-position-indicator-wrapper {
+    display: none;
+  }
+  .hero .edition-ribbon {
+    display: none;
+  }
+  .hero .coffee-stain {
+    left: 30px;
+  }
+  .hero .coffee-stain img {
+    width: 80px;
+  }
+}
+
+// tablet +
+@media only screen and (min-width: 761px) {
+  body.landing-b-root {
+    margin-bottom:320px;
+  }
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero--content {
+    width: 600px;
+    height: 800px;
+  }
+  .hero--header {
+    border-top: 15px solid #009386;
+    margin: 0px 25px;
+    p {
+      font-size: 1.5em;
+    }
+  }
+  .hero--main-block {
+    height: 650px;
+    &:after {
+      background-position-x: 50px;
+    }
+    &.flex-column {
+      flex-direction: column;
+    }
+  }
+  .hero--main-block--content {
+    padding-bottom: 0px;
+    transform: none;
+  }
+  .hero--main-block:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .hero .box-3d {
+    position: relative;
+    width: 600px;
+    height: 800px;
+  }
+  .hero--title-area h1 {
+    font-size: 6em;
+  }
+  .hero--title-area {
+    padding: 0px 50px 25px;
+  }
+}
+
+
+// TODO: nest this under the book object
+.coffee-stain {
+  position: absolute;
+  top:20px;
+  left:50px;
+  z-index:2;
+}
+
+
+
+
+
+  .hero--main-block--content {
+    margin: 0px 25px;
+  }
+
+  .hero--main-block p {
+    font-size: 2.5em;
+    font-style: italic;
+    margin-bottom: 0px;
+  }
+
+
+
+
+
+
+
+
+  .hero .edition-ribbon {
+    position: absolute;
+    top: 30px;
+    right: -50px;
+    background: #000;
+    color: #FFF;
+    transform: rotate(44deg);
+    p {
+      font-family: sans-serif;
+      font-weight: bold;
+      margin: 10px 0px;
+      padding: 0px 45px 0px 50px;
+    }
+  }
+
+
+
+
+  .hero--box3d-blank-black {
+    background-color: #000;
+    height: 20px;
+    width: 100%;
+  }
+
+  .hero--box3d-blank-white {
+    background-color: #FFF;
+    height: 100px;
+    width: 100%;
+  }
+
+
+
+  .hero--enter-button {
+    display: block;
+    padding: 2px;
+    margin-top: 5px;
+    margin: 5px 25px;
+    width: 300px;
+
+    border-radius: 4px;
+
+    background-color: #009386;
+    color: #FFF;
+    text-align: center;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: lighten(#009386, 10%);
+      transform: translate3D(-100px, -3px, 0);
+    }
+    transition: all 222ms ease;
+    transform: translateX(-100px);
+  }
