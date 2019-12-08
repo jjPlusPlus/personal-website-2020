@@ -69,18 +69,22 @@ class ProjectEditor extends Component {
 
   updateResource(event) {
     event.preventDefault();
-    let { name, snippet, content, isPublished, isFeatured } = this.state;
+    let { name, snippet, content, isPublished, isFeatured, listImage, heroImage } = this.state;
     name = name || "";
     snippet = snippet || "";
     content = content || "";
     isPublished = isPublished || false;
     isFeatured = isFeatured || false;
+    listImage = listImage || null;
+    heroImage = heroImage || null;
     this.props.firebase.update(`projects/${this.props.match.params.id}`, {
       name,
       snippet,
       content,
       isPublished,
-      isFeatured
+      isFeatured,
+      listImage,
+      heroImage
     }).then(result => {
       alert("Update successful.")
     }).catch(error => {
@@ -292,7 +296,7 @@ class ProjectEditor extends Component {
 
   render() {
     const { project, tags } = this.props;
-    const { name, snippet, content, isFeatured, isPublished, images, newTag, newLink } = this.state;
+    const { name, snippet, content, isFeatured, isPublished, images, newTag, newLink, listImage, heroImage } = this.state;
     const existingTags = this.state.tags;
 
     if (!project) {
@@ -399,15 +403,25 @@ class ProjectEditor extends Component {
                   </div>
 
                   <div className="editor--section page--content">
-                    <h2>Article image:</h2>
+                    <h2>Images:</h2>
+                    <label htmlFor="listImage">List Image URL</label> <br />
+                    <input className="text-input" name="listImage" type="text" value={listImage} onChange={this.inputChange('listImage')} />
+
+                    <label htmlFor="heroImage">Hero Image URL</label> <br />
+                    <input className="text-input" name="heroImage" type="text" value={heroImage} onChange={this.inputChange('heroImage')} />
+
                     { images &&
                       Object.keys(images).map((image, index) => {
                         return (
                           <div className="resource-image flex flex-row flex-center pad-vertical" key={index}>
                             <img src={images[image].downloadURL} alt={images[image].description} width="200px" />
-                            <p className="flex-1 full-padding">
-                              <span className="bold-text">{images[image].name}:</span> <br/> "{images[image].description}"
-                            </p>
+                            <div className="flex-1 full-padding">
+                              <p>
+                                <span className="bold-text">{images[image].name}:</span> <br /> "{images[image].description}"
+                              </p>
+                              <small>{images[image].downloadURL}</small>
+                            </div>
+
                             <button className="button delete-button" onClick={this.onImageDelete(images[image])}>Delete Image</button>
                           </div>
                         )
