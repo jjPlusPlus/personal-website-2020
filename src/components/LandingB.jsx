@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 import DelayLink from './DelayLink';
-import Typer from './Typer';
 
 import Plx from 'react-plx';
 
@@ -79,7 +78,7 @@ class LandingB extends Component {
   }
 
   render() {
-    const { delaying } = this.state;
+    // const { delaying } = this.state;
     return (
       <div className="landing-page-b box-3d--scene" onClick={() => this.enterIfMobile()}>
 
@@ -112,10 +111,10 @@ class LandingB extends Component {
           <div className="box-3d--left">
             <div className="landing-page-b--box3d-blank-black"></div>
             <div className="landing-page-b--box3d-blank-white">
-              <img src="/demagorgon.svg" width="90px" />
+              <img src="/demagorgon.svg" width="90px" alt="The Demagorgon"/>
             </div>
             <div className="landing-page-b--box3d-blank-black"></div>
-            <img src="jjplusplus-spine.svg" width="100px" />
+            <img src="jjplusplus-spine.svg" width="100px" alt="The spine of the JJ++ book"/>
           </div>
           <div className="box-3d--right"></div>
           <div className="box-3d--bottom"></div>
