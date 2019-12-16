@@ -9,7 +9,7 @@ const HomeSlider = (props) => {
   if (typeof items !== Array) {
     const tempArray = [];
     let newItemWithKey;
-    debugger;
+
     Object.keys(items).forEach(key => {
       newItemWithKey = items[key];
       items[key].id = key;
