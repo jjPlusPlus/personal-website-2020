@@ -55,14 +55,16 @@ class ProjectEditor extends Component {
     if (!this.props.project && nextProps.project) {
       // project was passed in successfully
       this.setState({
-        name: nextProps.project.name,
+        name: nextProps.project.name, 
         snippet: nextProps.project.snippet,
         content: nextProps.project.content,
         isPublished: nextProps.project.isPublished,
         isFeatured: nextProps.project.isFeatured,
         images: nextProps.project.images || [],
         tags: nextProps.project.tags || [],
-        links: nextProps.project.links || []
+        links: nextProps.project.links || [],
+        heroImage: nextProps.project.heroImage,
+        listImage: nextProps.project.listImage
       })
     }
   }
@@ -414,12 +416,12 @@ class ProjectEditor extends Component {
                       Object.keys(images).map((image, index) => {
                         return (
                           <div className="resource-image flex flex-row flex-center pad-vertical" key={index}>
-                            <img src={images[image].downloadURL} alt={images[image].description} width="200px" />
+                            <img src={"http://jj-plus-plus.imgix.net/" + images[image].fullPath} alt={images[image].description} width="200px" />
                             <div className="flex-1 full-padding">
                               <p>
                                 <span className="bold-text">{images[image].name}:</span> <br /> "{images[image].description}"
                               </p>
-                              <small>{images[image].downloadURL}</small>
+                              <small>{"http://jj-plus-plus.imgix.net/images/" + images[image].fullPath}</small>
                             </div>
 
                             <button className="button delete-button" onClick={this.onImageDelete(images[image])}>Delete Image</button>

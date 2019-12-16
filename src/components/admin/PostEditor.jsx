@@ -64,7 +64,9 @@ class PostEditor extends Component {
         isPublished: nextProps.post.isPublished,
         isFeatured: nextProps.post.isFeatured,
         images: nextProps.post.images || [],
-        tags: nextProps.post.tags || []
+        tags: nextProps.post.tags || [],
+        heroImage: nextProps.project.heroImage,
+        listImage: nextProps.project.listImage
       })
     }
   }
@@ -353,7 +355,7 @@ class PostEditor extends Component {
                               <p>
                                 <span className="bold-text">{images[image].name}:</span> <br /> "{images[image].description}"
                               </p>
-                              <small>{images[image].downloadURL}</small>
+                              <small>{"http://jj-plus-plus.imgix.net/" + images[image].fullPath}</small>
                             </div>
                             
                             <button className="button delete-button" onClick={this.onImageDelete(images[image])}>Delete Image</button>
