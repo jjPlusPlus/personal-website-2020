@@ -72,10 +72,10 @@ class V2 extends Component {
   render() {
     let { posts, projects, tags } = this.props;
     let { selected, detail, animating } = this.state;
-    debugger;
     // sort the object by key using Lodash
     projects = _.sortBy(projects, "index");
-    debugger;
+    posts = _.sortBy(posts, "index");
+
     return (
       <div>
         <div className="v2">
