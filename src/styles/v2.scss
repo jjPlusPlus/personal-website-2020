@@ -22,10 +22,11 @@
     background-color: #000;
     height: 100%;
     border: none;
+    margin-right: 2rem;
     cursor: pointer;
     &:hover {
       background-color: #fff;
-      color: #000;
+      p { color: #000; }
     }
     p {
       color: #FFF;
@@ -61,6 +62,9 @@
     padding: 2rem;
     top: 40%;
     position: absolute;
+  }
+  .header-display img {
+    width: 100%;
   }
   .header-display .image--aspect-wrapper--16-9 {
     display: flex;
@@ -173,11 +177,14 @@
     transform: scale(1.5);
   }
   .slide {
-    width: 100%;
+    // width: 100%;
     overflow: hidden;
     transition: transform 222ms linear;
     cursor: pointer;
     position: relative;
+  }
+  .slide img {
+    width: 100%;
   }
   .slide-overlay {
     display: none;
@@ -296,16 +303,15 @@
   background-size: cover;
 }
 
-// mobile only
 @media only screen and (min-width: 1280px) {
-  .v2 .section-title {
-    padding: 2rem 0;
-  }
-  // .v2 .slider-row .slider {
-  //   margin-left: 0;
-  // }
+
 }
 
+.resource-detail-modal img {
+  width: 100%;
+  z-index: 0;
+  position: relative;
+}
 .about-v2 {
   padding: 2rem;
   max-width: 900px;
