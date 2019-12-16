@@ -9,6 +9,7 @@ import { compose } from 'redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
+import Imgix from 'react-imgix';
 function LinkRenderer(props) {
   return <a href={props.href} target="_blank">{props.children}</a>
 }
@@ -30,9 +31,12 @@ const ResourceDetailModal = (props) => {
   
   return (
     <div className={"resource-detail-modal " + (showModal ? "visible" : "hidden")}>
-      
-      <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: `url(${item.heroImage})` }}></div>
-
+      <Imgix
+        src={item.heroImage}
+        sizes="(min-width: 1280px) 1280px, 100vw"
+        imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
+        classNames="full-width"
+      />
       <div className="resource-detail-modal--content">
         <div className=".resource-detail--header">
           <h1>{item.name}</h1>

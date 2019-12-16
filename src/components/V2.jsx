@@ -19,7 +19,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 import animateScrollTo from 'animated-scroll-to';
+
 import _ from 'lodash';
+import Imgix from "react-imgix";
 
 class V2 extends Component {
   constructor(props) {
@@ -96,14 +98,19 @@ class V2 extends Component {
           </div>
 
           { detail ? (
-              <ResourceDetailModal tags={tags} detail={detail}/>
+              <ResourceDetailModal tags={tags} detail={detail} />
             ) : (
             <div className={ "home-page " + (this.state.showMain ? "visible" : "hidden")}>
               <section className={"header-display " + (animating ? "v2-header-animating" : "")}>
                 { selected ? (
 
                   <span>
-                    <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: `url(${selected.item.heroImage})` }}></div>
+                    <Imgix
+                      src={selected.item.heroImage}
+                      sizes="(min-width: 1280px) 1280px, 100vw"
+                      imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
+                      classNames="full-width"
+                    />
                     <div className="header-display--content-wrapper flex flex-column">
                       <div className="header-display--content">
                         <h1>{selected.item.name}</h1>
@@ -123,8 +130,14 @@ class V2 extends Component {
                   </span>
                 ) : (
                   <span>
-                    {/* <HeaderAnimation /> */}
-                    <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: "url(/jjpp-header-slim.svg)" }}></div>
+                    {/* <HeaderAnimation /> 
+                    <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: "url(/jjpp-header-slim.svg)" }}></div>*/}
+                    <Imgix
+                      src="http://jj-plus-plus.imgix.net/images/jjpp-header-slim.svg"
+                      sizes="(min-width: 1280px) 1280px, 100vw"
+                      imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
+                      classNames="full-width"
+                    />
                     <h1 className="header-display--title">This is JJ</h1>
                   </span>
                 )

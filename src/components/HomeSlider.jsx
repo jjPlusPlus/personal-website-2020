@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import Imgix from "react-imgix";
 
 const HomeSlider = (props) => {
 
@@ -68,10 +69,17 @@ const HomeSlider = (props) => {
         <div className="slider-items" style={{transform: `translate3d(${distance}px, 0, 0)` }}>
           {
             items.map((item, index) => {
+              console.log(item.listImage);
               return (
                 <div className={"slide-wrapper " + (props.selected && props.selected.item === item ? "selected" : "") } key={index}>
                   <div className="slide" onClick={() => select(item)}>
-                    <div className="image--aspect-wrapper--3-4" style={{ backgroundImage: `url(${item.listImage})` }}></div>
+                    <Imgix
+                      src={item.listImage}
+                      sizes="10vw"
+                      imgixParams={{ ar: "3:4", auto: "format", fit: "crop" }}
+                      classNames="full-width"
+                    />
+                    
                     <div className="slide-overlay">
                       <p className="slide-overlay-title">{item.name}</p>
                     </div>
