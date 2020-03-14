@@ -2,6 +2,7 @@ import { teal200, blue500, orange500, red500, lime500, deepPurple500, blueGray50
 import { matchPath } from "react-router-dom";
 
 export const play = (pathname, node, appears) => {
+  if (!node || !node.children || !node.children[0]) { return; }
   if (pathname === '/') {
     // document.body.style.background = "#000";
     document.body.className = '';
