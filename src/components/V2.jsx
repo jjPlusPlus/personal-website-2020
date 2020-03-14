@@ -133,7 +133,7 @@ class V2 extends Component {
                     {/* <HeaderAnimation /> 
                     <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: "url(/jjpp-header-slim.svg)" }}></div>*/}
                     <Imgix
-                      src="http://jj-plus-plus.imgix.net/images/jjpp-header-slim.svg"
+                      src="https://jj-plus-plus.imgix.net/images/jjpp-header-slim.svg"
                       sizes="(min-width: 1280px) 1280px, 100vw"
                       imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
                       classNames="full-width"
