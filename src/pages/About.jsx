@@ -167,4 +167,4 @@ class About extends Component {
   }
 }
 
-export default AboutV2;
+export default About;
