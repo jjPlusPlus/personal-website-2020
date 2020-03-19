@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import List from "../List";
 
 import { Link } from "react-router-dom";
-import Typer from '../Typer';
+import Typer from 'components/Typer';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';

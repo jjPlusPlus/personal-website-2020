@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import ReactMarkdown from 'react-markdown';
 
 import { firebaseConnect, getVal } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import Uploader from '../Uploader';
-import CodeBlock from '../CodeBlock';
-import Typer from '../Typer';
+import Uploader from 'components/Uploader';
+import CodeBlock from 'components/CodeBlock';
+import Typer from 'components/Typer';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faTrashAlt, faCheck } from "@fortawesome/free-solid-svg-icons";
 
-class ProjectEditor extends Component {
+/* TODO: 
+ * - posts/projects now have a listImage that is just the URL, and only one at a time
+      - need a new section to add a list image; same drag and drop as before, but instead of adding to an array,
+      - adds a 'listImage' to the post/proj record and fills it with the resulting DownloadURL
+      - posts/projects will have a 'headerImage' field that is a DownloadURL 
+ * - the post/project.images array is now for general image management, and needs to show downloadURL's
+*/
+
+class PostEditor extends Component {
   constructor(props) {
     super(props)
-    const project = this.props.project;
+    const post = this.props.post;
 
     this.state = {
       name: "",
@@ -26,12 +33,7 @@ class ProjectEditor extends Component {
       isFeatured: false,
       images: [],
       tags: [],
-      links: [],
       newTag: "",
-      newLink: {
-        description: "",
-        url: ""
-      },
       stickyTopBar: false,
       showPreview: false,
     }
@@ -52,35 +54,40 @@ class ProjectEditor extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (!this.props.project && nextProps.project) {
-      // project was passed in successfully
+    if (!this.props.post && nextProps.post) {
+      // post was passed in successfully
       this.setState({
-        name: nextProps.project.name,
-        snippet: nextProps.project.snippet,
-        content: nextProps.project.content,
-        isPublished: nextProps.project.isPublished,
-        isFeatured: nextProps.project.isFeatured,
-        images: nextProps.project.images || [],
-        tags: nextProps.project.tags || [],
-        links: nextProps.project.links || []
+        name: nextProps.post.name,
+        snippet: nextProps.post.snippet,
+        content: nextProps.post.content,
+        isPublished: nextProps.post.isPublished,
+        isFeatured: nextProps.post.isFeatured,
+        images: nextProps.post.images || [],
+        tags: nextProps.post.tags || [],
+        heroImage: nextProps.project.heroImage,
+        listImage: nextProps.project.listImage
       })
     }
   }
 
   updateResource(event) {
     event.preventDefault();
-    let { name, snippet, content, isPublished, isFeatured } = this.state;
+    let { name, snippet, content, isPublished, isFeatured, listImage, heroImage } = this.state;
     name = name || "";
     snippet = snippet || "";
     content = content || "";
     isPublished = isPublished || false;
     isFeatured = isFeatured || false;
-    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+    listImage = listImage || null;
+    heroImage = heroImage || null;
+    this.props.firebase.update(`posts/${this.props.match.params.id}`, {
       name,
       snippet,
       content,
       isPublished,
-      isFeatured
+      isFeatured,
+      listImage,
+      heroImage
     }).then(result => {
       alert("Update successful.")
     }).catch(error => {
@@ -95,15 +102,6 @@ class ProjectEditor extends Component {
     })
   }
 
-  deepInputChange = (object, field) => event => {
-    const base = this.state[object];
-    base[field] = event.target.value;
-
-    this.setState({
-      [object]: base
-    })
-  }
-
   checkboxChange = field => event => {
     this.setState({
       [field]: event.target.value
@@ -113,21 +111,21 @@ class ProjectEditor extends Component {
   handleTagCheckboxChange = name => (event) => {
     const isChecked = event.target.checked;
     const tagID = event.target.value;
-    const projectID = this.props.match.params.id;
+    const postID = this.props.match.params.id;
 
-    const projectTags = this.state.tags; // all tags for this project
-    const tagprojects = this.props.tags[tagID].projects || []; // all projects for this tag
+    const postTags = this.state.tags; // all tags for this post
+    const tagposts = this.props.tags[tagID].posts || []; // all posts for this tag
 
     if (isChecked) {
-      projectTags.push(tagID);
-      tagprojects.push(projectID);
-      // add this tag to the current project's tags array
-      this.props.firebase.update(`projects/${projectID}`, {
-        tags: projectTags,
+      postTags.push(tagID);
+      tagposts.push(postID);
+      // add this tag to the current post's tags array
+      this.props.firebase.update(`posts/${postID}`, {
+        tags: postTags,
       }).then(result => {
-        // add this project to the current Tag's project array
+        // add this post to the current Tag's post array
         this.props.firebase.update(`tags/${tagID}`, {
-          projects: tagprojects,
+          posts: tagposts,
         }).catch(error => {
           console.log(error);
           alert("The tag could not be updated");
@@ -138,15 +136,15 @@ class ProjectEditor extends Component {
       });
 
     } else {
-      projectTags.splice(projectTags.indexOf(tagID), 1);
-      tagprojects.splice(tagprojects.indexOf(projectID), 1);
-      // remove this tag from the current project's tag array
-      this.props.firebase.update(`projects/${projectID}`, {
-        tags: projectTags,
+      postTags.splice(postTags.indexOf(tagID), 1);
+      tagposts.splice(tagposts.indexOf(postID), 1);
+      // remove this tag from the current post's tag array
+      this.props.firebase.update(`posts/${postID}`, {
+        tags: postTags,
       }).then(result => {
-        // remove this project from the current Tag's project array
+        // remove this post from the current Tag's post array
         this.props.firebase.update(`tags/${tagID}`, {
-          projects: tagprojects,
+          posts: tagposts,
         }).catch(error => {
           console.log(error);
           alert("The tag could not be updated")
@@ -170,7 +168,7 @@ class ProjectEditor extends Component {
       downloadURL: downloadURL
     }
     images.push(imageMeta);
-    return this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+    return this.props.firebase.update(`posts/${this.props.match.params.id}`, {
       images: images
     }).then(result => {
       alert("Image added successfully");
@@ -196,33 +194,6 @@ class ProjectEditor extends Component {
     })
   }
 
-  saveNewLink = link => (event) => {
-    event.preventDefault();
-    const newLink = this.state.newLink;
-
-    // TODO: improve validation
-    if (!newLink || newLink.description.length === 0 || newLink.url.length === 0) {
-      return;
-    }
-
-    const links = this.state.links;
-    links.push(newLink);
-    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
-      links: links
-    }).then(result => {
-      alert("Update successful.")
-    }).catch(error => {
-      console.log(error);
-      alert("There was a problem updating the resource");
-    });
-  }
-  saveLink = link => (event) => {
-
-  }
-  deleteLink = link => (event) => {
-
-  }
-
 
   onImageDelete = image => (event) => {
     event.preventDefault();
@@ -235,7 +206,7 @@ class ProjectEditor extends Component {
         console.log(error);
       });
     // remove the relationship to the resource model
-    this.props.firebase.update(`projects/${this.props.match.params.id}`, {
+    this.props.firebase.update(`posts/${this.props.match.params.id}`, {
       images: images
     }).then(result => {
       alert("Image removed successfully");
@@ -244,18 +215,18 @@ class ProjectEditor extends Component {
     });
   }
 
-  deleteProject = project => (event) => {
+  deletepost = post => (event) => {
 
-    // delete project after confirmation
-    const confirmation = window.confirm("Are you sure? This is permanent. You can always unpublish the project.");
+    // delete post after confirmation
+    const confirmation = window.confirm("Are you sure? This is permanent. You can always unpublish the post.");
 
     const resourceID = this.props.match.params.id;
     const images = this.state.images;
-    const projectTags = this.state.tags;
+    const postTags = this.state.tags;
     const allTags = this.props.tags;
 
     if (confirmation) {
-      this.props.firebase.remove(`projects/${resourceID}`)
+      this.props.firebase.remove(`posts/${resourceID}`)
         .then(result => {
           // Remove the images from Firebase Storage
           if (images && images.length) {
@@ -264,12 +235,12 @@ class ProjectEditor extends Component {
             });
           }
           // Unbind all the relationships to this Post in Tags (but not the tags themselves)
-          if (projectTags && projectTags.length) {
-            projectTags.forEach(tag => {
-              // remove projectID from allTags[tag].projects
-              allTags[tag].projects.splice(allTags[tag].projects.indexOf(resourceID, 1));
+          if (postTags && postTags.length) {
+            postTags.forEach(tag => {
+              // remove postID from allTags[tag].posts
+              allTags[tag].posts.splice(allTags[tag].posts.indexOf(resourceID, 1));
               this.props.firebase.update(`tags/${tag}`, {
-                projects: allTags[tag].projects
+                posts: allTags[tag].posts
               }).catch(error => {
                 console.log(error);
               });
@@ -277,8 +248,8 @@ class ProjectEditor extends Component {
           }
         })
         .then(() => {
-          alert("project deleted");
-          this.props.history.push("/admin/dashboard/projects");
+          alert("post deleted");
+          this.props.history.push("/admin/dashboard/posts");
         })
         .catch(error => {
           console.log(error);
@@ -287,15 +258,15 @@ class ProjectEditor extends Component {
   }
 
   goBack = () => {
-    this.props.history.push("/admin/dashboard/projects");
+    this.props.history.push("/admin/dashboard/posts");
   }
 
   render() {
-    const { project, tags } = this.props;
-    const { name, snippet, content, isFeatured, isPublished, images, newTag, newLink } = this.state;
+    const { post, tags } = this.props;
+    const { name, snippet, content, isFeatured, isPublished, images, newTag, listImage, heroImage } = this.state;
     const existingTags = this.state.tags;
 
-    if (!project) {
+    if (!post) {
       return null;
     }
 
@@ -308,13 +279,13 @@ class ProjectEditor extends Component {
             </div>
             <div className="page--header flex-1">
               <h1 className="page--title">
-                <Typer text={"Edit Project " + name} delay={1200} interval={150} />
+                <Typer text={"Edit Post " + name} delay={1200} interval={150} />
                 <span className="blink">_</span>
               </h1>
             </div>
           </div>
           <div className="editor">
-            { project
+            { post
               ? <form onSubmit={this.updateResource}>
                   <div className={"editor--section editor--section-highlighted editor--control-panel page--content " + (this.state.stickyTopBar ? "editor--section-sticky-topbar" : "")}>
                     <div className="full-padding flex flex-row">
@@ -344,7 +315,7 @@ class ProjectEditor extends Component {
                       </div>
                       <div className="flex-1"></div>
                       <div className="flex flex-row flex-center">
-                        <div className="delete-icon" onClick={this.deleteProject()}>
+                        <div className="delete-icon" onClick={this.deletepost()}>
                           <FontAwesomeIcon icon={faTrashAlt} />
                         </div>
                         <button className="save-button" type="submit"> <FontAwesomeIcon icon={faCheck} /> </button>
@@ -367,47 +338,25 @@ class ProjectEditor extends Component {
                   </div>
 
                   <div className="editor--section page--content">
-                    <h2>Links</h2>
-                    { project.links &&
-                      project.links.map((link, index) => {
-                        return (
-                          <div className="resource-link flex flex-row">
-                            <div className="flex-1">
-                              <p>{link.url}</p>
-                              <p>{link.description}</p>
-                            </div>
-                            <div className="flex flex-row flex-center">
-                              <div className="delete-icon" onClick={this.deleteLink()}>
-                                <FontAwesomeIcon icon={faTrashAlt} />
-                              </div>
-                              <button className="save-button" onClick={this.saveLink()}>
-                                <FontAwesomeIcon icon={faCheck} />
-                              </button>
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
+                    <h2>Images:</h2>
+                    <label htmlFor="listImage">List Image URL</label> <br />
+                    <input className="text-input" name="listImage" type="text" value={listImage} onChange={this.inputChange('listImage')} />
 
-                    <p>Add a link:</p>
-
-                    <label htmlFor="link-url">URL</label>
-                    <input className="text-input" type="text" name="link-url" value={newLink.url} onChange={this.deepInputChange('newLink', 'url')} />
-                    <label htmlFor="link-description">Description</label>
-                    <input className="text-input" type="text" name="link-description" value={newLink.description} onChange={this.deepInputChange('newLink', 'description')} />
-                    <button onClick={this.saveNewLink()}>Add</button>
-                  </div>
-
-                  <div className="editor--section page--content">
-                    <h2>Article image:</h2>
+                    <label htmlFor="heroImage">Hero Image URL</label> <br />
+                    <input className="text-input" name="heroImage" type="text" value={heroImage} onChange={this.inputChange('heroImage')} />
+                    
                     { images &&
                       Object.keys(images).map((image, index) => {
                         return (
                           <div className="resource-image flex flex-row flex-center pad-vertical" key={index}>
                             <img src={images[image].downloadURL} alt={images[image].description} width="200px" />
-                            <p className="flex-1 full-padding">
-                              <span className="bold-text">{images[image].name}:</span> <br/> "{images[image].description}"
-                            </p>
+                            <div className="flex-1 full-padding">
+                              <p>
+                                <span className="bold-text">{images[image].name}:</span> <br /> "{images[image].description}"
+                              </p>
+                              <small>{"http://jj-plus-plus.imgix.net/" + images[image].fullPath}</small>
+                            </div>
+                            
                             <button className="button delete-button" onClick={this.onImageDelete(images[image])}>Delete Image</button>
                           </div>
                         )
@@ -466,14 +415,14 @@ class ProjectEditor extends Component {
 const enhance = compose(
   firebaseConnect(props => {
     return [
-      { path: `projects/${props.match.params.id}` },
+      { path: `posts/${props.match.params.id}` },
       'tags'
     ]
   }),
   connect(({ firebase }, props) => ({
-    project: getVal(firebase, `data/projects/${props.match.params.id}`),
+    post: getVal(firebase, `data/posts/${props.match.params.id}`),
     tags: firebase.data.tags
   }))
 )
 
-export default enhance(ProjectEditor);
+export default enhance(PostEditor);

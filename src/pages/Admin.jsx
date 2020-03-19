@@ -3,8 +3,7 @@ import { Redirect } from "react-router-dom";
 
 import { connect } from 'react-redux'
 
-import SignInForm from '../SignInForm';
-import Dashboard from '../admin/Dashboard';
+import SignInForm from 'components/SignInForm';
 
 class Admin extends Component {
 

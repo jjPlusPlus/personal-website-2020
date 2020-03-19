@@ -6,7 +6,7 @@ import { firebaseReducer } from 'react-redux-firebase';
 export default function configureStore() {
   const rootReducer = combineReducers({
     firebase: firebaseReducer
-  })
+  });
 
   const store = createStore(
     rootReducer,

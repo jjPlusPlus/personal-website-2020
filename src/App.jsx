@@ -1,33 +1,26 @@
 import React, { Component } from 'react';
-import './app.scss';
+import 'app.scss';
 
 import ReactGA from 'react-ga';
 
 import { Route, Redirect, Switch } from "react-router-dom";
-import { play, exit } from "./animations";
+import { play, exit } from "animations";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import LandingA from './components/LandingA';
-import LandingB from './components/LandingB';
+import Home from 'pages/Home';
 
-import Navigation from './components/Navigation';
-import Posts from './components/pages/Posts';
-import PostDetail from './components/pages/PostDetail';
-import Projects from './components/pages/Projects';
-import ProjectDetail from './components/pages/ProjectDetail';
-import About from './components/pages/About';
-import Site from './components/pages/Site';
-import Admin from './components/pages/Admin';
+import PostDetail from 'pages/PostDetail';
+import ProjectDetail from 'pages/ProjectDetail';
 
-import SignInForm from './components/SignInForm';
-import Dashboard from './components/admin/Dashboard';
-import AdminPosts from './components/admin/Posts';
-import PostEditor from './components/admin/PostEditor';
-import AdminProjects from './components/admin/Projects';
-import ProjectEditor from './components/admin/ProjectEditor';
-import ResumeEditor from './components/admin/ResumeEditor';
+import Admin from 'pages/Admin';
 
-import ProtectedRoute from './components/ProtectedRoute';
+import Dashboard from 'pages/admin/Dashboard';
+import AdminPosts from 'pages/admin/Posts';
+import PostEditor from 'pages/admin/PostEditor';
+import AdminProjects from 'pages/admin/Projects';
+import ProjectEditor from 'pages/admin/ProjectEditor';
+
+import ProtectedRoute from 'components/ProtectedRoute';
 
 const trackingId = "149202297";
 ReactGA.initialize(trackingId);
@@ -50,21 +43,18 @@ class App extends Component {
               timeout={{enter: 333, exit: 333}}
             >
               <Switch location={location}>
-                <Route path="/" exact component={LandingB} />
-                <Route path="/app" exact component={Navigation} />
-                <Route exact path="/posts" component={Posts} />
-                  <Route path="/posts/:id" component={PostDetail} />
-                <Route exact path="/projects" component={Projects} />
-                  <Route path="/projects/:id" component={ProjectDetail} />
-                <Route path="/about" component={About} />
-                <Route path="/site" component={Site} />
+                <Route path="/" exact component={Home} />
+
+                <Route path="/posts/:id" component={PostDetail} />
+                <Route path="/projects/:id" component={ProjectDetail} />
+
                 <Route exact path="/admin" component={Admin} />
                   <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
                     <ProtectedRoute exact path="/admin/dashboard/posts" component={AdminPosts} />
                       <ProtectedRoute path="/admin/dashboard/posts/:id" component={ (props) => <PostEditor {...props} /> } />
                     <ProtectedRoute exact path="/admin/dashboard/projects" component={AdminProjects} />
                       <ProtectedRoute path="/admin/dashboard/projects/:id" component={ProjectEditor} />
-                    <ProtectedRoute path="/admin/dashboard/about" component={ResumeEditor} />
+                <Redirect to="/" />
               </Switch>
             </CSSTransition>
           </TransitionGroup>
