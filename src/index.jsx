@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import configureStore from './store';
 
-import firebase from 'components/firebase';
+import firebase from 'firebase/index';
 
 const store = configureStore();
 const reactReduxFirebaseConfig = { userProfile: 'users' }
