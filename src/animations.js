@@ -1,44 +1,12 @@
-import { teal200, blue500, orange500, red500, lime500, deepPurple500, blueGray50, blueGray500  } from './material-colors';
+import { orange500, lime500, blueGray50 } from 'material-colors';
 import { matchPath } from "react-router-dom";
 
 export const play = (pathname, node, appears) => {
   if (!node || !node.children || !node.children[0]) { return; }
-  if (pathname === '/') {
-    // document.body.style.background = "#000";
-    document.body.className = '';
-    document.body.classList.add('landing-b-root');
-    node.children[0].classList.add('animatePageIn');
-    setTimeout(() => {
-      node.children[0].classList.remove('animatePageIn');
-    }, 333)
-  } else if (pathname === '/v1') {
-    document.body.style.background = teal200;
-    document.body.className = '';
-    document.body.classList.add('navigation');
-    node.children[0].classList.add('animatePageIn');
-    setTimeout(() => {
-      node.children[0].classList.remove('animatePageIn');
-    }, 333)
-  } else if (pathname === '/v2') {
+  if (pathname === '/') { 
     document.body.style.background = "#111";
     document.body.className = '';
     document.body.classList.add('home');
-    node.children[0].classList.add('animatePageIn');
-    setTimeout(() => {
-      node.children[0].classList.remove('animatePageIn');
-    }, 333)
-  } else if (pathname === '/posts') {
-    document.body.style.background = blue500;
-    document.body.className = '';
-    document.body.classList.add('posts');
-    node.children[0].classList.add('animatePageIn');
-    setTimeout(() => {
-      node.children[0].classList.remove('animatePageIn');
-    }, 333)
-  } else if (pathname === '/projects') {
-    document.body.style.background = deepPurple500;
-    document.body.className = '';
-    document.body.classList.add('projects');
     node.children[0].classList.add('animatePageIn');
     setTimeout(() => {
       node.children[0].classList.remove('animatePageIn');
@@ -57,12 +25,6 @@ export const play = (pathname, node, appears) => {
     }, 333)
   } else if (pathname === '/about') {
     document.body.style.background = lime500;
-    node.classList.add('animatePageIn');
-    setTimeout(() => {
-      node.classList.remove('animatePageIn');
-    }, 333)
-  } else if (pathname === '/site') {
-    document.body.style.background = red500;
     node.classList.add('animatePageIn');
     setTimeout(() => {
       node.classList.remove('animatePageIn');
