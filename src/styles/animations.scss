@@ -1,0 +1,84 @@
+/* LIST ANIMATION */
+.list-animation-appear {
+  opacity: 0.1;
+  transform: translateX(300px);
+}
+.list-animation-appear.list-animation-appear-active {
+  opacity: 1;
+}
+.list-animation-leave {
+  opacity: 1;
+  transform: translateX(-300px);
+}
+.list-animation-leave.list-animation-leave-active {
+  opacity: 0.00;
+}
+
+/* BLINK */
+.blink {
+  color: #666;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  49% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* TEXT ANIMATION */
+.text-animation {
+  transition: all 333ms ease;
+}
+.text-animation-appear {
+  opacity: 0;
+  transform: translateX(150px);
+}
+.text-animation-appear.text-animation-appear-active {
+  opacity: 1;
+}
+.text-animation-leave {
+  opacity: 0.1;
+}
+.text-animation-leave.text-animation-leave-active {
+  opacity: 1;
+}
+
+/* FADE LEFT */
+.fade-left {
+  transition: all 222ms ease;
+}
+.fading-left {
+  transform: translateX(-200px);
+  opacity: 0;
+}
+
+/* ANIMATE PAGE IN/OUT */
+.animatePageIn {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.animatePageOut {
+  opacity: 1;
+  transform: translateX(-200px);
+}
+
+/* FADE */
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 333ms ease-in;
+}
+.fade-exit {
+  opacity: 0;
+  transform: translateX(-200px);
+  z-index: 1;
+}
+.fade-exit.fade-exit-active {
+  opacity: 1;
+  transition: all 333ms linear;
+}

@@ -1,0 +1,13 @@
+.timeline-bar {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+.timeline-bar--section:first-of-type {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.timeline-bar--section:last-of-type {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

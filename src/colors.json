@@ -1,0 +1,88 @@
+[
+  {
+    name: "Red",
+    hex: "#E53935",
+    text: "FFF"
+  },
+  {
+    name: "Pink",
+    hex: "#F50057",
+    text: "FFF"
+  },
+  {
+    name: "Purple",
+    hex: "#AA00FF",
+    text: "FFF"
+  },
+  {
+    name: "Deep Purple",
+    hex: "#651FFF",
+    text: "FFF"
+  },
+  {
+    name: "Indigo",
+    hex: "#304FFE",
+    text: "FFF"
+  },
+  {
+    name: "Blue",
+    hex: "#2962FF",
+    text: "FFF"
+  },
+  {
+    name: "Light Blue",
+    hex: "#0091EA",
+    text: "FFF"
+  },
+  {
+    name: "Cyan",
+    hex: "#00B8D4",
+    text: "FFF"
+  },
+  {
+    name: "Teal",
+    hex: "#00BFA5",
+    text: "FFF"
+  },
+  {
+    name: "Lime",
+    hex: "#AEEA00",
+    text: "FFF"
+  },
+  {
+    name: "Light Green",
+    hex: "#64DD17",
+    text: "FFF"
+  },
+  {
+    name: "Green",
+    hex: "#00C853",
+    text: "FFF"
+  },
+  {
+    name: "Yellow",
+    hex: "#FFD600",
+    text: "FFF"
+  },
+  {
+    name: "Amber",
+    hex: "#FFAB00",
+    text: "FFF"
+  },
+  {
+    name: "Orange",
+    hex: "#FF6D00",
+    text: "FFF"
+  },
+  {
+    name: "Deep Orange",
+    hex: "#DD2C00",
+    text: "FFF"
+  },
+  {
+    name: "Blue Gray",
+    hex: "#455A64",
+    text: "FFF"
+  }
+
+]

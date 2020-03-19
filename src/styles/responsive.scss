@@ -1,0 +1,73 @@
+// mobile only
+@media only screen and (max-width: 640px) {
+  .page-list-item h1 {
+    font-size: 24px;
+  }
+  .text-callout-blurb {
+    margin-top: 15px;
+  }
+  .about-page .icon-links {
+    margin: 15px 0px;
+    a {
+      padding: 0px 15px;
+    }
+  }
+  .about-page .text-callout-blurb {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 3px solid #EC407A;
+    border-radius: 0px;
+    padding: 10px 0px;
+    margin: 10px 0px;
+  }
+  .about-page .timeline-markers p {
+    font-size: 12px;
+  }
+  .about-page .image-grid--item p {
+    font-size: 12px;
+  }
+  .hide-for-small {
+    display: none;
+  }
+  .slider-item--content {
+    padding: 0px 10px;
+  }
+}
+
+// Medium screens and up
+@media only screen and (min-width: 641px) {
+  .about-page .icon-links {
+    position: absolute;
+    top: 85px;
+    right: -80px;
+  }
+  .landing {
+    background-image: url('/face-wrap-medium.jpg') !important;
+  }
+  .landing-page--content {
+    width: 500px;
+  }
+}
+
+// tablet only
+@media only screen and (min-width: 641px) and (max-width: 1024px) {
+
+}
+
+// Large screens and up
+@media only screen and (min-width: 1025px) {
+  .page--container {
+    padding-left: 200px;
+  }
+}
+
+// Large screens only
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+
+}
+
+// XLarge screens
+@media only screen and (min-width: 1441px) {
+
+}

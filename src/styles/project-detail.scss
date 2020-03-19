@@ -1,0 +1,35 @@
+.project-detail-page .page {
+  background-color: #FFF;
+}
+.project-detail--image-header img {
+  width: 100%;
+}
+.project-detail--content {
+  padding: 15px;
+}
+.project-detail--header {
+  padding: 15px;
+}
+.project-detail--header--snippet {
+  font-style: italic;
+}
+.project-detail--tags {
+  padding: 0px 15px;
+}
+.project-detail--content img {
+  max-width: 100%;
+}
+.resource-detail--links {
+  padding: 15px;
+}
+.resource-detail--link {
+  border-top: 1px solid #007aff;
+  border-bottom: 1px solid #007aff;
+  margin-top: -1px;
+  a {
+    display: block;
+    padding: 15px 10px;
+    color: #007aff;
+    cursor: pointer;
+  }
+}

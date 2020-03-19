@@ -1,0 +1,162 @@
+@import './material-colors';
+
+/* BLOCK ELEMENT */
+.box-shadow {
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+}
+.border-radius-small {
+  border-radius: 2px;
+}
+.full-padding {
+  padding: 15px;
+}
+.pad-vertical {
+  padding: 15px 0px;
+}
+.pad-horizontal {
+  padding: 0px 15px;
+}
+.visible {
+  opacity: 1;
+}
+.hidden {
+  opacity: 0;
+}
+
+/* TEXT */
+.text-center {
+  text-align: center;
+}
+.text-callout-blurb {
+  margin: 0px 15px;
+  padding: 15px;
+  font-size: 1.2em;
+  border: 3px solid $material-pink-400;
+  color: $material-pink-400;
+  border-radius: 6px;
+  h2, p {
+    margin: 0px;
+  }
+}
+
+/* IMAGES */
+.circle-image {
+  border-radius: 100px; // 200x200 images
+  max-height: 200px;
+  max-width: 200px;
+}
+.image-full-width {
+  width: 100%;
+}
+
+/* BUTTONS */
+
+/* FLEX */
+.flex {
+  display: flex;
+}
+.flex-row {
+  flex-direction: row;
+}
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-2 {
+  flex: 2;
+}
+.flex-3 {
+  flex: 3;
+}
+.flex-4 {
+  flex: 4;
+}
+.flex-5 {
+  flex: 5;
+}
+.flex-6 {
+  flex: 6;
+}
+
+@media only screen and (max-width: 640px) {
+  .flex-column-sm {
+    flex-direction: column;
+  }
+  .flex-row-sm {
+    flex-direction: row;
+  }
+}
+@media only screen and (min-width: 641px) {
+  .flex-column-lg {
+    flex-direction: column;
+  }
+  .flex-row-lg {
+    flex-direction: row;
+  }
+}
+
+/* COLOR */
+.bg-red {
+  background-color: $material-red-500;
+}
+.bg-red-a700 {
+  background-color: $material-red-a700;
+}
+.bg-pink {
+  background-color: $material-pink-500;
+}
+.bg-purple {
+  background-color: $material-purple-500;
+}
+.bg-deep-purple {
+  background-color:$material-deep-purple-500;
+}
+.bg-indigo {
+  background-color:$material-indigo-500;
+  color: white;
+}
+.bg-blue {
+  background-color:$material-blue-500;
+}
+.bg-lightblue {
+  background-color:$material-light-blue-500;
+}
+.bg-cyan {
+  background-color:$material-cyan-500;
+}
+.bg-teal {
+  background-color:$material-teal-500;
+}
+.bg-green {
+  background-color:$material-green-500;
+}
+.bg-light-green {
+  background-color:$material-light-green-500;
+}
+.bg-lime {
+  background-color:$material-lime-500;
+}
+.bg-yellow {
+  background-color:$material-yellow-500;
+}
+.bg-amber {
+  background-color:$material-amber-500;
+}
+.bg-orange {
+  background-color:$material-orange-500;
+}
+.bg-deep-orange {
+  background-color:$material-deep-orange-500;
+}
+.bg-blue-gray {
+  background-color:$material-blue-gray-500;
+}
