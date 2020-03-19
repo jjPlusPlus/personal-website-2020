@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
 
-import DelayLink from "./DelayLink";
+import DelayLink from "components/DelayLink";
 
-import HomeSlider from './HomeSlider';
+import HomeSlider from 'components/HomeSlider';
 
-import Affirmations from './Affirmations';
-import StringGlitch from './StringGlitch';
+import Affirmations from 'components/Affirmations';
+import StringGlitch from 'components/StringGlitch';
 
-import ResourceDetailModal from './ResourceDetailModal';
+import ResourceDetailModal from 'components/ResourceDetailModal';
 
-import AboutV2 from './pages/AboutV2';
+import About from 'pages/About';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -23,7 +23,7 @@ import animateScrollTo from 'animated-scroll-to';
 import _ from 'lodash';
 import Imgix from "react-imgix";
 
-class V2 extends Component {
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -160,7 +160,7 @@ class V2 extends Component {
 
               <section className="about">
                 <h1 className="section-title">WHO IS JJ</h1>
-                <AboutV2 />
+                <About />
               </section>
             </div>
           )}
@@ -194,4 +194,4 @@ export default compose(
     projects: state.firebase.data.projects,
     tags: state.firebase.data.tags
   }))
-)(V2)
+)(HomePage)

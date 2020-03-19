@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Slider from '../Slider';
+import Slider from 'components/Slider';
 
 class AboutV2 extends Component {
   render() {

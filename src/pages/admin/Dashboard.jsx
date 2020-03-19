@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase'
 import { compose } from "recompose";
 
-import Typer from '../Typer';
+import Typer from 'components/Typer';
 
 class Dashboard extends Component {
   signOut() {
