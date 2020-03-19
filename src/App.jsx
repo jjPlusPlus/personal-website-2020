@@ -43,23 +43,18 @@ class App extends Component {
               timeout={{enter: 333, exit: 333}}
             >
               <Switch location={location}>
-                <Route path="/v1" exact component={Navigation} />
-                <Route path="/v2" exact component={V2} />
+                <Route path="/" exact component={Home} />
 
-                <Route exact path="/v1/posts" component={Posts} />
-                  <Route path="/v1/posts/:id" component={PostDetail} />
-                <Route exact path="/v1/projects" component={Projects} />
-                  <Route path="/v1/projects/:id" component={ProjectDetail} />
-                <Route path="/v1/about" component={About} />
-                <Route path="/v1/site" component={Site} />
+                <Route path="/posts/:id" component={PostDetail} />
+                <Route path="/projects/:id" component={ProjectDetail} />
+
                 <Route exact path="/admin" component={Admin} />
                   <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
                     <ProtectedRoute exact path="/admin/dashboard/posts" component={AdminPosts} />
                       <ProtectedRoute path="/admin/dashboard/posts/:id" component={ (props) => <PostEditor {...props} /> } />
                     <ProtectedRoute exact path="/admin/dashboard/projects" component={AdminProjects} />
                       <ProtectedRoute path="/admin/dashboard/projects/:id" component={ProjectEditor} />
-                    <ProtectedRoute path="/admin/dashboard/about" component={ResumeEditor} />
-                <Redirect to="/v2" />
+                <Redirect to="/" />
               </Switch>
             </CSSTransition>
           </TransitionGroup>
