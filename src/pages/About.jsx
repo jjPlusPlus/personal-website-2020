@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Slider from 'components/Slider';
 
-class AboutV2 extends Component {
+class About extends Component {
   render() {
     const qaSliderContent = [
         {
