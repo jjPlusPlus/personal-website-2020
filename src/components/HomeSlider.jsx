@@ -69,7 +69,6 @@ const HomeSlider = (props) => {
         <div className="slider-items" style={{transform: `translate3d(${distance}px, 0, 0)` }}>
           {
             items.map((item, index) => {
-              console.log(item.listImage);
               return (
                 <div className={"slide-wrapper " + (props.selected && props.selected.item === item ? "selected" : "") } key={index}>
                   <div className="slide" onClick={() => select(item)}>
