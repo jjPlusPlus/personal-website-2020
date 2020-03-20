@@ -115,9 +115,19 @@ class HomePage extends Component {
                             </div>
                           ))}
                         </div>
-                        <button onClick={() => this.delaySetDetail(selected.item) } className="watch-now-button" >
-                          <p>WATCH NOW</p>
-                        </button>
+                      <DelayLink 
+                        delay={333} 
+                        className="watch-now-button" 
+                        onDelayStart={() => this.delayStart()} 
+                        to={{
+                          pathname: `${selected.resource}/${selected.item.key}`, 
+                          state: { 
+                            resource: selected
+                          }
+                        }}  
+                      >
+                        <p>WATCH NOW</p>
+                      </DelayLink>
                       </div>
                     </div>
                   </span>
