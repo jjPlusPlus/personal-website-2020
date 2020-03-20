@@ -27,8 +27,6 @@ class HomePage extends Component {
     this.state = {
       delaying: null,
       selected: null,
-      detail: null,
-      showMain: true,
       animating: false,
     }
   }
@@ -58,7 +56,7 @@ class HomePage extends Component {
 
   render() {
     let { posts, projects, tags } = this.props;
-    let { selected, detail, animating } = this.state;
+    let { selected, animating } = this.state;
     if (projects) {
       projects = Object.keys(projects).map((project) => {
         const resource = projects[project];
@@ -90,7 +88,7 @@ class HomePage extends Component {
             </div>
           </div>
 
-          <div className={ "home-page " + (this.state.showMain ? "visible" : "hidden")}>
+          <div className="home-page">
             <section className={"header-display " + (animating ? "v2-header-animating" : "")}>
               { selected ? (
 
