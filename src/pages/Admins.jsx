@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import SignInForm from 'components/SignInForm';
 
-class Admin extends Component {
+class Admins extends Component {
 
   render() {
     const profile = this.props.auth.email;
@@ -28,11 +28,10 @@ class Admin extends Component {
 }
 
 const enhance = connect(
-  // Map redux state to component props
   ({ firebase: { auth, profile } }) => ({
     auth,
     profile
   })
 )
 
-export default enhance(Admin);
+export default enhance(Admins);

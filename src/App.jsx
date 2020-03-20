@@ -12,7 +12,7 @@ import Home from 'pages/Home';
 import PostDetail from 'pages/PostDetail';
 import ProjectDetail from 'pages/ProjectDetail';
 
-import Admin from 'pages/Admin';
+import Admins from 'pages/Admins';
 
 import Dashboard from 'pages/admin/Dashboard';
 import AdminPosts from 'pages/admin/Posts';
@@ -48,7 +48,7 @@ class App extends Component {
                 <Route path="/posts/:id" component={PostDetail} />
                 <Route path="/projects/:id" component={ProjectDetail} />
 
-                <Route exact path="/admin" component={Admin} />
+                <Route exact path="/admin" component={Admins} />
                   <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
                     <ProtectedRoute exact path="/admin/dashboard/posts" component={AdminPosts} />
                       <ProtectedRoute path="/admin/dashboard/posts/:id" component={ (props) => <PostEditor {...props} /> } />
