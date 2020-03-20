@@ -12,8 +12,11 @@ const HomeSlider = (props) => {
 
     Object.keys(items).forEach(key => {
       newItemWithKey = items[key];
-      items[key].id = key;
-      tempArray.push(newItemWithKey);
+      if (items[key]) {
+        items[key].id = key;
+        tempArray.push(newItemWithKey);
+      }
+     
     });
 
     items = tempArray;;
