@@ -59,6 +59,21 @@ class HomePage extends Component {
   render() {
     let { posts, projects, tags } = this.props;
     let { selected, detail, animating } = this.state;
+    if (projects) {
+      projects = Object.keys(projects).map((project) => {
+        const resource = projects[project];
+        resource.key = project;
+        return resource
+      })
+    }
+    if (posts) {
+      posts = Object.keys(posts).map((post) => {
+        const resource = posts[post];
+        resource.key = post;
+        return resource
+      })
+    }
+
     // sort the object by key using Lodash
     projects = _.sortBy(projects, "index");
     posts = _.sortBy(posts, "index");
