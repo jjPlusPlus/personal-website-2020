@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
  * based on https://gist.github.com/headzoo/8f4c6a5e843ec26abdcad87cd93e3e2e
  * Wraps the React Router Link component and creates a delay after the link is clicked.
  */
+
 const DelayLink = (props) => {
 
   const [timeout, updateTimeout] = useState(null);
@@ -53,5 +54,16 @@ const DelayLink = (props) => {
     <Link {...passThroughProps} onClick={handleClick} />
   );
 }
+
+DelayLink.propTypes = {
+  delay: PropTypes.number,
+  onDelayStart: PropTypes.func,
+  onDelayEnd: PropTypes.func
+};
+DelayLink.defaultProps = {
+  delay: 0,
+  onDelayStart: () => { },
+  onDelayEnd: () => { }
+};
 
 export default withRouter(DelayLink)
