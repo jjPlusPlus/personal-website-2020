@@ -37,19 +37,6 @@ class HomePage extends Component {
       delaying: true,
     })
   }
-  
-  delaySetDetail = (detail) => {
-    this.setState({ showMain: !this.state.showMain });
-    setTimeout(() => {
-      this.setState({ detail: detail });
-    }, 333);
-  }
-  delayUnsetDetail = () => {
-    this.setState({ detail: null });
-    setTimeout(() => {
-      this.setState({ showMain: !this.state.showMain });
-    }, 333);
-  }
 
   delaySetSelected(item, resource) {
     this.setState({ animating: true });
