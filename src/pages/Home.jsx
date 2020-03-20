@@ -28,10 +28,6 @@ const HomePage = (props) => {
   const [selected, setSelected] = useState(null)
   const [animating, isAnimating] = useState(false)
 
-  const delayStart = () => {
-    isDelaying(true)
-  }
-
   const delaySetSelected = (item, resource) => {
     isAnimating(true)
     setTimeout(() => {
@@ -82,7 +78,7 @@ const HomePage = (props) => {
         <div className="top-bar">
           <div className="top-bar-content flex flex-row flex-center">
             <p className="affirmations flex flex-1">JJ &nbsp; <Affirmations /></p>
-            <DelayLink delay = { 333 } to = "/admin" className="v2-admin-link" onDelayStart = { () => delayStart()}>
+            <DelayLink delay = { 333 } to = "/admin" className="v2-admin-link" onDelayStart = { () => isDelaying(true)}>
               <p>Admin</p>
             </DelayLink>
           </div>
@@ -113,7 +109,7 @@ const HomePage = (props) => {
                     <DelayLink 
                       delay={333} 
                       className="watch-now-button" 
-                      onDelayStart={() => delayStart()} 
+                      onDelayStart={() => isDelaying(true)} 
                       to={{
                         pathname: `${selected.resource}/${selected.item.key}`, 
                         state: { 
