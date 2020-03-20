@@ -11,8 +11,6 @@ import HomeSlider from 'components/HomeSlider';
 import Affirmations from 'components/Affirmations';
 import StringGlitch from 'components/StringGlitch';
 
-import ResourceDetailModal from 'components/ResourceDetailModal';
-
 import About from 'pages/About';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
