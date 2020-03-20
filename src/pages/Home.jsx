@@ -60,16 +60,19 @@ class HomePage extends Component {
     if (projects) {
       projects = Object.keys(projects).map((project) => {
         const resource = projects[project];
+      if (resource) {
         resource.key = project;
         return resource
+      }
       })
     }
     if (posts) {
       posts = Object.keys(posts).map((post) => {
         const resource = posts[post];
+      if (resource) {
         resource.key = post;
         return resource
-      })
+      }
     }
 
     // sort the object by key using Lodash
