@@ -84,16 +84,9 @@ class HomePage extends Component {
           <div className="top-bar">
             <div className="top-bar-content flex flex-row flex-center">
               <p className="affirmations flex flex-1">JJ &nbsp; <Affirmations /></p>
-              { detail ? (
-                <button onClick={() => this.delayUnsetDetail()} className="v2-close-detail">
-                  <p>CLOSE</p>
-                </button>
-              ) : (
-                <DelayLink delay = { 333 } to = "/admin" className = "v2-admin-link" onDelayStart = { () => this.delayStart()}>
-                  <p>Admin</p>
-                </DelayLink>
-              )}
-              
+              <DelayLink delay = { 333 } to = "/admin" className="v2-admin-link" onDelayStart = { () => this.delayStart()}>
+                <p>Admin</p>
+              </DelayLink>
             </div>
           </div>
 
