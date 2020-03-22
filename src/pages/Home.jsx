@@ -39,8 +39,12 @@ const HomePage = props => {
   useFirebaseConnect('tags')
 
   const [delaying, isDelaying] = useState(false)
-  const [selected, setSelected] = useState(null)
   const [animating, isAnimating] = useState(false)
+
+  const [sortedProjects, setSortedProjects] = useState(null)
+  const [sortedPosts, setSortedPosts] = useState(null)
+
+  const [selected, setSelected] = useState(null)
 
   const delaySetSelected = (item, resource) => {
     isAnimating(true)
@@ -160,15 +164,15 @@ const HomePage = props => {
 
           <section className="projects-display">
             <h1 className="section-title"> <StringGlitch interval={3000} text="PROJECTS" /> </h1>
-            {projects && projects.length ? (
-              <HomeSlider items={projects} resource="projects" selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
+            {sortedProjects && sortedProjects.length ? (
+              <HomeSlider items={sortedProjects} resource="projects" selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
             ) : null }
           </section>
 
           <section className="posts-display">
             <h1 className="section-title"><StringGlitch interval={4000} text="POSTS" /></h1>
-            {posts && posts.length ? (
-              <HomeSlider items={posts} resource="posts" selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
+            {sortedPosts && sortedPosts.length ? (
+              <HomeSlider items={sortedPosts} resource="posts" selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
             ) : null}
           </section>
 
@@ -195,12 +199,9 @@ const HomePage = props => {
   )
 }
 
+// HomePage.whyDidYouRender = true;
+
 export default compose(
-  firebaseConnect(() => [
-    'posts',
-    'projects',
-    'tags'
-  ]),
   connect((state) => ({
     posts: state.firebase.data.posts,
     projects: state.firebase.data.projects,
