@@ -22,8 +22,18 @@ import animateScrollTo from 'animated-scroll-to';
 import _ from 'lodash';
 import Imgix from "react-imgix";
 
-const HomePage = (props) => {
-  
+/*
+import whyDidYouRender from "@welldone-software/why-did-you-render";
+
+whyDidYouRender(React, { 
+  include: [/^HomePage/],
+  titleColor: "#007aff",
+  diffNameColor: "#7a00ff",
+  diffPathColor: "ff7a00" 
+});
+*/
+
+const HomePage = props => {
   const [delaying, isDelaying] = useState(false)
   const [selected, setSelected] = useState(null)
   const [animating, isAnimating] = useState(false)
