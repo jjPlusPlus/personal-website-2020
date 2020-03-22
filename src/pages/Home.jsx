@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { firebaseConnect } from 'react-redux-firebase';
+import { useFirebaseConnect } from 'react-redux-firebase';
 
 import DelayLink from "components/DelayLink";
 import { Link } from 'react-router-dom';
@@ -34,6 +34,10 @@ whyDidYouRender(React, {
 */
 
 const HomePage = props => {
+  useFirebaseConnect('posts')
+  useFirebaseConnect('projects')
+  useFirebaseConnect('tags')
+
   const [delaying, isDelaying] = useState(false)
   const [selected, setSelected] = useState(null)
   const [animating, isAnimating] = useState(false)
@@ -56,31 +60,37 @@ const HomePage = props => {
     }
   }
 
-  let { posts, projects, tags } = props;
+  let { posts, projects, tags } = props
 
-  if (projects) {
-    projects = Object.keys(projects).map((project) => {
-      const resource = projects[project];
-      if (resource) {
-        resource.key = project;
-        return resource
-      }
-    })
-  }
+  useEffect(() => {
+    if (projects) {
+      const formattedProjects = Object.keys(projects).map((project) => {
+        const resource = projects[project];
+        if (resource) {
+          resource.key = project;
+          return resource
+        } else {
+          return null;
+        }
+      })
+      setSortedProjects(_.sortBy(formattedProjects, "index"))
+    }
 
-  if (posts) {
-    posts = Object.keys(posts).map((post) => {
-      const resource = posts[post];
-      if (resource) {
-        resource.key = post;
-        return resource;
-      }
-    })
-  }
+    if (posts) {
+      const formattedPosts = Object.keys(posts).map((post) => {
+        const resource = posts[post]
+        if (resource) {
+          resource.key = post
+          return resource
+        } else {
+          return null
+        }
+      })
+      setSortedPosts(_.sortBy(formattedPosts, "index"))
+    }
+  }, [projects, posts])  
 
   // sort the object by key using Lodash
-  projects = _.sortBy(projects, "index");
-  posts = _.sortBy(posts, "index");
 
   return (
     <div>
