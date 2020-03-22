@@ -5,7 +5,6 @@ import { compose } from 'redux';
 import { useFirebaseConnect } from 'react-redux-firebase';
 
 import DelayLink from "components/DelayLink";
-import { Link } from 'react-router-dom';
 
 import HomeSlider from 'components/HomeSlider';
 
