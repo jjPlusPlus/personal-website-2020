@@ -93,8 +93,6 @@ const HomePage = props => {
     }
   }, [projects, posts])  
 
-  // sort the object by key using Lodash
-
   return (
     <div>
       <div className="v2">

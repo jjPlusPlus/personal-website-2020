@@ -9,8 +9,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Home from 'pages/Home';
 
-import PostDetail from 'pages/PostDetail';
-import ProjectDetail from 'pages/ProjectDetail';
+import ResourcePage from 'pages/ResourcePage';
 
 import Admins from 'pages/Admins';
 
@@ -45,8 +44,8 @@ class App extends Component {
               <Switch location={location}>
                 <Route path="/" exact component={Home} />
 
-                <Route path="/posts/:id" component={PostDetail} />
-                <Route path="/projects/:id" component={ProjectDetail} />
+                <Route path="/posts/:id" component={ResourcePage} />
+                <Route path="/projects/:id" component={ResourcePage} />
 
                 <Route exact path="/admin" component={Admins} />
                   <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
