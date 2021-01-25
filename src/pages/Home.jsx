@@ -101,9 +101,6 @@ const HomePage = props => {
         <div className="top-bar">
           <div className="top-bar-content flex flex-row flex-center">
             <p className="affirmations flex flex-1">JJ &nbsp; <Affirmations /></p>
-            <DelayLink delay = { 333 } to = "/admin" className="v2-admin-link" onDelayStart = { () => isDelaying(true)}>
-              <p>Admin</p>
-            </DelayLink>
           </div>
         </div>
 
@@ -149,13 +146,13 @@ const HomePage = props => {
               <span>
                 {/* <HeaderAnimation /> 
                 <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: "url(/jjpp-header-slim.svg)" }}></div>*/}
-                <Imgix
+                {/* <Imgix
                   src="https://jj-plus-plus.imgix.net/images/jjpp-header-slim.svg"
                   sizes="(min-width: 1280px) 1280px, 100vw"
                   imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
                   classNames="full-width"
                 />
-                <h1 className="header-display--title">This is JJ</h1>
+                <h1 className="header-display--title">This is JJ</h1> */}
               </span>
             )
             }
@@ -175,23 +172,24 @@ const HomePage = props => {
             ) : null}
           </section>
 
-          <section className="about">
-            <h1 className="section-title">WHO IS JJ</h1>
-            <About />
-          </section>
         </div>
       </div>
 
       <section className="footer-wrapper flex-center">
         <div className="footer flex">
-          <div className="flex-1">
+          <div className="flex flex-1 flex-center">
             <div className="flex flex-row icon-links">
               <a href="https://www.linkedin.com/in/jjmedina/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></a>
               <a href="https://github.com/jjPlusPlus/" target="_blank"><FontAwesomeIcon icon={faGithub} /></a>
               <a href="https://www.instagram.com/mega094/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
             </div>
           </div>
-          <p>2019 JJ++</p>
+          <p className="attribution flex flex-center">2019 JJ++</p>
+          <div className="flex-center">
+            <DelayLink delay = { 333 } to = "/admin" className="v2-admin-link" onDelayStart = { () => isDelaying(true)}>
+              <p>Admin</p>
+            </DelayLink>
+          </div>
         </div>
       </section>
     </div>
