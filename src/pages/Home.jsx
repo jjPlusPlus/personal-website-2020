@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { firebaseConnect } from 'react-redux-firebase';
+import { useFirebaseConnect } from 'react-redux-firebase';
 
 import DelayLink from "components/DelayLink";
 
@@ -10,8 +10,6 @@ import HomeSlider from 'components/HomeSlider';
 
 import Affirmations from 'components/Affirmations';
 import StringGlitch from 'components/StringGlitch';
-
-import ResourceDetailModal from 'components/ResourceDetailModal';
 
 import About from 'pages/About';
 
@@ -23,172 +21,182 @@ import animateScrollTo from 'animated-scroll-to';
 import _ from 'lodash';
 import Imgix from "react-imgix";
 
-class HomePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      delaying: null,
-      selected: null,
-      detail: null,
-      showMain: true,
-      animating: false,
-    }
-  }
-  delayStart = () => {
-    this.setState({
-      delaying: true,
-    })
-  }
-  
-  delaySetDetail = (detail) => {
-    this.setState({ showMain: !this.state.showMain });
-    setTimeout(() => {
-      this.setState({ detail: detail });
-    }, 333);
-  }
-  delayUnsetDetail = () => {
-    this.setState({ detail: null });
-    setTimeout(() => {
-      this.setState({ showMain: !this.state.showMain });
-    }, 333);
-  }
+/*
+import whyDidYouRender from "@welldone-software/why-did-you-render";
 
-  delaySetSelected(item, resource) {
-    this.setState({ animating: true });
+whyDidYouRender(React, { 
+  include: [/^HomePage/],
+  titleColor: "#007aff",
+  diffNameColor: "#7a00ff",
+  diffPathColor: "ff7a00" 
+});
+*/
+
+const HomePage = props => {
+  useFirebaseConnect('posts')
+  useFirebaseConnect('projects')
+  useFirebaseConnect('tags')
+
+  const [delaying, isDelaying] = useState(false)
+  const [animating, isAnimating] = useState(false)
+
+  const [sortedProjects, setSortedProjects] = useState(null)
+  const [sortedPosts, setSortedPosts] = useState(null)
+
+  const [selected, setSelected] = useState(null)
+
+  const delaySetSelected = (item, resource) => {
+    isAnimating(true)
     setTimeout(() => {
-      this.setSelected(item, resource);
-      this.setState({animating: false});
+      updateSelected(item, resource)
+      isAnimating(false)
     }, 333)
   }
 
-  setSelected(item, resource) {
-    if (this.state.selected && this.state.selected.item === item) {
+  const updateSelected = (item, resource) => {
+    if (selected && selected.item === item) {
       // deselect the item 
-      this.setState({ selected: null })
+      setSelected(null)
     } else {
-      animateScrollTo(0);
-      this.setState({ selected: { item, resource } });
+      animateScrollTo(0)
+      setSelected( { item, resource })
     }
   }
 
-  render() {
-    let { posts, projects, tags } = this.props;
-    let { selected, detail, animating } = this.state;
-    // sort the object by key using Lodash
-    projects = _.sortBy(projects, "index");
-    posts = _.sortBy(posts, "index");
+  let { posts, projects, tags } = props
 
-    return (
-      <div>
-        <div className="v2">
-          <div className="top-bar">
-            <div className="top-bar-content flex flex-row flex-center">
-              <p className="affirmations flex flex-1">JJ &nbsp; <Affirmations /></p>
-              { detail ? (
-                <button onClick={() => this.delayUnsetDetail()} className="v2-close-detail">
-                  <p>CLOSE</p>
-                </button>
-              ) : (
-                <DelayLink delay = { 333 } to = "/admin" className = "v2-admin-link" onDelayStart = { () => this.delayStart()}>
-                  <p>Admin</p>
-                </DelayLink>
-              )}
-              
-            </div>
+  useEffect(() => {
+    if (projects) {
+      const formattedProjects = Object.keys(projects).map((project) => {
+        const resource = projects[project];
+        if (resource) {
+          resource.key = project;
+          return resource
+        } else {
+          return null;
+        }
+      })
+      setSortedProjects(_.sortBy(formattedProjects, "index"))
+    }
+
+    if (posts) {
+      const formattedPosts = Object.keys(posts).map((post) => {
+        const resource = posts[post]
+        if (resource) {
+          resource.key = post
+          return resource
+        } else {
+          return null
+        }
+      })
+      setSortedPosts(_.sortBy(formattedPosts, "index"))
+    }
+  }, [projects, posts])  
+
+  return (
+    <div>
+      <div className="v2">
+        <div className="top-bar">
+          <div className="top-bar-content flex flex-row flex-center">
+            <p className="affirmations flex flex-1">JJ &nbsp; <Affirmations /></p>
           </div>
-
-          { detail ? (
-              <ResourceDetailModal tags={tags} detail={detail} />
-            ) : (
-            <div className={ "home-page " + (this.state.showMain ? "visible" : "hidden")}>
-              <section className={"header-display " + (animating ? "v2-header-animating" : "")}>
-                { selected ? (
-
-                  <span>
-                    <Imgix
-                      src={selected.item.heroImage}
-                      sizes="(min-width: 1280px) 1280px, 100vw"
-                      imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
-                      classNames="full-width"
-                    />
-                    <div className="header-display--content-wrapper flex flex-column">
-                      <div className="header-display--content">
-                        <h1>{selected.item.name}</h1>
-                        <p>{selected.item.snippet}</p>
-                        <div className="header-display--content-tags">
-                          { selected.item.tags && selected.item.tags.map((tag, index) => (
-                            <div className="tag" key={index} style={{ backgroundColor: tags[tag].bgColor || "#007aff", color: tags[tag].color || '#FFF' }}>
-                              <p>{tags[tag].name}</p>
-                            </div>
-                          ))}
-                        </div>
-                        <button onClick={() => this.delaySetDetail(selected.item) } className="watch-now-button" >
-                          <p>WATCH NOW</p>
-                        </button>
-                      </div>
-                    </div>
-                  </span>
-                ) : (
-                  <span>
-                    {/* <HeaderAnimation /> 
-                    <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: "url(/jjpp-header-slim.svg)" }}></div>*/}
-                    <Imgix
-                      src="https://jj-plus-plus.imgix.net/images/jjpp-header-slim.svg"
-                      sizes="(min-width: 1280px) 1280px, 100vw"
-                      imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
-                      classNames="full-width"
-                    />
-                    <h1 className="header-display--title">This is JJ</h1>
-                  </span>
-                )
-                }
-              </section>
-
-              <section className="projects-display">
-                <h1 className="section-title"> <StringGlitch interval={3000} text="PROJECTS" /> </h1>
-                {projects && projects.length ? (
-                  <HomeSlider items={projects} resource="projects" selected={selected} setSelected={(item, type) => this.delaySetSelected(item, type)}/>
-                ) : null }
-              </section>
-
-              <section className="posts-display">
-                <h1 className="section-title"><StringGlitch interval={4000} text="POSTS" /></h1>
-                {posts && posts.length ? (
-                  <HomeSlider items={posts} resource="posts" selected={selected} setSelected={(item, type) => this.delaySetSelected(item, type)}/>
-                ) : null}
-              </section>
-
-              <section className="about">
-                <h1 className="section-title">WHO IS JJ</h1>
-                <About />
-              </section>
-            </div>
-          )}
         </div>
 
-        <section className="footer-wrapper flex-center">
-          <div className="footer flex">
-            <div className="flex-1">
-              <div className="flex flex-row icon-links">
-                <a href="https://www.linkedin.com/in/jjmedina/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></a>
-                <a href="https://github.com/jjPlusPlus/" target="_blank"><FontAwesomeIcon icon={faGithub} /></a>
-                <a href="https://www.instagram.com/mega094/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
-              </div>
-            </div>
-            <p>2019 JJ++</p>
-          </div>
-        </section>
+        <div className="home-page">
+          <section className={"header-display " + (animating ? "v2-header-animating" : "")}>
+            { selected ? (
+
+              <span>
+                <Imgix
+                  src={selected.item.heroImage}
+                  sizes="(min-width: 1280px) 1280px, 100vw"
+                  imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
+                  classNames="full-width"
+                />
+                <div className="header-display--content-wrapper flex flex-column">
+                  <div className="header-display--content">
+                    <h1>{selected.item.name}</h1>
+                    <p>{selected.item.snippet}</p>
+                    <div className="header-display--content-tags">
+                      { selected.item.tags && selected.item.tags.map((tag, index) => (
+                        <div className="tag" key={index} style={{ backgroundColor: tags[tag].bgColor || "#007aff", color: tags[tag].color || '#FFF' }}>
+                          <p>{tags[tag].name}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <DelayLink 
+                      delay={333} 
+                      className="watch-now-button" 
+                      onDelayStart={() => isDelaying(true)} 
+                      to={{
+                        pathname: `${selected.resource}/${selected.item.key}`, 
+                        state: { 
+                          resource: selected
+                        }
+                      }}  
+                    >
+                      <p>WATCH NOW</p>
+                    </DelayLink>
+                  </div>
+                </div>
+              </span>
+            ) : (
+              <span>
+                {/* <HeaderAnimation /> 
+                <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: "url(/jjpp-header-slim.svg)" }}></div>*/}
+                {/* <Imgix
+                  src="https://jj-plus-plus.imgix.net/images/jjpp-header-slim.svg"
+                  sizes="(min-width: 1280px) 1280px, 100vw"
+                  imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
+                  classNames="full-width"
+                />
+                <h1 className="header-display--title">This is JJ</h1> */}
+              </span>
+            )
+            }
+          </section>
+
+          <section className="projects-display">
+            <h1 className="section-title"> <StringGlitch interval={3000} text="PROJECTS" /> </h1>
+            {sortedProjects && sortedProjects.length ? (
+              <HomeSlider items={sortedProjects} resource="projects" selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
+            ) : null }
+          </section>
+
+          <section className="posts-display">
+            <h1 className="section-title"><StringGlitch interval={4000} text="POSTS" /></h1>
+            {sortedPosts && sortedPosts.length ? (
+              <HomeSlider items={sortedPosts} resource="posts" selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
+            ) : null}
+          </section>
+
+        </div>
       </div>
-    );
-  }
+
+      <section className="footer-wrapper flex-center">
+        <div className="footer flex">
+          <div className="flex flex-1 flex-center">
+            <div className="flex flex-row icon-links">
+              <a href="https://www.linkedin.com/in/jjmedina/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></a>
+              <a href="https://github.com/jjPlusPlus/" target="_blank"><FontAwesomeIcon icon={faGithub} /></a>
+              <a href="https://www.instagram.com/mega094/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
+            </div>
+          </div>
+          <p className="attribution flex flex-center">2019 JJ++</p>
+          <div className="flex-center">
+            <DelayLink delay = { 333 } to = "/admin" className="v2-admin-link" onDelayStart = { () => isDelaying(true)}>
+              <p>Admin</p>
+            </DelayLink>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
 }
 
+// HomePage.whyDidYouRender = true;
+
 export default compose(
-  firebaseConnect(() => [
-    'posts',
-    'projects',
-    'tags'
-  ]),
   connect((state) => ({
     posts: state.firebase.data.posts,
     projects: state.firebase.data.projects,

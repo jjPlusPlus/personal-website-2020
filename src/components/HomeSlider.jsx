@@ -5,6 +5,14 @@ const HomeSlider = (props) => {
 
   let items = props.items;
 
+  const elementRef = useRef(null);
+
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [elementWidth, setElementWidth] = useState(0);
+  const [currentStartIndex, updateStartIndex] = useState(0);
+  const [distance, setDistance] = useState(0);
+  const [viewPortItems, setViewportItems] = useState(2)
+
   // force items to an Array with keys as an ID property
   if (typeof items !== Array) {
     const tempArray = [];
@@ -12,8 +20,11 @@ const HomeSlider = (props) => {
 
     Object.keys(items).forEach(key => {
       newItemWithKey = items[key];
-      items[key].id = key;
-      tempArray.push(newItemWithKey);
+      if (items[key]) {
+        items[key].id = key;
+        tempArray.push(newItemWithKey);
+      }
+     
     });
 
     items = tempArray;;
@@ -21,32 +32,49 @@ const HomeSlider = (props) => {
 
   const totalItems = items.length;
 
-  const viewPortItems = 4;
-
-  const elementRef = useRef(null);
-
-  const [width, setWidth] = useState(0);
-  const [currentStartIndex, updateStartIndex] = useState(0);
-  const [distance, setDistance] = useState(0);
-
   useEffect(() => {
     if (elementRef.current) {
-      setWidth(elementRef.current.clientWidth);
+      setElementWidth(elementRef.current.clientWidth);
     }
   }, [elementRef]);
 
+  useEffect(() => {
+    let w = window.innerWidth
+    setWindowWidth(w)
+    if (w < 700) { setViewportItems(2) }
+      else if (w < 1000) { setViewportItems(3) }
+      else if (w < 1280) { setViewportItems(4) }
+      else { setViewportItems(6) }
+
+    if (elementRef.current) {
+      setElementWidth(elementRef.current.clientWidth);
+    }
+    window.addEventListener("resize", () => {
+      w = window.innerWidth
+      setWindowWidth(w)
+      if (w < 700) { setViewportItems(2) }
+        else if (w < 1000) { setViewportItems(3) }
+        else if (w < 1200) { setViewportItems(4) }
+        else { setViewportItems(6) }
+      if (elementRef.current) {
+        setElementWidth(elementRef.current.clientWidth);
+      }
+    });
+
+  }, [])
+
   const push = useCallback(
     () => {
-      setDistance(distance - width + 75);
+      setDistance(distance - elementWidth + 75);
       updateStartIndex(currentStartIndex + viewPortItems);
-    },[width, distance, currentStartIndex]
+    },[elementWidth, distance, currentStartIndex]
   );
 
   const pull = useCallback(
     () => {
-      setDistance(distance + width - 75);
+      setDistance(distance + elementWidth - 75);
       updateStartIndex(currentStartIndex - viewPortItems);
-    }, [width, distance, currentStartIndex]
+    }, [elementWidth, distance, currentStartIndex]
   );
 
   const select = useCallback(
@@ -87,13 +115,12 @@ const HomeSlider = (props) => {
               )
             })
           }
-          { showRight ? (
-            <div onClick={push} className="push-arrow-ui push-arrow-right">
-              <div className="arrow-right"></div>
-            </div>
-          ) : null}
         </div>
-        
+        { showRight ? (
+          <div onClick={push} className="push-arrow-ui push-arrow-right">
+            <div className="arrow-right"></div>
+          </div>
+        ) : null}
       </div>
     </div>
   )

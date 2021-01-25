@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import CodeBlock from 'components/CodeBlock';
+import CodeBlock from '../components/CodeBlock';
 
 import { firebaseConnect, getVal } from 'react-redux-firebase';
 import { connect } from 'react-redux';

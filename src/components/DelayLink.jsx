@@ -1,62 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 
 /**
- * from https://gist.github.com/headzoo/8f4c6a5e843ec26abdcad87cd93e3e2e
+ * based on https://gist.github.com/headzoo/8f4c6a5e843ec26abdcad87cd93e3e2e
  * Wraps the React Router Link component and creates a delay after the link is clicked.
  */
-export default class DelayLink extends React.Component {
-  static propTypes = {
-    /**
-     * Milliseconds to wait before registering the click.
-     */
-    delay:        PropTypes.number,
-    /**
-     * Called after the link is clicked and before the delay timer starts.
-     */
-    onDelayStart: PropTypes.func,
-    /**
-     * Called after the delay timer ends.
-     */
-    onDelayEnd:   PropTypes.func
-  };
 
-  static defaultProps = {
-    delay:        0,
-    onDelayStart: () => {},
-    onDelayEnd:   () => {}
-  };
+const DelayLink = (props) => {
 
-  static contextTypes = Link.contextTypes;
+  const [timeout, updateTimeout] = useState(null);
 
-  constructor(props) {
-    super(props);
-    this.timeout = null;
-  }
-
-  componentWillUnmount() {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
+  useEffect(() => {
+    return () => {
+      console.log("I run on unmount")
+      if (timeout) {
+        clearTimeout(timeout)
+      }
     }
-  }
+  }, [])
 
-  /**
-   * Called when the link is clicked
-   *
-   * @param {Event} e
-   */
-  handleClick = (e) => {
-    const { replace, to, delay, onDelayStart, onDelayEnd } = this.props;
-    const { history } = this.context.router;
+  const handleClick = (e) => {
+    const { replace, to, delay, onDelayStart, onDelayEnd, history } = props;
+    debugger;
 
     onDelayStart(e, to);
+
     if (e.defaultPrevented) {
       return;
     }
+
     e.preventDefault();
 
-    this.timeout = setTimeout(() => {
+    const newTimeout = setTimeout(() => {
       if (replace) {
         history.replace(to);
       } else {
@@ -64,16 +41,29 @@ export default class DelayLink extends React.Component {
       }
       onDelayEnd(e, to);
     }, delay);
+
+    updateTimeout(newTimeout);
   };
 
-  render() {
-    const props = Object.assign({}, this.props);
-    delete props.delay;
-    delete props.onDelayStart;
-    delete props.onDelayEnd;
+  const passThroughProps = Object.assign({}, props);
+  delete passThroughProps.delay;
+  delete passThroughProps.onDelayStart;
+  delete passThroughProps.onDelayEnd;
 
-    return (
-      <Link {...props} onClick={this.handleClick} />
-    );
-  }
+  return (
+    <Link {...passThroughProps} onClick={handleClick} />
+  );
 }
+
+DelayLink.propTypes = {
+  delay: PropTypes.number,
+  onDelayStart: PropTypes.func,
+  onDelayEnd: PropTypes.func
+};
+DelayLink.defaultProps = {
+  delay: 0,
+  onDelayStart: () => { },
+  onDelayEnd: () => { }
+};
+
+export default withRouter(DelayLink)
