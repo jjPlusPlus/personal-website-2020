@@ -15,7 +15,7 @@
     "@types/react-redux": "^7.1.1",
     "animated-scroll-to": "^2.0.5",
     "firebase": "^6.3.3",
-    "gsap": "^2.1.3",
+    "gsap": "^3.6.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
