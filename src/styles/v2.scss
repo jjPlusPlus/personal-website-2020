@@ -1,268 +1,247 @@
-.v2 {
+.wrapper {
   padding-top: 60px;
   overflow: hidden;
   max-width: 1280px;
   margin: 0 auto;
-  .top-bar {
-    position: fixed;
-    height: 60px;
-    z-index: 5;
-    top:0;
-    left:0;
-    width: 100%;
-    background-color: black;
+}
+.top-bar {
+  position: fixed;
+  height: 60px;
+  z-index: 5;
+  top:0;
+  left:0;
+  width: 100%;
+  background-color: black;
+}
+.top-bar-content {
+  color: #FFF;
+  max-width: 1280px;
+  margin: 0 auto;
+  
+}
+.home-page {
+  transition: opacity 333ms ease;
+}
+.section-title {
+  font-family: "Exo";
+  font-size: 2em;
+  font-weight: 400;
+  margin: 0;
+  padding: 2rem;
+  padding-top: 4rem;
+}
+.header-display {
+  // position: relative;
+  transition: all 222ms ease;
+  opacity: 1;
+}
+.header-animating {
+  transform: translateY(1rem);
+  opacity: 0;
+}
+.header-display--title {
+  font-family: "Abril Fatface";
+  font-size: 3em;
+  font-weight: 100;
+  color: #FFF;
+  margin: 0;
+  padding: 2rem;
+  top: 40%;
+  position: absolute;
+}
+.header-display img {
+  width: 100%;
+}
+.header-display .image--aspect-wrapper--16-9 {
+  display: flex;
+  align-items: center;
+}
+.header-display--content-wrapper {
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // width: 100%;
+  // height: 100%;
+  // justify-content: flex-end;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.9),
+    rgba(0,0,0,0.8),
+    rgba(255,255,255, 0),
+    rgba(255,255,255, 0),
+    rgba(255, 255, 255, 0)
+  );
+}
+.header-display--content {
+  padding: 2rem 2rem;
+  color: #FFF;
+  h1 {
+    margin: 0.2rem 0;
   }
-  .top-bar-content {
-    color: #FFF;
-    max-width: 1280px;
-    margin: 0 auto;
-    
+  p {
+    margin: 0.2rem 0;
   }
-  .v2-close-detail {
-    background-color: #000;
-    height: 100%;
-    border: none;
-    margin-right: 2rem;
-    cursor: pointer;
-    &:hover {
-      background-color: #fff;
-      p { color: #000; }
-    }
-    p {
-      color: #FFF;
-      margin: 0;
-    }
-  }
-  .home-page {
-    transition: opacity 333ms ease;
-  }
-  .section-title {
-    font-family: "Exo";
-    font-size: 2em;
-    font-weight: 400;
-    margin: 0;
-    padding: 2rem;
-    padding-top: 4rem;
-  }
-  .header-display {
-    position: relative;
-    transition: all 222ms ease;
-    opacity: 1;
-  }
-  .v2-header-animating {
-    transform: translateY(1rem);
-    opacity: 0;
-  }
-  .header-display--title {
-    font-family: "Abril Fatface";
-    font-size: 3em;
-    font-weight: 100;
-    color: #FFF;
-    margin: 0;
-    padding: 2rem;
-    top: 40%;
-    position: absolute;
-  }
-  .header-display img {
-    width: 100%;
-  }
-  .header-display .image--aspect-wrapper--16-9 {
-    display: flex;
-    align-items: center;
-  }
-  .header-display--content-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    justify-content: flex-end;
-    background: linear-gradient(
-      to top,
-      rgba(0,0,0,0.9),
-      rgba(0,0,0,0.8),
-      rgba(255,255,255, 0),
-      rgba(255,255,255, 0),
-      rgba(255, 255, 255, 0)
-    );
-  }
-  .header-display--content {
-    padding: 2rem 2rem;
-    color: #FFF;
-    h1 {
-      margin: 0.2rem 0;
-    }
-    p {
-      margin: 0.2rem 0;
-    }
-  }
-  .header-display--content-tags {
-    transform: scale(0.8) translateX(-5px);
-    transform-origin: left;
-  }
+}
+.header-display--content-tags {
+  transform: scale(0.8) translateX(-5px);
+  transform-origin: left;
+}
 
 
-  section.projects-display {
-    background-color: #111;
-    color: #FFF;
-  }
-  section.posts-display {
-    background-color: #111;
-    color: #FFF;
-  }
-  section.about {
-    background-color: #111;
-    color: #FFF;
-  }
+section.resource-display {
+  background-color: #111;
+  color: #FFF;
+}
+section.about {
+  background-color: #111;
+  color: #FFF;
+}
 
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-column-gap: 50px;
-    grid-row-gap: 40px;
-    margin: 0px 2em;
-    padding: 2em 0px;
-  }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 50px;
+  grid-row-gap: 40px;
+  margin: 0px 2em;
+  padding: 2em 0px;
+}
 
 
 
 
-  .slider-row {
-    position: relative;
-    z-index: 0;
-  }
-  .slider {
-    white-space: nowrap;
-    margin: 0 2rem; 
-    position: relative;
-  }
-  .slider-items {
-    transition: all 666ms ease;
-  }
-  .slide-wrapper {
-    width: 49%;
-    display: inline-block;
-    padding: 0 5px;
-    box-sizing: border-box;
-    z-index: 1;
-    position: relative;
-    white-space: normal;
-    vertical-align: top;
-    transition: transform 222ms linear;
-  }
-  .slide-wrapper:hover {
-    z-index:3;
-    transform: none !important;
-  }
-  .slide-wrapper.selected {
-    z-index:2;
-    transform: none !important;
-  }
+.slider-row {
+  position: relative;
+  z-index: 0;
+}
+.slider {
+  white-space: nowrap;
+  margin: 0 2rem; 
+  position: relative;
+}
+.slider-items {
+  transition: all 666ms ease;
+}
+.slide-wrapper {
+  width: 49%;
+  display: inline-block;
+  padding: 0 5px;
+  box-sizing: border-box;
+  z-index: 1;
+  position: relative;
+  white-space: normal;
+  vertical-align: top;
+  transition: transform 222ms linear;
+}
+.slide-wrapper:hover {
+  z-index:3;
+  transform: none !important;
+}
+.slide-wrapper.selected {
+  z-index:2;
+  transform: none !important;
+}
 
-  // works... ?
-  .slider:hover .slide-wrapper, .has-selected .slide-wrapper {
-    transform: translateX(-10%);
-  }
-  // works 
-  .slide-wrapper:hover ~ .slide-wrapper {
-    transform: translateX(10%);
-  }
-  // doesnt work
-  .slide-wrapper.selected ~ .slide-wrapper {
-    transform: translateX(10%);
-  }
-  // works
-  .slide-wrapper:hover .slide, .selected .slide {
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.8);
-    transform: scale(1.5);
-  }
-  .slide {
-    // width: 100%;
-    overflow: hidden;
-    transition: transform 222ms linear;
-    cursor: pointer;
-    position: relative;
-  }
-  .slide img {
-    width: 100%;
-  }
-  .slide-overlay {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    padding: 0.5rem;
-    overflow: hidden;
-    box-sizing: border-box;
-  }
+// works... ?
+.slider:hover .slide-wrapper, .has-selected .slide-wrapper {
+  transform: translateX(-10%);
+}
+// works 
+.slide-wrapper:hover ~ .slide-wrapper {
+  transform: translateX(10%);
+}
+// doesnt work
+.slide-wrapper.selected ~ .slide-wrapper {
+  transform: translateX(10%);
+}
+// works
+.slide-wrapper:hover .slide, .selected .slide {
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.8);
+  transform: scale(1.1);
+}
+.slide {
+  // width: 100%;
+  overflow: hidden;
+  transition: transform 222ms linear;
+  cursor: pointer;
+  position: relative;
+}
+.slide img {
+  width: 100%;
+}
+.slide-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  padding: 0.5rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
 
-  .slide-wrapper:hover .slide-overlay {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
-  .slide-overlay-title {
-    font-size: 0.8rem;
-    text-align: left;
-    width: 100%;
-  }
-
-
+.slide-wrapper:hover .slide-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.slide-overlay-title {
+  font-size: 0.8rem;
+  text-align: left;
+  width: 100%;
+}
 
 
-  .push-arrow-ui {
-    position: absolute;
-    background: rgba(0,0,0, 0.6);
-    top: 5%;
-    z-index: 4;
-    width: 2rem;
-    height: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 333ms linear;
-    cursor: pointer;
-  }
-  .push-arrow-left {
-    left: -2rem;
-  }
-  .push-arrow-right {
-    right: -2rem;
-  }
-  .push-arrow-ui:hover {
-    transform: scale(1.2);
-    background-color: #000;
-  }
-  .push-arrow-ui:hover .arrow-right {
-    transform: rotate(135deg) translateX(0.3rem);
-  }
-  .arrow-right {
-    width: 0.6rem;
-    height: 0.6rem;
-    border: 0.3rem solid;
-    border-color: white transparent transparent white;
-    transform: rotate(135deg) translateX(0.5rem);
-    transition: all 333ms ease;
-  }
-  .arrow-left {
-    width: 0.6rem;
-    height: 0.6rem;
-    border: 0.3rem solid;
-    border-color: white transparent transparent white;
-    transform: rotate(-45deg) translateX(0.5rem);
-    transition: all 333ms ease;
-  }
 
 
+.push-arrow-ui {
+  position: absolute;
+  background: rgba(0,0,0, 0.6);
+  top: 5%;
+  z-index: 4;
+  width: 2rem;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 333ms linear;
+  cursor: pointer;
+}
+.push-arrow-left {
+  left: -2rem;
+}
+.push-arrow-right {
+  right: -2rem;
+}
+.push-arrow-ui:hover {
+  transform: scale(1.2);
+  background-color: #000;
+}
+.push-arrow-ui:hover .arrow-right {
+  transform: rotate(135deg) translateX(0.3rem);
+}
+.arrow-right {
+  width: 0.6rem;
+  height: 0.6rem;
+  border: 0.3rem solid;
+  border-color: white transparent transparent white;
+  transform: rotate(135deg) translateX(0.5rem);
+  transition: all 333ms ease;
+}
+.arrow-left {
+  width: 0.6rem;
+  height: 0.6rem;
+  border: 0.3rem solid;
+  border-color: white transparent transparent white;
+  transform: rotate(-45deg) translateX(0.5rem);
+  transition: all 333ms ease;
 }
 
 .top-bar .affirmations {
   padding: 0 2rem;
 }
-.v2-admin-link {
+.admin-link {
   padding: 0 2rem;
 }
 
@@ -311,17 +290,7 @@
   z-index: 0;
   position: relative;
 }
-.about-v2 {
-  padding: 2rem;
-  max-width: 900px;
 
-  .slider-item p {
-    color: #000;
-  }
-}
-.about-v2--section {
-  margin-top: 2rem;
-}
 .footer-wrapper {
   margin-top:15px;
   width: 100%;
@@ -334,7 +303,7 @@
   margin: 0 auto;
 }
 
-.v2 + .footer-wrapper .icon-links a {
+.wrapper + .footer-wrapper .icon-links a {
   color: #FFF;
   font-size: 2rem;
   padding-right: 2rem;
@@ -346,7 +315,7 @@
 }
 
 @media only screen and (min-width: 700px) {                                                                                                                                                                                                                                                                                                                                                                                                                                  
-  .v2 .slide-wrapper {
+  .wrapper .slide-wrapper {
     width: 33%;
   }
   .footer-wrapper {
@@ -355,7 +324,7 @@
 }
 
 @media only screen and (min-width: 1000px) {
-  .v2 .slide-wrapper {
+  .wrapper .slide-wrapper {
     width: 25%;
   }
   .footer-wrapper {
@@ -364,7 +333,7 @@
 }
 
 @media only screen and (min-width: 1280px) {
-  .v2 .slide-wrapper {
+  .wrapper .slide-wrapper {
     width: 16.66666667%;
   }
 }
