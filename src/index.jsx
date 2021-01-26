@@ -24,9 +24,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
       <Router>
-        <RouterToUrlQuery>
-          <App />
-        </RouterToUrlQuery>
+        <App />
       </Router>
     </ReactReduxFirebaseProvider>
   </Provider>
