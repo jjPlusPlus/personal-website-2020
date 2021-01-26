@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'app.scss';
 
 import ReactGA from 'react-ga';
@@ -24,43 +24,38 @@ import ProtectedRoute from 'components/ProtectedRoute';
 const trackingId = "149202297";
 ReactGA.initialize(trackingId);
 
-class App extends Component {
+export default function App() {
+  return (
+    <Route render={({ location }) => {
+      const { pathname, key } = location;
 
-  render() {
-    return (
-      <Route render={({ location }) => {
-        const { pathname, key } = location;
+      return (
+        <TransitionGroup component={null}>
+          <CSSTransition
+            key={key}
+            appear={true}
+            class="fade"
+            onEnter={(node, appears) => play(pathname, node, appears)}
+            onExit={(node, appears) => exit(node, appears)}
+            timeout={{enter: 333, exit: 333}}
+          >
+            <Switch location={location}>
+              <Route exact path="/" component={Home} />
 
-        return (
-          <TransitionGroup component={null}>
-            <CSSTransition
-              key={key}
-              appear={true}
-              class="fade"
-              onEnter={(node, appears) => play(pathname, node, appears)}
-              onExit={(node, appears) => exit(node, appears)}
-              timeout={{enter: 333, exit: 333}}
-            >
-              <Switch location={location}>
-                <Route path="/" exact component={Home} />
+              <Route path="/posts/:id" component={ResourcePage} />
+              <Route path="/projects/:id" component={ResourcePage} />
 
-                <Route path="/posts/:id" component={ResourcePage} />
-                <Route path="/projects/:id" component={ResourcePage} />
-
-                <Route exact path="/admin" component={Admins} />
-                  <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
-                    <ProtectedRoute exact path="/admin/dashboard/posts" component={AdminPosts} />
-                      <ProtectedRoute path="/admin/dashboard/posts/:id" component={ (props) => <PostEditor {...props} /> } />
-                    <ProtectedRoute exact path="/admin/dashboard/projects" component={AdminProjects} />
-                      <ProtectedRoute path="/admin/dashboard/projects/:id" component={ProjectEditor} />
-                <Redirect to="/" />
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
-        )
-      }}/>
-    );
-  }
+              <Route exact path="/admin" component={Admins} />
+                <ProtectedRoute exact path="/admin/dashboard" component={Dashboard}/>
+                  <ProtectedRoute exact path="/admin/dashboard/posts" component={AdminPosts} />
+                    <ProtectedRoute path="/admin/dashboard/posts/:id" component={ (props) => <PostEditor {...props} /> } />
+                  <ProtectedRoute exact path="/admin/dashboard/projects" component={AdminProjects} />
+                    <ProtectedRoute path="/admin/dashboard/projects/:id" component={ProjectEditor} />
+              <Redirect to="/" />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
+      )
+    }}/>
+  )
 }
-
-export default App;
