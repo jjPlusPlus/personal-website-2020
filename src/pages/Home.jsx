@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { compose } from 'redux';
 import { useFirebaseConnect } from 'react-redux-firebase';
 
@@ -9,33 +9,23 @@ import DelayLink from "components/DelayLink";
 import HomeSlider from 'components/HomeSlider';
 
 import Affirmations from 'components/Affirmations';
-import StringGlitch from 'components/StringGlitch';
 
 import About from 'pages/About';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
-import animateScrollTo from 'animated-scroll-to';
-
 import _ from 'lodash';
 import Imgix from "react-imgix";
-
-/*
-import whyDidYouRender from "@welldone-software/why-did-you-render";
-
-whyDidYouRender(React, { 
-  include: [/^HomePage/],
-  titleColor: "#007aff",
-  diffNameColor: "#7a00ff",
-  diffPathColor: "ff7a00" 
-});
-*/
 
 const HomePage = props => {
   useFirebaseConnect('posts')
   useFirebaseConnect('projects')
   useFirebaseConnect('tags')
+
+  const posts = useSelector(state => state.firebase.data.posts)
+  const projects = useSelector(state => state.firebase.data.projects)
+  const tags = useSelector(state => state.firebase.data.tags)
 
   const [delaying, isDelaying] = useState(false)
   const [animating, isAnimating] = useState(false)
@@ -58,12 +48,9 @@ const HomePage = props => {
       // deselect the item 
       setSelected(null)
     } else {
-      animateScrollTo(0)
       setSelected( { item, resource })
     }
   }
-
-  let { posts, projects, tags } = props
 
   useEffect(() => {
     if (projects) {
@@ -95,7 +82,7 @@ const HomePage = props => {
 
   return (
     <div>
-      <div className="v2">
+      <div className="wrapper">
         <div className="top-bar">
           <div className="top-bar-content flex flex-row flex-center">
             <p className="affirmations flex flex-1">JJ &nbsp; <Affirmations /></p>
@@ -103,73 +90,12 @@ const HomePage = props => {
         </div>
 
         <div className="home-page">
-          <section className={"header-display " + (animating ? "v2-header-animating" : "")}>
-            { selected ? (
-
-              <span>
-                <Imgix
-                  src={selected.item.heroImage}
-                  sizes="(min-width: 1280px) 1280px, 100vw"
-                  imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
-                  classNames="full-width"
-                />
-                <div className="header-display--content-wrapper flex flex-column">
-                  <div className="header-display--content">
-                    <h1>{selected.item.name}</h1>
-                    <p>{selected.item.snippet}</p>
-                    <div className="header-display--content-tags">
-                      { selected.item.tags && selected.item.tags.map((tag, index) => (
-                        <div className="tag" key={index} style={{ backgroundColor: tags[tag].bgColor || "#007aff", color: tags[tag].color || '#FFF' }}>
-                          <p>{tags[tag].name}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <DelayLink 
-                      delay={333} 
-                      className="watch-now-button" 
-                      onDelayStart={() => isDelaying(true)} 
-                      to={{
-                        pathname: `${selected.resource}/${selected.item.key}`, 
-                        state: { 
-                          resource: selected
-                        }
-                      }}  
-                    >
-                      <p>WATCH NOW</p>
-                    </DelayLink>
-                  </div>
-                </div>
-              </span>
-            ) : (
-              <span>
-                {/* <HeaderAnimation /> 
-                <div className="image--aspect-wrapper--16-9" style={{ backgroundImage: "url(/jjpp-header-slim.svg)" }}></div>*/}
-                {/* <Imgix
-                  src="https://jj-plus-plus.imgix.net/images/jjpp-header-slim.svg"
-                  sizes="(min-width: 1280px) 1280px, 100vw"
-                  imgixParams={{ ar: "5:2", auto: "format", fit: "crop" }}
-                  classNames="full-width"
-                />
-                <h1 className="header-display--title">This is JJ</h1> */}
-              </span>
-            )
-            }
-          </section>
-
-          <section className="projects-display">
-            <h1 className="section-title"> <StringGlitch interval={3000} text="PROJECTS" /> </h1>
-            {sortedProjects && sortedProjects.length ? (
-              <HomeSlider items={sortedProjects} resource="projects" selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
-            ) : null }
-          </section>
-
-          <section className="posts-display">
-            <h1 className="section-title"><StringGlitch interval={4000} text="POSTS" /></h1>
-            {sortedPosts && sortedPosts.length ? (
-              <HomeSlider items={sortedPosts} resource="posts" selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
-            ) : null}
-          </section>
-
+          {sortedProjects && sortedProjects.length ? (
+            <HomeSlider title="PR0JECTS" items={sortedProjects} resource="projects" tags={tags} isDelaying={isDelaying} animating={animating} selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
+          ) : null }
+          {sortedPosts && sortedPosts.length ? (
+            <HomeSlider title="P0STS" items={sortedPosts} resource="posts" tags={tags} isDelaying={isDelaying} animating={animating} selected={selected} setSelected={(item, type) => delaySetSelected(item, type)}/>
+          ) : null}
         </div>
       </div>
 
@@ -184,7 +110,7 @@ const HomePage = props => {
           </div>
           <p className="attribution flex flex-center">2019 JJ++</p>
           <div className="flex-center">
-            <DelayLink delay = { 333 } to = "/admin" className="v2-admin-link" onDelayStart = { () => isDelaying(true)}>
+            <DelayLink delay = { 333 } to = "/admin" className="admin-link" onDelayStart = { () => isDelaying(true)}>
               <p>Admin</p>
             </DelayLink>
           </div>
@@ -194,12 +120,4 @@ const HomePage = props => {
   )
 }
 
-// HomePage.whyDidYouRender = true;
-
-export default compose(
-  connect((state) => ({
-    posts: state.firebase.data.posts,
-    projects: state.firebase.data.projects,
-    tags: state.firebase.data.tags
-  }))
-)(HomePage)
+export default HomePage
